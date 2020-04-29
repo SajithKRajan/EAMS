@@ -1,0 +1,5 @@
+﻿  Employee.cpp
+C:\Users\ranji\source\repos\EAMSCommonLib\Employee.cpp(41,1): fatal error C1010: unexpected end of file while looking for precompiled header. Did you forget to add '#include "pch.h"' to your source?
+  Utility.cpp
+C:\Users\ranji\source\repos\EAMSCommonLib\Utility.cpp(17,39): warning C4101: 'e': unreferenced local variable
+C:\Users\ranji\source\repos\EAMSCommonLib\Utility.cpp(21,35): warning C4101: 'e': unreferenced local variable
