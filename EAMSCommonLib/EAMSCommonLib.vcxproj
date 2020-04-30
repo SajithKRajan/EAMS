@@ -121,7 +121,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ranji\source\repos\EAMSCommonLib\Enities;C:\Users\ranji\source\repos\EAMSCommonLib\Utilities;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -150,37 +150,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Absence.h" />
-    <ClInclude Include="Attendance.h" />
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="Employee.h" />
+    <ClInclude Include="Enities\Absence.h" />
+    <ClInclude Include="Enities\Attendance.h" />
+    <ClInclude Include="Enities\Command.h" />
+    <ClInclude Include="Enities\Employee.h" />
+    <ClInclude Include="Enities\Holiday.h" />
+    <ClInclude Include="Enities\KeyValuePair.h" />
+    <ClInclude Include="Enities\Location.h" />
+    <ClInclude Include="Enities\ResultSet.h" />
+    <ClInclude Include="Enities\Role.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Holiday.h" />
-    <ClInclude Include="KeyValuePair.h" />
-    <ClInclude Include="Location.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ResultSet.h" />
-    <ClInclude Include="Role.h" />
-    <ClInclude Include="Utility.h" />
+    <ClInclude Include="Utilities\Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Absence.cpp" />
-    <ClCompile Include="Attendance.cpp" />
-    <ClCompile Include="Command.cpp" />
     <ClCompile Include="EAMSCommonLib.cpp" />
-    <ClCompile Include="Employee.cpp" />
-    <ClCompile Include="holiday.cpp" />
-    <ClCompile Include="KeyValuePair.cpp" />
-    <ClCompile Include="Location.cpp" />
+    <ClCompile Include="Enities\Absence.cpp" />
+    <ClCompile Include="Enities\Attendance.cpp" />
+    <ClCompile Include="Enities\Command.cpp" />
+    <ClCompile Include="Enities\Employee.cpp" />
+    <ClCompile Include="Enities\holiday.cpp" />
+    <ClCompile Include="Enities\KeyValuePair.cpp" />
+    <ClCompile Include="Enities\Location.cpp" />
+    <ClCompile Include="Enities\ResultSet.cpp" />
+    <ClCompile Include="Enities\Role.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="ResultSet.cpp" />
-    <ClCompile Include="Role.cpp" />
-    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="Utilities\Utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

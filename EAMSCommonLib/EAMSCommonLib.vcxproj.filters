@@ -27,35 +27,35 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Absence.h">
+    <ClInclude Include="Enities\Absence.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Attendance.h">
+    <ClInclude Include="Enities\Attendance.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
+    <ClInclude Include="Enities\Command.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Holiday.h">
+    <ClInclude Include="Enities\Employee.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="KeyValuePair.h">
+    <ClInclude Include="Enities\Holiday.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Location.h">
+    <ClInclude Include="Enities\KeyValuePair.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="ResultSet.h">
+    <ClInclude Include="Enities\Location.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Role.h">
+    <ClInclude Include="Enities\ResultSet.h">
       <Filter>Source Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
+    <ClInclude Include="Enities\Role.h">
+      <Filter>Source Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\Utility.h">
       <Filter>Source Files\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Employee.h">
-      <Filter>Source Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,35 +65,35 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Absence.cpp">
+    <ClCompile Include="Enities\Absence.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Attendance.cpp">
+    <ClCompile Include="Enities\Attendance.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Command.cpp">
+    <ClCompile Include="Enities\Command.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="holiday.cpp">
+    <ClCompile Include="Enities\Employee.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="KeyValuePair.cpp">
+    <ClCompile Include="Enities\holiday.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Location.cpp">
+    <ClCompile Include="Enities\KeyValuePair.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="ResultSet.cpp">
+    <ClCompile Include="Enities\Location.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Role.cpp">
+    <ClCompile Include="Enities\ResultSet.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Utility.cpp">
+    <ClCompile Include="Enities\Role.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\Utility.cpp">
       <Filter>Source Files\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Employee.cpp">
-      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
