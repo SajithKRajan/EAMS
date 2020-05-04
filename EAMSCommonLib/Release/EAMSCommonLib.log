@@ -1,7 +1,5 @@
-﻿  Absence.cpp
-  Attendance.cpp
-  Employee.cpp
-  holiday.cpp
-  Location.cpp
-  Role.cpp
+﻿  Command.cpp
+  Utility.cpp
+C:\Users\ranji\source\repos\EAMSCommonLib\Utilities\Utility.cpp(17,39): warning C4101: 'e': unreferenced local variable
+C:\Users\ranji\source\repos\EAMSCommonLib\Utilities\Utility.cpp(21,35): warning C4101: 'e': unreferenced local variable
   EAMSCommonLib.vcxproj -> C:\Users\ranji\source\repos\EAMSCommonLib\Release\EAMSCommonLib.lib
