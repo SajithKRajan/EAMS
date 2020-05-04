@@ -1,0 +1,19 @@
+#pragma once
+#include "Enities/Command.h"
+#include "Enities/ResultSet.h"
+#include "IDataHandler.h"
+#include "Enities/Holiday.h"
+
+
+class HolidayDataHandler : public IDataHandler
+{
+public:
+	virtual ResultSet execute(Command* cmd) const;
+private:
+	void addHoliday(Holiday holiday);
+	Holiday readHoliday(int holidayid);
+	void updateHoliday(Holiday holiday);
+	void deleteHoliday(int holidayid);
+};
+
+
