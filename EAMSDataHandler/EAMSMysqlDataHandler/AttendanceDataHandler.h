@@ -10,7 +10,10 @@ class AttendanceDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	void addAttendance(Attendance attendance) const;
-	Attendance readAttendance(string username) const;
+	void addCheckIn(Attendance attendance) const;
+	void addCheckOut(Attendance attendance) const;
+	Attendance readAttendance(std::string username) const;
+	Attendance readLocationAttendance(std::string locationName) const;
+	
 
 };

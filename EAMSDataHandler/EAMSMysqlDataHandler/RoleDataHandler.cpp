@@ -13,8 +13,12 @@ ResultSet RoleDataHandler::execute(Command* cmd) const
 		updateRole(Role());
 		break;
 	case Utility::str2int("VIEW_ROLE_LIST"):
-		readRole();
+		readRoleList();
 		break;
+	case Utility::str2int("VIEW_PRIVILEGE_LIST"):
+		readPrivilageList("");
+		break;
+
 	case  Utility::str2int("REMOVE_ROLE"):
 		deleteRole("");
 		break;
@@ -33,12 +37,16 @@ void RoleDataHandler::addRole(Role role) const
 }
 
 
-Role RoleDataHandler::readRole() const
+Role RoleDataHandler::readRoleList() const
 {
 	std::cout << "readRole - > execute" << endl;
 	return Role();
 }
-
+Role RoleDataHandler::readPrivilageList(std::string roleName) const
+{
+	std::cout << "readPrivilageList - > execute" << endl;
+	return Role();
+}
 
 void RoleDataHandler::updateRole(Role role) const
 {
