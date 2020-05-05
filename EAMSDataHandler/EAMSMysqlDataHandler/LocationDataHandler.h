@@ -1,8 +1,8 @@
 #pragma once
-#include "Enities/Command.h"
-#include "Enities/ResultSet.h"
+#include "Entities/Command.h"
+#include "Entities/ResultSet.h"
 #include "IDataHandler.h"
-#include "Enities/Location.h"
+#include "Entities/Location.h"
 
 
 class LocationDataHandler : public IDataHandler

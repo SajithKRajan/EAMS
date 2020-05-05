@@ -1,7 +1,7 @@
 #pragma once
-#include "Enities/ResultSet.h";
+#include "Entities/ResultSet.h";
 #include "boost/any.hpp"
-#include <Enities/Command.h>
+#include <Entities/Command.h>
 
 
 class IDataHandler

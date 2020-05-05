@@ -1,8 +1,8 @@
 #pragma once
-#include "Enities/Command.h"
-#include "Enities/ResultSet.h"
+#include "Entities/Command.h"
+#include "Entities/ResultSet.h"
 #include "IDataHandler.h"
-#include "Enities/Holiday.h"
+#include "Entities/Holiday.h"
 
 
 class HolidayDataHandler : public IDataHandler
