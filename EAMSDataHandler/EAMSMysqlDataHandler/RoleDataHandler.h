@@ -12,7 +12,7 @@ public:
 private:
 	void addRole(Role role) const;
 	Role readRoleList() const;
-	Role readPrivilageList(std::string roleName) const;
+	Role readRole(std::string roleName) const;
 	void updateRole(Role role) const;
 	void deleteRole(std::string roleName) const;
 };
