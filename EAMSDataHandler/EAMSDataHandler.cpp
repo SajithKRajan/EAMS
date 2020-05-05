@@ -4,9 +4,9 @@
 
 int main()
 {
-    IDataHandler* hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EMPLOYEE);
+    IDataHandler* hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::ROLE);
     Command* cmd = new Command();
-    cmd->command_name = (char*) "ADD_EMPLOYEE";
+    cmd->command_name = (char*) "MODIFY_ROLE";
     hanlder->execute(cmd);
 }
 

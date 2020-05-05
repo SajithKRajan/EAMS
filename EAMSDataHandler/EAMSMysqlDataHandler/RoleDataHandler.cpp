@@ -1,29 +1,52 @@
 #include "RoleDataHandler.h"
 #include <iostream>
+#include "Utilities/Utility.h"
 
-ResultSet RoleDataHandler::execute(Command*) const
+ResultSet RoleDataHandler::execute(Command* cmd) const
 {
-	std::cout << "RoleDataHandler - > execute";
+	std::cout << "RoleDataHandler - > execute" << endl;
+	switch (Utility::str2int(cmd->command_name)) {
+	case Utility::str2int("ADD_ROLE"):
+		addRole(Role());
+		break;
+	case Utility::str2int("MODIFY_ROLE"):
+		updateRole(Role());
+		break;
+	case Utility::str2int("VIEW_ROLE_LIST"):
+		readRole();
+		break;
+	case  Utility::str2int("REMOVE_ROLE"):
+		deleteRole("");
+		break;
+	
+	default:
+		cout << "Please Enter Valid Commands" << endl;
+		break;
+	}
 	return ResultSet();
 }
 
 
-void RoleDataHandler::addRole(Role role)
+void RoleDataHandler::addRole(Role role) const
 {
+	std::cout << "addRole - > execute" << endl;
 }
 
 
-Role RoleDataHandler::readRole(int roleid)
+Role RoleDataHandler::readRole() const
 {
+	std::cout << "readRole - > execute" << endl;
 	return Role();
 }
 
 
-void RoleDataHandler::updateRole(Role role)
+void RoleDataHandler::updateRole(Role role) const
 {
+	std::cout << "updateRole - > execute" << endl;
 }
 
 
-void RoleDataHandler::deleteRole(int roleid)
+void RoleDataHandler::deleteRole(string roleName) const
 {
+	std::cout << "deleteRole - > execute" << endl;
 }

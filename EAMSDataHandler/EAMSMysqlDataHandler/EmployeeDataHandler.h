@@ -10,9 +10,9 @@ public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
 	void addEmployee(Employee employee) const;
-	Employee readEmployee(int id) const;
+	Employee readEmployee(std::string username) const;
 	void updateEmployee(Employee employee) const;
-	void deleteEmployee(int id) const;
+	void deleteEmployee(std::string username) const;
 	bool authenticate(std::string username, std::string password) const;
 };
 

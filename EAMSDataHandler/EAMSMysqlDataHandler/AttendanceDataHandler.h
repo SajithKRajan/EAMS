@@ -10,7 +10,7 @@ class AttendanceDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	void addAttendance(Attendance attendance);
-	Attendance readAttendance(int attid);
+	void addAttendance(Attendance attendance) const;
+	Attendance readAttendance(string username) const;
 
 };

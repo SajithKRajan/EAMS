@@ -13,7 +13,23 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 		case Utility::str2int("ADD_EMPLOYEE"):
 			addEmployee(Employee());
 			break;
+		case Utility::str2int("EDIT_EMPLOYEE"):
+			addEmployee(Employee());
+			break;
+		case  Utility::str2int("VIEW_EMPLOYEE_DETAILS"):
+			readEmployee("");
+			break;
+		case Utility::str2int("VIEW_DETAILS"):
+			readEmployee("");
+			break;
+		case Utility::str2int("MODIFY_EMPLOYEE_DETAILS"):
+			updateEmployee(Employee());
+			break;
+		case Utility::str2int("REMOVE_EMPLOYEE_DETAILS"):
+			deleteEmployee("");
+			break;
 		default:
+			cout << "Please Enter Valid Commands" << endl;
 			break;
 	}
 	return ResultSet();
@@ -26,19 +42,22 @@ void EmployeeDataHandler::addEmployee(Employee employee) const
 }
 
 
-Employee EmployeeDataHandler::readEmployee(int id) const
+Employee EmployeeDataHandler::readEmployee(string username) const
 {
+	std::cout << "READEmployee - > execute";
 	return Employee();
 }
 
 
 void EmployeeDataHandler::updateEmployee(Employee employee) const
 {
+	std::cout << "UpdateEmployee - > execute";
 }
 
 
-void EmployeeDataHandler::deleteEmployee(int id) const
+void EmployeeDataHandler::deleteEmployee(string username) const
 {
+	std::cout << "DeleteEmployee - > execute";
 }
 
 
