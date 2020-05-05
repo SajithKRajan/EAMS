@@ -1,6 +1,7 @@
 #include <iostream>
 #include <EAMSFactory.h>
 
+
 int main()
 {
     IDataHandler* hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EMPLOYEE);
