@@ -1,0 +1,18 @@
+﻿  pch.cpp
+  EAMSDataHandlerLib.cpp
+  AbsenceDataHandler.cpp
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\Common\IDataHandler.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  AttendanceDataHandler.cpp
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\Common\IDataHandler.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  EmployeeDataHandler.cpp
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\Common\IDataHandler.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\ranji\source\repos\EAMSCommonLib\Utilities\Utility.h(14,39): warning C4101: 'e': unreferenced local variable
+C:\Users\ranji\source\repos\EAMSCommonLib\Utilities\Utility.h(18,35): warning C4101: 'e': unreferenced local variable
+  HolidayDataHandler.cpp
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\Common\IDataHandler.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  LocationDataHandler.cpp
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\Common\IDataHandler.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  RoleDataHandler.cpp
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\Common\IDataHandler.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  EAMSDataHandlerLib.vcxproj -> D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Debug\EAMSDataHandlerLib.lib

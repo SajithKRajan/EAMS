@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{358aa565-c3a3-4248-9965-ac3899970e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EAMSMysqlDataHandler">
+      <UniqueIdentifier>{67a8b408-61f4-4272-ac88-77e751022ab7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\EAMSFactory.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\HandlerTypes.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\IDataHandler.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="EAMSMysqlDataHandler\AbsenceDataHandler.h">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="EAMSMysqlDataHandler\AttendanceDataHandler.h">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="EAMSMysqlDataHandler\EmployeeDataHandler.h">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="EAMSMysqlDataHandler\HolidayDataHandler.h">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="EAMSMysqlDataHandler\LocationDataHandler.h">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="EAMSMysqlDataHandler\RoleDataHandler.h">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EAMSDataHandlerLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EAMSMysqlDataHandler\AbsenceDataHandler.cpp">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="EAMSMysqlDataHandler\AttendanceDataHandler.cpp">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="EAMSMysqlDataHandler\EmployeeDataHandler.cpp">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="EAMSMysqlDataHandler\HolidayDataHandler.cpp">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="EAMSMysqlDataHandler\LocationDataHandler.cpp">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="EAMSMysqlDataHandler\RoleDataHandler.cpp">
+      <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

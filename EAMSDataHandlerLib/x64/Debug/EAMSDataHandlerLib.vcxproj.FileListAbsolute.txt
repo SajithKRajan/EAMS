@@ -1,0 +1,4 @@
+C:\Users\ranji\source\repos\EAMSDataHandlerLib\EAMSDataHandlerLib\x64\Debug\EAMSDataHandlerLib.lib
+C:\Users\ranji\source\repos\EAMSDataHandlerLib\EAMSDataHandlerLib\x64\Debug\EAMSDataHandlerLib.pdb
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Debug\EAMSDataHandlerLib.lib
+D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Debug\EAMSDataHandlerLib.pdb
