@@ -1,6 +1,4 @@
 #include "InputReader.h"
-#include "Entities/Command.h"
-#include "Source/CommandParser.h"
 
 Command* InputReader::getCommand(string cmdName)
 
@@ -43,11 +41,7 @@ Command* InputReader::getCommand(string cmdName)
 				cmd->inputdata.insert({ header,tempinput });
 				break;
 			}
-
 			}
-
-
-
 		}
 	}
 
@@ -66,5 +60,5 @@ Command* InputReader::getNextCommand()
 	cin >> ch;
 
 	string commandName = commands.at(ch - 1);
-	Command* getCommand(string commandName);
+	return getCommand(commandName);
 }

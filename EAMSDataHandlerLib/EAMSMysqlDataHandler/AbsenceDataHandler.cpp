@@ -1,6 +1,6 @@
 #include "AbsenceDataHandler.h"
 #include <iostream>
-
+#include "pch.h"
 
 ResultSet AbsenceDataHandler::execute(Command* cmd) const
 {

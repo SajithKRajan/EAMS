@@ -1,5 +1,6 @@
 #include "RoleDataHandler.h"
 #include <iostream>
+#include "../pch.h"
 
 ResultSet RoleDataHandler::execute(Command*) const
 {

@@ -1,9 +1,8 @@
 #pragma once
 #include "Entities/Command.h"
 #include "Entities/ResultSet.h"
-#include "IDataHandler.h"
+#include "Common/IDataHandler.h"
 #include "Entities/Attendance.h"
-
 
 class AttendanceDataHandler : public IDataHandler
 {

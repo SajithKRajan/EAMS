@@ -1,5 +1,6 @@
 #include "LocationDataHandler.h"
 #include <iostream>
+#include "../pch.h"
 
 ResultSet LocationDataHandler::execute(Command*) const
 {

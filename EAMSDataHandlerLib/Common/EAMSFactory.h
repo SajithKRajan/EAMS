@@ -1,12 +1,12 @@
 #pragma once
 #include "HandlerTypes.h"
-#include "EmployeeDataHandler.h"
-#include "AbsenceDataHandler.h"
-#include "RoleDataHandler.h"
-#include "AttendanceDataHandler.h"
-#include "LocationDataHandler.h"
-#include "HolidayDataHandler.h"
-#include <IDataHandler.h>
+#include "EAMSMysqlDataHandler/EmployeeDataHandler.h"
+#include "EAMSMysqlDataHandler/AbsenceDataHandler.h"
+#include "EAMSMysqlDataHandler/RoleDataHandler.h"
+#include "EAMSMysqlDataHandler/AttendanceDataHandler.h"
+#include "EAMSMysqlDataHandler/LocationDataHandler.h"
+#include "EAMSMysqlDataHandler/HolidayDataHandler.h"
+#include "Common/IDataHandler.h"
 
 class EAMSFactory
 {

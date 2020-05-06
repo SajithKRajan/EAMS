@@ -1,7 +1,7 @@
 #include "EmployeeDataHandler.h"
 #include <iostream>
 #include "Utilities/Utility.h"
-
+#include "../pch.h"
 
 ResultSet EmployeeDataHandler::execute(Command* cmd) const
 {
@@ -23,6 +23,9 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 void EmployeeDataHandler::addEmployee(Employee employee) const
 {
 	std::cout << "addEmployee - > execute";
+	/*std::string query = "INSERT INTO employee(USERNAME,FIRSTNAME,LASTNAME,PASSWORD,ROLE_ID) VALUES (?,?,?,?,?)";
+	database->Insert(query, { "S:jinuuser","S:jinu","S:I","S:jinu","I:2" });*/
+	cout << "New Employee added Successfully" << endl;
 }
 
 
