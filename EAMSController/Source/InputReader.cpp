@@ -1,6 +1,4 @@
 #include "InputReader.h"
-#include "Entities/Command.h"
-#include "Source/CommandParser.h"
 
 Command* InputReader::getCommand(string cmdName)
 
@@ -20,7 +18,7 @@ Command* InputReader::getCommand(string cmdName)
 			mandatory = true;
 		}
 		if (mandatory) {
-			std::cout << "enter the  " << header << endl;
+			std::cout << "Enter the  " << header << endl;
 			cin >> tempinput;
 			cmd->inputdata.insert({ header,tempinput });
 		}
@@ -29,16 +27,16 @@ Command* InputReader::getCommand(string cmdName)
 			cin >> temp;
 			switch (temp)
 			{
-			case 'Y':
+			case 'y':
 			{
-				std::cout << "enter the  " << header << endl;
+				std::cout << "Enter the  " << header << endl;
 				cin >> tempinput;
 				cmd->inputdata.insert({ header,tempinput });
 				break;
 			}
-			case 'y':
+			case 'n':
 			{
-				std::cout << "enter the  " << header << endl;
+				std::cout << "Enter the  " << header << endl;
 				cin >> tempinput;
 				cmd->inputdata.insert({ header,tempinput });
 				break;
@@ -58,13 +56,13 @@ Command* InputReader::getNextCommand()
 {
 	int ch;
 	vector<string> commands{ "ADD_EMPLOYEE","VIEW_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_WORK_HOURS", "ADD_LOCATION" };
-	for (int k = 0;k <= (commands.size() - 1);k++)
+	for (int k = 0; k <= (commands.size() - 1); k++)
 	{
 		cout << k + 1 << " " << commands[k] << endl;
 	}
-	cout << "enter the choice" << endl;
+	cout << "Enter the choice" << endl;
 	cin >> ch;
 
 	string commandName = commands.at(ch - 1);
-	Command* getCommand(string commandName);
+	return getCommand(commandName);
 }
