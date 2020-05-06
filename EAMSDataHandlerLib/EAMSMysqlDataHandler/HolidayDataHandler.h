@@ -10,10 +10,9 @@ class HolidayDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	void addHoliday(Holiday holiday);
-	Holiday readHoliday(int holidayid);
-	void updateHoliday(Holiday holiday);
-	void deleteHoliday(int holidayid);
+	void addHoliday(Holiday holiday) const;
+	Holiday readHoliday(std::string locationName) const;
+	void deleteHoliday(std::string locationName,std::string date) const;
 };
 
 
