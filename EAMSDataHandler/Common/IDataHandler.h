@@ -7,7 +7,7 @@
 class IDataHandler
 {
 public:
-	virtual ResultSet execute(Command* cmd) const = 0;
+	virtual ResultSet execute(Command* cmd) const=0;
 	virtual ~IDataHandler() {};
 };
 
