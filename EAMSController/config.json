@@ -1,0 +1,163 @@
+{
+
+    "LOGIN": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "LOGIN",
+        "inputs": [ "S:USERNAME*", "S:PASSWORD*" ]
+    },
+    "ADD_EMPLOYEE": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "ADD_EMPLOYEE",
+        "inputs": [ "S:USERNAME*", "S:PASSWORD*", "S:ROLE_NAME*", "S:LOCATION_NAME*" ]
+    },
+    "EDIT_EMPLOYEE": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "EDIT_EMPLOYEE",
+        "inputs": [ "S:PASSWORD", "S:FIRSTNAME", "S:LASTNAME" ]
+    },
+    "VIEW_EMPLOYEE_DETAILS": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "VIEW_EMPLOYEE_DETAILS",
+        "inputs": [ "S:USERNAME*" ]
+    },
+    "VIEW_DETAILS": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "VIEW_DETAILS",
+        "inputs": []
+    },
+    "MODIFY_EMPLOYEE_DETAILS": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "MODIFY_EMPLOYEE_DETAILS",
+        "inputs": [ "S:PASSWORD", "S:LOCATION_NAME", "S:ROLE_NAME" ]
+    },
+    "REMOVE_EMPLOYEE_DETAILS": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "REMOVE_EMPLOYEE_DETAILS",
+        "inputs": [ "S:USERNAME*" ]
+    },
+    "ADD_CHECK-IN": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "ADD_CHECK-IN",
+        "inputs": []
+    },
+    "ADD_CHECK-OUT": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "ADD_CHECK-OUT",
+        "inputs": []
+    },
+    "VIEW_EMPLOYEE_ATTENDANCE_SUMMARY_OF_CURRENT_WEEK": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_EMPLOYEE_ATTENDANCE_SUMMARY_OF_CURRENT_WEEK",
+        "inputs": [ "S:USERNAME*" ]
+    },
+    "VIEW_ATTENDANCE_SUMMARY_OF_CURRENT_WEEK": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_ATTENDANCE_SUMMARY_OF_CURRENT_WEEK",
+        "inputs": []
+    },
+    "VIEW_EMPLOYEE_ATTENDANCE_SUMMARY_OF_CURRENT_MONTH": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_EMPLOYEE_ATTENDANCE_SUMMARY_OF_CURRENT_MONTH",
+        "inputs": [ "S:USERNAME*" ]
+    },
+    "VIEW_ATTENDANCE_SUMMARY_OF_CURRENT_MONTH": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_ATTENDANCE_SUMMARY_OF_CURRENT_MONTH",
+        "inputs": []
+    },
+    "VIEW_ATTENDANCE_SUMMARY_OF_A_LOCATION": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_ATTENDANCE_SUMMARY_OF_A_LOCATION",
+        "inputs": [ "S:LOCATION_NAME*" ]
+    },
+    "VIEW_EMPLOYEE_WORK_HOURS": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_EMPLOYEE_WORK_HOURS",
+        "inputs": [ "S:USERNAME*" ]
+    },
+    "VIEW_WORK_HOURS": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_WORK_HOURS",
+        "inputs": []
+    },
+    "VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION ": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION  ",
+        "inputs": [ "S:LOCATION_NAME*" ]
+    },
+    "VIEW_ORGANIZATION_WORK_HOURS": {
+        "handler_name": "ATTENDANCE",
+        "command_name": "VIEW_ORGANIZATION_WORK_HOURS",
+        "inputs": []
+    },
+    "ADD_ROLE": {
+        "handler_name": "ROLE",
+        "command_name": "ADD_ROLE",
+        "inputs": [ "S:ROLE_NAME*", "S:PRIVILEGES*" ]
+    },
+    "MODIFY_ROLE": {
+        "handler_name": "ROLE",
+        "command_name": "MODIFY_ROLE",
+        "inputs": [ "S:ROLE_NAME", "S:PRIVILEGES" ]
+    },
+    "VIEW_ROLE_LIST": {
+        "handler_name": "ROLE",
+        "command_name": "VIEW_ROLE_LIST",
+        "inputs": []
+    },
+    "REMOVE_ROLE": {
+        "handler_name": "ROLE",
+        "command_name": "REMOVE_ROLE",
+        "inputs": [ "S:ROLE_NAME*" ]
+    },
+    "ADD_LOCATION": {
+        "handler_name": "LOCATION",
+        "command_name": "ADD_LOCATION",
+        "inputs": [ "S:LOCATION_NAME*" ]
+    },
+    "MODIFY_LOCATION": {
+        "handler_name": "LOCATION",
+        "command_name": "MODIFY_LOCATION",
+        "inputs": [ "S:OLD_LOCATION_NAME*", "S:LOCATION_NAME*" ]
+    },
+    "VIEW_LOCATION_LIST": {
+        "handler_name": "LOCATION",
+        "command_name": "VIEW_LOCATION_LIST",
+        "inputs": []
+    },
+    "REMOVE_LOCATION": {
+        "handler_name": "LOCATION",
+        "command_name": "REMOVE_LOCATION",
+        "inputs": [ "S:LOCATION_NAME*" ]
+    },
+    "ADD_HOLIDAY": {
+        "handler_name": "HOLIDAY",
+        "command_name": "ADD_HOLIDAY",
+        "inputs": [ "S:DATE*", "S:DESCRIPTION" ]
+    },
+    "VIEW_HOLIDAY_LIST": {
+        "handler_name": "HOLIDAY",
+        "command_name": "VIEW_HOLIDAY_LIST",
+        "inputs": [ "S:LOCATION_NAME*" ]
+    },
+    "REMOVE_HOLIDAY": {
+        "handler_name": "HOLIDAY",
+        "command_name": "REMOVE_HOLIDAY",
+        "inputs": [ "S:LOCATION_NAME*", "S:DATE*" ]
+    },
+    "ADD_ABSENCE": {
+        "handler_name": "ABSENCE",
+        "command_name": "ADD_ABSENCE",
+        "inputs": []
+    },
+    "VIEW_EMPLOYEE_ABSENCE_LIST": {
+        "handler_name": "ABSENCE",
+        "command_name": "VIEW_EMPLOYEE_ABSENCE_LIST",
+        "inputs": [ "S:USERNAME*" ]
+    },
+    "VIEW_ABSENCE_LIST": {
+        "handler_name": "ABSENCE",
+        "command_name": "VIEW_EMPLOYEE_ABSENCE_LIST",
+        "inputs": []
+    }
+}
