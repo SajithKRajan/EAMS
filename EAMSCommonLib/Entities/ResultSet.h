@@ -1,23 +1,15 @@
 #pragma once
-#include <string>
-#include <boost/any.hpp>
-
+#include <iostream>
+#include <vector>
+using namespace std;
 class ResultSet
 {
-private:
+public:
 	bool isSuccess;
 	bool isToBePrint;
 	bool isStopExecution;
-	std::string message;
-	boost::any result;
-public:
-	template <typename T>
-	T getResult() {
-		return this->result;
-	}
-	template <typename T>
-	void setResult(T res) {
-		this->result = res;
-	}
-};
+	string printType;
 
+	vector<string> ColumnNames;
+	vector<vector<string>> resultData;
+};

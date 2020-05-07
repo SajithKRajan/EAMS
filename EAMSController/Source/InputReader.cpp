@@ -18,25 +18,25 @@ Command* InputReader::getCommand(string cmdName)
 			mandatory = true;
 		}
 		if (mandatory) {
-			std::cout << "enter the  " << header << endl;
+			std::cout << "Enter " << Utility::toCamelCase(header) << endl;
 			cin >> tempinput;
 			cmd->inputdata.insert({ header,tempinput });
 		}
 		else {
-			cout << "Do you want to edit " << header << " (y/n)" << endl;
+			cout << "Do you want to edit " << Utility::toCamelCase(header) << " (y/n)" << endl;
 			cin >> temp;
 			switch (temp)
 			{
 			case 'Y':
 			{
-				std::cout << "enter the  " << header << endl;
+				std::cout << "Enter the  " << Utility::toCamelCase(header) << endl;
 				cin >> tempinput;
 				cmd->inputdata.insert({ header,tempinput });
 				break;
 			}
 			case 'y':
 			{
-				std::cout << "enter the  " << header << endl;
+				std::cout << "Enter the  " << Utility::toCamelCase(header) << endl;
 				cin >> tempinput;
 				cmd->inputdata.insert({ header,tempinput });
 				break;
@@ -51,14 +51,14 @@ Command* InputReader::getCommand(string cmdName)
 Command* InputReader::getNextCommand()
 {
 	int ch;
+	cout << "Menu Options" << endl;
+	cout << endl;
 	vector<string> commands{ "ADD_EMPLOYEE","VIEW_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_WORK_HOURS", "ADD_LOCATION" };
 	for (int k = 0;k <= (commands.size() - 1);k++)
 	{
-		cout << k + 1 << " " << commands[k] << endl;
+		cout << k + 1 << " - " << commands[k] << endl;
 	}
-	cout << "enter the choice" << endl;
 	cin >> ch;
-
 	string commandName = commands.at(ch - 1);
 	return getCommand(commandName);
 }

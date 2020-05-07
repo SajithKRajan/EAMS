@@ -17,7 +17,7 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 			addEmployee(Employee());
 			break;
 		case  Utility::str2int("VIEW_EMPLOYEE_DETAILS"):
-			readEmployee("");
+			readEmployee("Username");
 			break;
 		case Utility::str2int("VIEW_DETAILS"):
 			readEmployee("");
@@ -48,10 +48,10 @@ ResultSet EmployeeDataHandler::readEmployee(string username) const
 {
 	//std::cout << "READEmployee - > execute" << endl;
 	cout <<"USERNAME		:	" << username << endl;
-	cout <<"FIRST NAME		:	" << firstName << endl;
-	cout <<"LAST NAME		:	" << lastName << endl;
-	cout <<"LOCATION		:	" << locationName << endl;
-	cout <<"ROLE			:	" << RoleName << endl;
+	cout <<"FIRST NAME		:	" << "firstName" << endl;
+	cout <<"LAST NAME		:	" << "lastName" << endl;
+	cout <<"LOCATION		:	" << "locationName" << endl;
+	cout <<"ROLE			:	" << "RoleName" << endl;
 	return ResultSet();
 }
 
@@ -74,7 +74,6 @@ ResultSet EmployeeDataHandler::deleteEmployee(string username) const
 
 ResultSet EmployeeDataHandler::authenticate(std::string username, std::string password) const
 {
-	//std::cout << "authenticate - > execute" << endl;
 	cout << "Authentication Completed Successfully" << endl;
 	return ResultSet();
 	//return false;
