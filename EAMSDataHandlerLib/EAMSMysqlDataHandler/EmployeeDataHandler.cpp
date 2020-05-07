@@ -8,7 +8,7 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 	std::cout << "EmployeeDataHandler - > execute"<<endl;
 	switch (Utility::str2int(cmd->command_name)) {
 		case Utility::str2int("LOGIN"):
-			authenticate("","");
+			return authenticate("","");
 			break;
 		case Utility::str2int("ADD_EMPLOYEE"):
 			addEmployee(Employee());
@@ -36,33 +36,46 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 }
 
 
-void EmployeeDataHandler::addEmployee(Employee employee) const
+ResultSet EmployeeDataHandler::addEmployee(Employee employee) const
 {
-	std::cout << "addEmployee - > execute" << endl;
+	//std::cout << "addEmployee - > execute" << endl;
+	cout<<"Employee Record Added Successfully"<<endl;
+	return ResultSet();
 }
 
 
-Employee EmployeeDataHandler::readEmployee(string username) const
+ResultSet EmployeeDataHandler::readEmployee(string username) const
 {
-	std::cout << "READEmployee - > execute" << endl;
-	return Employee();
+	//std::cout << "READEmployee - > execute" << endl;
+	cout <<"USERNAME		:	" << username << endl;
+	cout <<"FIRST NAME		:	" << firstName << endl;
+	cout <<"LAST NAME		:	" << lastName << endl;
+	cout <<"LOCATION		:	" << locationName << endl;
+	cout <<"ROLE			:	" << RoleName << endl;
+	return ResultSet();
 }
 
 
-void EmployeeDataHandler::updateEmployee(Employee employee) const
+ResultSet EmployeeDataHandler::updateEmployee(Employee employee) const
 {
-	std::cout << "UpdateEmployee - > execute" << endl;
+	//std::cout << "UpdateEmployee - > execute" << endl;
+	cout << "Employee Record Updated Successfully" << endl;
+	return ResultSet();
 }
 
 
-void EmployeeDataHandler::deleteEmployee(string username) const
+ResultSet EmployeeDataHandler::deleteEmployee(string username) const
 {
-	std::cout << "DeleteEmployee - > execute" << endl;
+	//std::cout << "DeleteEmployee - > execute" << endl;
+	cout << "Employee Record Deleted Successfully" << endl;
+	return ResultSet();
 }
 
 
-bool EmployeeDataHandler::authenticate(std::string username, std::string password) const
+ResultSet EmployeeDataHandler::authenticate(std::string username, std::string password) const
 {
-	std::cout << "authenticate - > execute" << endl;
-	return false;
+	//std::cout << "authenticate - > execute" << endl;
+	cout << "Authentication Completed Successfully" << endl;
+	return ResultSet();
+	//return false;
 }

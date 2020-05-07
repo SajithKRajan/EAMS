@@ -31,30 +31,42 @@ ResultSet RoleDataHandler::execute(Command* cmd) const
 }
 
 
-void RoleDataHandler::addRole(Role role) const
+ResultSet RoleDataHandler::addRole(Role role) const
 {
-	std::cout << "addRole - > execute" << endl;
+	//std::cout << "addRole - > execute" << endl;
+	cout << "Role Record Added Successfully" << endl;
+	return ResultSet();
 }
 
 
-Role RoleDataHandler::readRole(std::string roleName) const
+ResultSet RoleDataHandler::readRole(std::string roleName) const
 {
-	std::cout << "readRole - > execute" << endl;
-	return Role();
+	cout << "ROLE_ID	:	" << RoleID << endl;
+	cout << "ROLE NAME	:	" << roleName << endl;
+	cout << "PRIVILEGES	:	" << Privileges << endl;
+	//cout << "Role Record Added Successfully" << endl;
+	return ResultSet();
 }
-Role RoleDataHandler::readRoleList() const
+ResultSet RoleDataHandler::readRoleList() const
 {
-	std::cout << "readRoleList - > execute" << endl;
-	return Role();
+	ResultSet objResultSet;
+	objResultSet.printType = "TABLE";
+	objResultSet.ColumnNames = { "ROLE_ID","ROLE_NAME"};
+	objResultSet.resultData = { {"1","ADMIN"},{"2","EMPLOYEE"} };
+	//cout << "Role Record Added Successfully" << endl;
+	return ResultSet();
+
 }
 
-void RoleDataHandler::updateRole(Role role) const
+ResultSet RoleDataHandler::updateRole(Role role) const
 {
-	std::cout << "updateRole - > execute" << endl;
+	cout << "Role Record Updated Successfully" << endl;
+	return ResultSet();
 }
 
 
-void RoleDataHandler::deleteRole(string roleName) const
+ResultSet RoleDataHandler::deleteRole(string roleName) const
 {
-	std::cout << "deleteRole - > execute" << endl;
+	cout << "Role Record Removed Successfully" << endl;
+	return ResultSet();
 }
