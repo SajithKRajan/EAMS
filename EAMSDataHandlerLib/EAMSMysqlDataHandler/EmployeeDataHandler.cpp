@@ -38,31 +38,31 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 
 void EmployeeDataHandler::addEmployee(Employee employee) const
 {
-	std::cout << "addEmployee - > execute";
+	std::cout << "addEmployee - > execute" << endl;
 }
 
 
 Employee EmployeeDataHandler::readEmployee(string username) const
 {
-	std::cout << "READEmployee - > execute";
+	std::cout << "READEmployee - > execute" << endl;
 	return Employee();
 }
 
 
 void EmployeeDataHandler::updateEmployee(Employee employee) const
 {
-	std::cout << "UpdateEmployee - > execute";
+	std::cout << "UpdateEmployee - > execute" << endl;
 }
 
 
 void EmployeeDataHandler::deleteEmployee(string username) const
 {
-	std::cout << "DeleteEmployee - > execute";
+	std::cout << "DeleteEmployee - > execute" << endl;
 }
 
 
 bool EmployeeDataHandler::authenticate(std::string username, std::string password) const
 {
-	std::cout << "authenticate - > execute";
+	std::cout << "authenticate - > execute" << endl;
 	return false;
 }

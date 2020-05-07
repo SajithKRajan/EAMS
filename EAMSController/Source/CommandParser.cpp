@@ -21,7 +21,7 @@ void CommandParser::parseCommand(ptree pt)
     try {
         for (auto& commands : pt) {
             Command* command = new Command();
-            cout << commands.first << endl;
+            //cout << commands.first << endl;
             auto& function_handler_name = commands.second.get_child("handler_name");
             command->function_handler_name = function_handler_name.data();
             string command_name = commands.second.get_child("command_name").data();

@@ -4,7 +4,8 @@ Command* InputReader::getCommand(string cmdName)
 
 {
 	CommandParser* cp = cp->getInstance();
-	Command* cmd = cp->getCommand(cmdName);
+	Command* cmd = new Command;
+	cmd = cp->getCommand(cmdName);
 	string tempinput;
 	char temp;
 
@@ -27,6 +28,13 @@ Command* InputReader::getCommand(string cmdName)
 			cin >> temp;
 			switch (temp)
 			{
+			case 'Y':
+			{
+				std::cout << "Enter the  " << header << endl;
+				cin >> tempinput;
+				cmd->inputdata.insert({ header,tempinput });
+				break;
+			}
 			case 'y':
 			{
 				std::cout << "Enter the  " << header << endl;
@@ -34,18 +42,9 @@ Command* InputReader::getCommand(string cmdName)
 				cmd->inputdata.insert({ header,tempinput });
 				break;
 			}
-			case 'n':
-			{
-				std::cout << "Enter the  " << header << endl;
-				cin >> tempinput;
-				cmd->inputdata.insert({ header,tempinput });
+			default:
 				break;
 			}
-
-			}
-
-
-
 		}
 	}
 
@@ -56,6 +55,7 @@ Command* InputReader::getNextCommand()
 {
 	int ch;
 	vector<string> commands{ "ADD_EMPLOYEE","VIEW_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_WORK_HOURS", "ADD_LOCATION" };
+	cout << endl;
 	for (int k = 0; k <= (commands.size() - 1); k++)
 	{
 		cout << k + 1 << " " << commands[k] << endl;
