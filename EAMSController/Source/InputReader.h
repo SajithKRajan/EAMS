@@ -3,6 +3,7 @@
 #include <string.h>
 #include "Entities/Command.h"
 #include "CommandParser.h"
+#include "Utilities/Utility.h"
 
 using namespace std;
 

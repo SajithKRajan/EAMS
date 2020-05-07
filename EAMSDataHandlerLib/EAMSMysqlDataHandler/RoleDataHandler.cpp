@@ -41,9 +41,9 @@ ResultSet RoleDataHandler::addRole(Role role) const
 
 ResultSet RoleDataHandler::readRole(std::string roleName) const
 {
-	cout << "ROLE_ID	:	" << RoleID << endl;
+	cout << "ROLE_ID	:	" << "RoleID" << endl;
 	cout << "ROLE NAME	:	" << roleName << endl;
-	cout << "PRIVILEGES	:	" << Privileges << endl;
+	cout << "PRIVILEGES	:	" << "Privileges" << endl;
 	//cout << "Role Record Added Successfully" << endl;
 	return ResultSet();
 }

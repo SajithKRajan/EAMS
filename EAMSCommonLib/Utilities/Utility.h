@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 class Utility
 {
@@ -25,6 +26,14 @@ public:
 	static constexpr unsigned int str2int(const char* str, int h = 0)
 	{
 		return !str[h] ? 5381 : (str2int(str, h + 1) * 33) ^ str[h];
+	}
+
+	static std::string toCamelCase(std::string data) {
+		std::for_each(data.begin(), data.end(), [](char& c) {
+				c = ::tolower(c);
+			});
+		data[0] = toupper(data[0]);
+		return data;
 	}
 
 };
