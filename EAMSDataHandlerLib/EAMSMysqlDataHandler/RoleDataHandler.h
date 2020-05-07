@@ -10,10 +10,11 @@ class RoleDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	void addRole(Role role);
-	Role readRole(int roleid);
-	void updateRole(Role role);
-	void deleteRole(int roleid);
+	ResultSet addRole(Role role) const;
+	ResultSet readRoleList() const;
+	ResultSet readRole(std::string roleName) const;
+	ResultSet updateRole(Role role) const;
+	ResultSet deleteRole(std::string roleName) const;
 };
 
 

@@ -9,10 +9,10 @@ class EmployeeDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	void addEmployee(Employee employee) const;
-	Employee readEmployee(int id) const;
-	void updateEmployee(Employee employee) const;
-	void deleteEmployee(int id) const;
-	bool authenticate(std::string username, std::string password) const;
+	ResultSet addEmployee(Employee employee) const;
+	ResultSet readEmployee(std::string username) const;
+	ResultSet updateEmployee(Employee employee) const;
+	ResultSet deleteEmployee(std::string username) const;
+	ResultSet authenticate(std::string username, std::string password) const;
 };
 
