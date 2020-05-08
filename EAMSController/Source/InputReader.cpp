@@ -53,10 +53,10 @@ Command* InputReader::getNextCommand()
 	int ch;
 	cout << "Menu Options" << endl;
 	cout << endl;
-	vector<string> commands{ "ADD_EMPLOYEE","VIEW_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_WORK_HOURS", "ADD_LOCATION" };
+	vector<string> commands{ "ADD_EMPLOYEE","ADD_LOCATION","VIEW_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_WORK_HOURS","EXIT" };
 	for (int k = 0;k <= (commands.size() - 1);k++)
 	{
-		cout << k + 1 << " - " << commands[k] << endl;
+		cout << k + 1 << " - " << Utility::toCamelCase(commands[k],'_') << endl;
 	}
 	cin >> ch;
 	string commandName = commands.at(ch - 1);
