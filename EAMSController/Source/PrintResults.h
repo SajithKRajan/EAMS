@@ -2,7 +2,7 @@
 #include <vector>
 #include <iomanip>
 #include "Entities/ResultSet.h"
-class printResults
+class PrintResults
 {
 public:
 	void print(ResultSet objResultSet);

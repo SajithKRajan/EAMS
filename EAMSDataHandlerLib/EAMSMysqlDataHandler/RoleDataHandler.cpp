@@ -13,7 +13,7 @@ ResultSet RoleDataHandler::execute(Command* cmd) const
 		updateRole(Role());
 		break;
 	case Utility::str2int("VIEW_ROLE_LIST"):
-		readRoleList();
+		return readRoleList();
 		break;
 	case Utility::str2int("VIEW_ROLE"):
 		readRole("");
@@ -49,12 +49,13 @@ ResultSet RoleDataHandler::readRole(std::string roleName) const
 }
 ResultSet RoleDataHandler::readRoleList() const
 {
+	
 	ResultSet objResultSet;
+	objResultSet.isToBePrint = true;
 	objResultSet.printType = "TABLE";
 	objResultSet.ColumnNames = { "ROLE_ID","ROLE_NAME"};
 	objResultSet.resultData = { {"1","ADMIN"},{"2","EMPLOYEE"} };
-	//cout << "Role Record Added Successfully" << endl;
-	return ResultSet();
+	return objResultSet;
 
 }
 
