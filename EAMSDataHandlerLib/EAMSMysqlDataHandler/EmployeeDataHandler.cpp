@@ -17,7 +17,7 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 			addEmployee(Employee());
 			break;
 		case  Utility::str2int("VIEW_EMPLOYEE_DETAILS"):
-			readEmployee("Username");
+			readEmployee(Utility::getValueFromMap(cmd->inputdata,"USERNAME"));
 			break;
 		case Utility::str2int("VIEW_DETAILS"):
 			readEmployee("");

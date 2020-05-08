@@ -7,7 +7,7 @@ void Controller::start()
 	char trial;
 	cout << "*-*-*-*-*-*-*-*-*-*-*- WELCOME TO QAMS *-*-*-*-*-*-*-*-*-*-*-" << endl;
 	cout << endl;
-	cout << "	LOGIN STARTS	" << endl;
+	cout << "LOGIN" << endl;
 	Command* cmd = inputReader.getCommand("LOGIN");
 	hanlder->execute(cmd);
 	cout << endl;
@@ -17,9 +17,17 @@ void Controller::start()
 	
 		isExit = false;
 		Command* cmd=inputReader.getNextCommand();
-		if (cmd->command_name != "EXIT")
+		if ( strcmp(cmd->command_name, "EXIT")!=0)
 		{
-			hanlder->execute(cmd);
+			if (cmd->function_handler_name == "EMPLOYEE") {
+				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EMPLOYEE);
+			}
+			else {
+				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::ROLE);
+			}
+			ResultSet res = hanlder->execute(cmd);
+			PrintResults pr;
+			pr.print(res);
 			
 		}
 		else

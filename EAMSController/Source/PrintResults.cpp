@@ -1,7 +1,7 @@
 #include "printResults.h"
 
 using namespace std;
-void printResults::print(ResultSet objResultSet)
+void PrintResults::print(ResultSet objResultSet)
 {
 	if (objResultSet.isToBePrint)
 	{
@@ -12,7 +12,7 @@ void printResults::print(ResultSet objResultSet)
 			
 	}
 }
-void printResults::printTable(ResultSet objResultSet)
+void PrintResults::printTable(ResultSet objResultSet)
 {
 	for (int i = 0; i < objResultSet.ColumnNames.size(); i++)
 	{

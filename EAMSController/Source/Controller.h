@@ -4,6 +4,7 @@
 #include "InputReader.h"
 #include "Entities/ResultSet.h"
 #include "stdlib.h"
+#include "PrintResults.h" 
 
 class Controller
 {
