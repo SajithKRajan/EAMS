@@ -37,4 +37,9 @@ void PrintResults::printTable(ResultSet objResultSet)
 		}
 		cout << '|' << endl;
 	}
+	for (int i = 0; i < objResultSet.ColumnNames.size(); i++)
+	{
+		cout << left << setw(20) << setfill('-') << left << '+';
+	}
+	cout << "+" << endl;
 }

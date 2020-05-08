@@ -4,7 +4,7 @@
 
 ResultSet RoleDataHandler::execute(Command* cmd) const
 {
-	std::cout << "RoleDataHandler - > execute" << endl;
+	//std::cout << "RoleDataHandler - > execute" << endl;
 	switch (Utility::str2int(cmd->command_name)) {
 	case Utility::str2int("ADD_ROLE"):
 		addRole(Role());
