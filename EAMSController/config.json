@@ -5,6 +5,11 @@
         "command_name": "LOGIN",
         "inputs": [ "S:USERNAME*", "S:PASSWORD*" ]
     },
+    "EXIT": {
+        "handler_name": "EMPLOYEE",
+        "command_name": "EXIT",
+        "inputs": []
+    },
     "ADD_EMPLOYEE": {
         "handler_name": "EMPLOYEE",
         "command_name": "ADD_EMPLOYEE",
