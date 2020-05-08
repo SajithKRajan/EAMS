@@ -5,7 +5,7 @@
 
 ResultSet EmployeeDataHandler::execute(Command* cmd) const
 {
-	std::cout << "EmployeeDataHandler - > execute"<<endl;
+	//std::cout << "EmployeeDataHandler - > execute"<<endl;
 	switch (Utility::str2int(cmd->command_name)) {
 		case Utility::str2int("LOGIN"):
 			return authenticate("","");

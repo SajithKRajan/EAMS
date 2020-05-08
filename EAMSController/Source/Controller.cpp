@@ -4,11 +4,13 @@ void Controller::start()
 {
 	IDataHandler* hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EMPLOYEE);
 	InputReader inputReader;
-	cout << "*****LOGIN START*******" << endl;
+	char trial;
+	cout << "*-*-*-*-*-*-*-*-*-*-*- WELCOME TO QAMS *-*-*-*-*-*-*-*-*-*-*-" << endl;
+	cout << endl;
+	cout << "	LOGIN STARTS	" << endl;
 	Command* cmd = inputReader.getCommand("LOGIN");
 	hanlder->execute(cmd);
 	cout << endl;
-	cout << "Login successful" << endl;
 	bool isExit;
 	do
 	{
@@ -25,7 +27,8 @@ void Controller::start()
 			isExit = true;
 			break;
 		}
-		//system("cls");
+		cin >> trial;
+		system("CLS");
 
 	} while (!isExit);
 }

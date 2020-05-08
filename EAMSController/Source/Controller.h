@@ -3,6 +3,7 @@
 #include"Entities/Command.h"
 #include "InputReader.h"
 #include "Entities/ResultSet.h"
+#include "stdlib.h"
 
 class Controller
 {
