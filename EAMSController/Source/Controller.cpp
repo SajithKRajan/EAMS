@@ -35,6 +35,8 @@ void Controller::start()
 			isExit = true;
 			break;
 		}
+		cout << endl;
+		cout << "Press Any Key And Enter For Menu Options " << endl;
 		cin >> trial;
 		system("CLS");
 
