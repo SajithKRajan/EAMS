@@ -1,10 +1,10 @@
 #include "RoleDataHandler.h"
 #include <iostream>
 #include "Utilities/Utility.h"
+#include "Common/Database.h"
 
 ResultSet RoleDataHandler::execute(Command* cmd) const
 {
-	//std::cout << "RoleDataHandler - > execute" << endl;
 	switch (Utility::str2int(cmd->command_name)) {
 	case Utility::str2int("ADD_ROLE"):
 		addRole(Role());
@@ -33,7 +33,10 @@ ResultSet RoleDataHandler::execute(Command* cmd) const
 
 ResultSet RoleDataHandler::addRole(Role role) const
 {
-	//std::cout << "addRole - > execute" << endl;
+	std::string query = "INSERT INTO role(NAME,PRIVILEGES) VALUES (?,?)";;
+	Database db = Database::Instance();
+	db.Insert(query, { "S:HR","S:AddEmployee/DeleteEmployee" });
+
 	cout << "Role Record Added Successfully" << endl;
 	return ResultSet();
 }
@@ -44,7 +47,10 @@ ResultSet RoleDataHandler::readRole(std::string roleName) const
 	cout << "ROLE_ID	:	" << "RoleID" << endl;
 	cout << "ROLE NAME	:	" << roleName << endl;
 	cout << "PRIVILEGES	:	" << "Privileges" << endl;
-	//cout << "Role Record Added Successfully" << endl;
+	
+	std::string query = "select * from role where roleName=?";
+	Database db = Database::Instance();
+	db.Get(query, { "S:Admin" });
 	return ResultSet();
 }
 ResultSet RoleDataHandler::readRoleList() const
@@ -53,14 +59,21 @@ ResultSet RoleDataHandler::readRoleList() const
 	ResultSet objResultSet;
 	objResultSet.isToBePrint = true;
 	objResultSet.printType = "TABLE";
-	objResultSet.ColumnNames = { "ROLE_ID","ROLE_NAME"};
+	objResultSet.ColumnNames = { "ROLE_ID","NAME"};
 	objResultSet.resultData = { {"1","ADMIN"},{"2","EMPLOYEE"} };
-	return objResultSet;
+
+	/*std::string query = "select * from role";
+	Database db = Database::Instance();
+	db.Get(query);
+	return ResultSet();*/
 
 }
 
 ResultSet RoleDataHandler::updateRole(Role role) const
 {
+	std::string query = "UPDATE role SET NAME=? PRIVILEGES=? WHERE ROLE_ID=?";
+	Database db = Database::Instance();
+	db.Update(query, { "S:modify","S:HR","I:5" });
 	cout << "Role Record Updated Successfully" << endl;
 	return ResultSet();
 }
@@ -68,6 +81,9 @@ ResultSet RoleDataHandler::updateRole(Role role) const
 
 ResultSet RoleDataHandler::deleteRole(string roleName) const
 {
+	std::string query = "DELETE FROM role WHERE ROLE_NAME=?";
+	Database db = Database::Instance();
+	db.Delete(query, { "S:HR" });
 	cout << "Role Record Removed Successfully" << endl;
 	return ResultSet();
 }

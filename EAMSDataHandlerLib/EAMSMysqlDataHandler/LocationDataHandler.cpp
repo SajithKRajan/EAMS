@@ -1,10 +1,10 @@
 #include "LocationDataHandler.h"
 #include <iostream>
 #include "Utilities/Utility.h"
+#include "Common/Database.h"
 
 ResultSet LocationDataHandler::execute(Command* cmd) const
 {
-	std::cout << "LocationDataHandler - > execute" << endl;
 	switch (Utility::str2int(cmd->command_name)) {
 	case Utility::str2int("ADD_LOCATION"):
 		addLocation(Location());
@@ -26,26 +26,42 @@ ResultSet LocationDataHandler::execute(Command* cmd) const
 }
 
 
-void LocationDataHandler::addLocation(Location location) const
+ResultSet LocationDataHandler::addLocation(Location location) const
 {
-	std::cout << "addLocation - > execute" << endl;
+	std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";;
+	Database db = Database::Instance();
+	db.Insert(query, { "S:BANGLORE" });
+	cout << "New Location Record Added Successfully" << endl;
+	return ResultSet();
 }
 
 
-Location LocationDataHandler::readLocation() const
+ResultSet LocationDataHandler::readLocation() const
 {
-	std::cout << "readLocation - > execute" << endl;
-	return Location();
+	std::string query = "select * from location";
+	Database db = Database::Instance();
+	db.Get(query);
+
+	return ResultSet();
+	
 }
 
 
-void LocationDataHandler::updateLocation(Location location) const
+ResultSet LocationDataHandler::updateLocation(Location location) const
 {
-	std::cout << "updateLocation - > execute" << endl;
+	std::string query = "UPDATE location SET LOCATION_NAME=? WHERE LOCATION_NAME=?";
+	Database db = Database::Instance();
+	db.Update(query, { "S:THAMILNADU","I:BANGLORE" });
+	cout << "Record Updated Successfully" << endl;
+	return ResultSet();
 }
 
 
-void LocationDataHandler::deleteLocation(string locationName) const
+ResultSet LocationDataHandler::deleteLocation(string locationName) const
 {
-	std::cout << "deleteLocation - > execute" << endl;
+	std::string query = "DELETE FROM location WHERE LOCATION_NAME=?";
+	Database db = Database::Instance();
+	db.Delete(query, { "S:BANGLORE" });
+	cout << "Record Removed Successfully" << endl;
+	return ResultSet();
 }

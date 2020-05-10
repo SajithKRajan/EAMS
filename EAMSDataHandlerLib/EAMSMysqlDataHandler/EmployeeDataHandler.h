@@ -12,6 +12,7 @@ private:
 	ResultSet addEmployee(Employee employee) const;
 	ResultSet readEmployee(std::string username) const;
 	ResultSet updateEmployee(Employee employee) const;
+	ResultSet modifyEmployeeDetails(Employee employee) const;
 	ResultSet deleteEmployee(std::string username) const;
 	ResultSet authenticate(std::string username, std::string password) const;
 };
