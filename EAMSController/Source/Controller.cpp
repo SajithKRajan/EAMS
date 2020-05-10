@@ -19,11 +19,11 @@ void Controller::start()
 		Command* cmd=inputReader.getNextCommand();
 		if ( strcmp(cmd->command_name, "EXIT")!=0)
 		{
-			if (cmd->function_handler_name == "EMPLOYEE") {
-				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EMPLOYEE);
+			if (cmd->function_handler_name == "HOLIDAY") {
+				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::HOLIDAY);
 			}
 			else {
-				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::ROLE);
+				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::ABSENCE);
 			}
 			ResultSet res = hanlder->execute(cmd);
 			PrintResults pr;

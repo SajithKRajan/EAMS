@@ -1,10 +1,10 @@
 #include "HolidayDataHandler.h"
 #include <iostream>
 #include "Utilities/Utility.h"
+#include "Common/Database.h"
 
 ResultSet HolidayDataHandler::execute(Command* cmd) const
 {
-	std::cout << "HolidayDataHandler - > execute"<<endl;
 	switch (Utility::str2int(cmd->command_name)) {
 	case Utility::str2int("ADD_HOLIDAY"):
 		addHoliday(Holiday());
@@ -23,20 +23,33 @@ ResultSet HolidayDataHandler::execute(Command* cmd) const
 }
 
 
-void HolidayDataHandler::addHoliday(Holiday holiday) const
+ResultSet HolidayDataHandler::addHoliday(Holiday holiday) const
 {
-	std::cout << "addHoliday - > execute";
+	std::string query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
+	Database db = Database::Instance();
+	db.Insert(query, { "S:1","S:2020-12-25","S:Christmas" });
+
+	cout << "Holiday Record Added Successfully" << endl;
+	return ResultSet();
 }
 
 
-Holiday HolidayDataHandler::readHoliday(string locationName) const
+ResultSet HolidayDataHandler::readHoliday(string locationName) const
 {
-	std::cout << "readHoliday - > execute";
-	return Holiday();
+	std::string query = "select * from holiday where LOCATION_NAME=?";
+	Database db = Database::Instance();
+	db.Get(query, {"S:TVM" });
+
+	return ResultSet();
 }
 
 
-void HolidayDataHandler::deleteHoliday(string locationName,string date) const
+ResultSet HolidayDataHandler::deleteHoliday(string locationName,string date) const
 {
-	std::cout << "deleteHoliday - > execute";
+	std::string query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";
+	Database db = Database::Instance();
+	db.Delete(query, { "S:2020-05-01","I:1" });
+
+	cout << "Holiday Record Removed Successfully" << endl;
+	return ResultSet();
 }
