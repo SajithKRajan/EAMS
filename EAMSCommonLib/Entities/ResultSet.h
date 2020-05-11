@@ -9,7 +9,7 @@ public:
 	bool isToBePrint;
 	bool isStopExecution;
 	string printType;
-
+	string message;
 	vector<string> ColumnNames;
 	vector<vector<string>> resultData;
 };

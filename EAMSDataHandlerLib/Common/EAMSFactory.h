@@ -17,7 +17,7 @@ public:
 		return factory;
 	}
 
-	IDataHandler* getIDataHandler(HandlerTypes type ) {
+	IDataHandler* getIDataHandler(HandlerTypes::Handler type ) {
 		switch (type) {
 		case HandlerTypes::EMPLOYEE:
 			return new EmployeeDataHandler();

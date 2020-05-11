@@ -98,6 +98,7 @@ void Database::InsertS(std::string query, std::vector<std::string> params) {
 }
 
 void Database::Insert(std::string query, std::vector<std::string> params) {
+	std::cout << params.size();
 	this->Execute_Query(query, params);
 }
 
@@ -109,10 +110,10 @@ void Database::Delete(std::string query, std::vector<std::string> params) {
 	this->Execute_Query(query, params);
 }
 
-std::vector<std::map<std::string, std::string>>
+std::vector<std::vector<std::string>>
 Database::Get(std::string query, std::vector<std::string> params) {
-	std::vector<std::map<std::string, std::string>> result;
-	std::map<std::string, std::string> result_item;
+	std::vector < std::vector<std::string>> result;
+	std::vector<std::string> result_item;
 	try {
 		prep_stmt = con->prepareStatement(query);
 		int b = 1;
@@ -129,7 +130,7 @@ Database::Get(std::string query, std::vector<std::string> params) {
 				sql::ResultSetMetaData* column_meta_data = res->getMetaData();
 				for (int a = 1; a != column_meta_data->getColumnCount() + 1; a++) {
 					std::string key = column_meta_data->getColumnName(a);
-					result_item.insert(std::pair<std::string, std::string>(key, res->getString(a)));
+					result_item.push_back(res->getString(a));
 				}
 				result.push_back(result_item);
 				result_item.clear();
@@ -145,10 +146,10 @@ Database::Get(std::string query, std::vector<std::string> params) {
 	return result;
 }
 
-std::vector<std::map<std::string, std::string>>
+std::vector<std::vector<std::string>>
 Database::Get(std::string query) {
-	std::vector<std::map<std::string, std::string>> result;
-	std::map<std::string, std::string> result_item;
+	std::vector<std::vector<std::string>> result;
+	std::vector<std::string> result_item;
 	try {
 		prep_stmt = con->prepareStatement(query);
 		try {
@@ -157,7 +158,7 @@ Database::Get(std::string query) {
 				sql::ResultSetMetaData* column_meta_data = res->getMetaData();
 				for (int a = 1; a != column_meta_data->getColumnCount() + 1; a++) {
 					std::string key = column_meta_data->getColumnName(a);
-					result_item.insert(std::pair<std::string, std::string>(key, res->getString(a)));
+					result_item.push_back(res->getString(a));
 				}
 				result.push_back(result_item);
 				result_item.clear();
@@ -176,8 +177,8 @@ Database::Get(std::string query) {
 Database::Database() {
 	try {
 		this->driver = sql::mysql::get_mysql_driver_instance();
-		this->con = driver->connect("tcp://127.0.0.1:3306", "root", "renchu576");
-		this->con->setSchema("eams");
+		this->con = driver->connect("tcp://127.0.0.1:3306", "root", "root");
+		this->con->setSchema("EAMS");
 	}
 	catch (sql::SQLException& e) {
 		std::cout << "# ERR: " << e.what();
