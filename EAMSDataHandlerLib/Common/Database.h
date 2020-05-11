@@ -47,10 +47,10 @@ public:
 
 	void InsertS(std::string, std::vector<std::string>);
 
-	std::vector<std::map<std::string, std::string>>
+	std::vector<std::vector<std::string>>
 		Get(std::string, std::vector<std::string>);
 
-	std::vector<std::map<std::string, std::string>>
+	std::vector<std::vector<std::string>>
 		Get(std::string);
 
 	void Update(std::string, std::vector<std::string>);

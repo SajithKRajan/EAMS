@@ -55,6 +55,7 @@ ResultSet* EmployeeDataHandler::addEmployee(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
+		// Write code for getting locationid, role id from their names.
 		std::string query = "INSERT INTO employee(USERNAME,PASSWORD,ROLE_ID,LOCATION_ID) VALUES (?,?,?,?)";
 		Database db = Database::Instance();
 		db.Insert(query, { "S:"+ Utility::getValueFromMap(cmd->inputdata,"USERNAME"),"S:"+ Utility::getValueFromMap(cmd->inputdata, "PASSWORD"),"I:"+ std::to_string(1),"I:"+ std::to_string(1) });
@@ -68,7 +69,7 @@ ResultSet* EmployeeDataHandler::addEmployee(Command* cmd) const
 }
 
 
-ResultSet EmployeeDataHandler::readEmployee(string username) const
+ResultSet* EmployeeDataHandler::readEmployee(string username) const
 {
 	//std::cout << "READEmployee - > execute" << endl;
 	/*cout <<"USERNAME		:	" << username << endl;
@@ -76,12 +77,14 @@ ResultSet EmployeeDataHandler::readEmployee(string username) const
 	cout <<"LAST NAME		:	" << "lastName" << endl;
 	cout <<"LOCATION		:	" << "locationName" << endl;
 	cout <<"ROLE			:	" << "RoleName" << endl;*/
-
+	ResultSet* res = new ResultSet();
 	std::string query = "select * from employee where USERNAME=?";
 	Database db = Database::Instance();
-	db.Get(query, { "S:jeslinuser" });
-
-	return ResultSet();
+	res->resultData = db.Get(query, { "S:jeslinuser" });
+	res->isSuccess = true;
+	res->isToBePrint = true;
+	res->printType = "OBJECT";
+	return res;
 }
 
 

@@ -10,7 +10,7 @@ public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
 	ResultSet* addEmployee(Command* cmd) const;
-	ResultSet readEmployee(std::string username) const;
+	ResultSet* readEmployee(std::string username) const;
 	ResultSet updateEmployee(Employee employee) const;
 	ResultSet modifyEmployeeDetails(Employee employee) const;
 	ResultSet deleteEmployee(std::string username) const;
