@@ -14,21 +14,16 @@ void Controller::start()
 	bool isExit;
 	do
 	{
-	
+
 		isExit = false;
-		Command* cmd=inputReader.getNextCommand();
-		if ( strcmp(cmd->command_name, "EXIT")!=0)
+		Command* cmd = inputReader.getNextCommand();
+		if (strcmp(cmd->command_name, "EXIT") != 0)
 		{
-			if (cmd->function_handler_name == "HOLIDAY") {
-				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::HOLIDAY);
-			}
-			else {
-				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::ABSENCE);
-			}
+			hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::enumFromString(cmd->function_handler_name));
 			ResultSet res = hanlder->execute(cmd);
 			PrintResults pr;
 			pr.print(res);
-			
+
 		}
 		else
 		{

@@ -98,6 +98,7 @@ void Database::InsertS(std::string query, std::vector<std::string> params) {
 }
 
 void Database::Insert(std::string query, std::vector<std::string> params) {
+	std::cout << params.size();
 	this->Execute_Query(query, params);
 }
 
@@ -176,8 +177,8 @@ Database::Get(std::string query) {
 Database::Database() {
 	try {
 		this->driver = sql::mysql::get_mysql_driver_instance();
-		this->con = driver->connect("tcp://127.0.0.1:3306", "root", "renchu576");
-		this->con->setSchema("eams");
+		this->con = driver->connect("tcp://127.0.0.1:3306", "root", "root");
+		this->con->setSchema("EAMS");
 	}
 	catch (sql::SQLException& e) {
 		std::cout << "# ERR: " << e.what();
