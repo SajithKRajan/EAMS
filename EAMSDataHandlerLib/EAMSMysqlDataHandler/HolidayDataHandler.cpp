@@ -2,54 +2,125 @@
 #include <iostream>
 #include "Utilities/Utility.h"
 #include "Common/Database.h"
+#include "EAMSMysqlDataHandler/EAMSException.h"
 
 ResultSet HolidayDataHandler::execute(Command* cmd) const
 {
-	switch (Utility::str2int(cmd->command_name)) {
-	case Utility::str2int("ADD_HOLIDAY"):
-		addHoliday(Holiday());
-		break;
-	case Utility::str2int("VIEW_HOLIDAY_LIST"):
-		readHoliday("");
-		break;
-	case Utility::str2int("REMOVE_HOLIDAY"):
-		deleteHoliday("","");
-		break;
-	default:
-		cout << "Please Enter Valid Commands" << endl;
-		break;
+	ResultSet* res = new ResultSet();
+	try
+	{
+		switch (Utility::str2int(cmd->command_name)) {
+		case Utility::str2int("ADD_HOLIDAY"):
+			addHoliday(cmd);
+			break;
+		case Utility::str2int("VIEW_HOLIDAY_LIST"):
+			readHoliday(cmd);
+			break;
+		case Utility::str2int("REMOVE_HOLIDAY"):
+			deleteHoliday(cmd);
+			break;
+		default:
+			cout << "Please Enter Valid Commands" << endl;
+			break;
+		}
+	}
+	catch (exception ex) {
+		res->message = ex.what();
 	}
 	return ResultSet();
 }
 
 
-ResultSet HolidayDataHandler::addHoliday(Holiday holiday) const
+ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 {
-	std::string query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
-	Database db = Database::Instance();
-	db.Insert(query, { "S:1","S:2020-12-25","S:Christmas" });
+	cout << "HolidayDataHandler::addHoliday";
+	if (cmd->inputs.size() != 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+		// Write code for getting EMP_ID FROM USERNAME.
+		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND holiday.LOCATION_ID=location.LOCATION_ID";
+		Database db = Database::Instance();
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
+		int location_id;
+		if (Lid[0].size() > 0) {
+			location_id = atoi(Lid[0][0].c_str());
+		}
+		else {
+			//throw error role could not found.
+			cout << "ERR:No such location found" << endl;
+		}
+		query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
 
-	cout << "Holiday Record Added Successfully" << endl;
-	return ResultSet();
+		db.Insert(query, { "I:" + location_id,"S:" + Utility::getValueFromMap(cmd->inputdata, "DATE"),"S:" + Utility::getValueFromMap(cmd->inputdata, "DESCRIPTION") });
+		//cout<<"Employee Record Added Successfully"<<endl;
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
+		res->message = "Holiday Record Added Successfully";
+		return res;
+	}
 }
 
 
-ResultSet HolidayDataHandler::readHoliday(string locationName) const
+ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
 {
-	std::string query = "select * from holiday where LOCATION_NAME=?";
-	Database db = Database::Instance();
-	db.Get(query, {"S:TVM" });
-
-	return ResultSet();
+	if (cmd->inputs.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND holiday.LOCATION_ID=location.LOCATION_ID";
+		Database db = Database::Instance();
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
+		int location_id;
+		if (Lid[0].size() > 0) {
+			location_id = atoi(Lid[0][0].c_str());
+		}
+		else {
+			//throw error role could not found.
+			cout << "ERR:No such location found" << endl;
+		}
+		query = "select * from holiday where LOCATION_ID=?";
+		res->resultData = db.Get(query, { "I:" + location_id });
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "TABLE";
+		return res;
+	}
 }
 
 
-ResultSet HolidayDataHandler::deleteHoliday(string locationName,string date) const
+ResultSet* HolidayDataHandler::deleteHoliday(Command* cmd) const
 {
-	std::string query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";
-	Database db = Database::Instance();
-	db.Delete(query, { "S:2020-05-01","I:1" });
 
-	cout << "Holiday Record Removed Successfully" << endl;
-	return ResultSet();
+	if (cmd->inputs.size() != 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND holiday.LOCATION_ID=location.LOCATION_ID";
+		Database db = Database::Instance();
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
+		int location_id;
+		if (Lid[0].size() > 0) {
+			location_id = atoi(Lid[0][0].c_str());
+		}
+		else {
+			//throw error role could not found.
+			cout << "ERR:No such location found" << endl;
+		}
+
+		query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "DATE"), "I:" +location_id});
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
+		res->message = "Holiday Record Removed Successfully";
+		return res;
+	}
 }
