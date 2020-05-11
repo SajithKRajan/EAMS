@@ -1,10 +1,10 @@
 #include "AbsenceDataHandler.h"
 #include <iostream>
 #include "Utilities/Utility.h"
+#include "Common/Database.h"
 
 ResultSet AbsenceDataHandler::execute(Command* cmd) const
 {
-	std::cout << "AbsenceDataHandler - > execute";
 	switch (Utility::str2int(cmd->command_name)) {
 	case Utility::str2int("ADD_ABSENCE"):
 		addAbsence(Absence());
@@ -22,16 +22,22 @@ ResultSet AbsenceDataHandler::execute(Command* cmd) const
 	return ResultSet();
 }
 
-void AbsenceDataHandler::addAbsence(Absence absence) const
+ResultSet AbsenceDataHandler::addAbsence(Absence absence) const
 {
-	std::cout << " ADD Absence - > execute" << endl;;
+	std::string query = "INSERT INTO absence(EMP_ID,DATE) VALUES (?,now())";
+	Database db = Database::Instance();
+	db.Insert(query, { "I:1" });
+	cout << "Absence Added Successfully" << endl;
+	return ResultSet();
 }
 
-Absence AbsenceDataHandler::readAbsence(string username) const
+ResultSet AbsenceDataHandler::readAbsence(string username) const
 {
-	std::cout << " READ Absence - > execute" << endl;;
+	std::string query = "select *  from absence where USERNAME=? ";
+	Database db = Database::Instance();
+	db.Get(query, { "S:jeslin" });
 
-	return Absence();
+	return ResultSet();
 }
 
 

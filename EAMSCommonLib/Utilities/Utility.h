@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <map>
 
 class Utility
 {
@@ -30,7 +31,7 @@ public:
 
 	static std::string toCamelCase(std::string data) {
 		std::for_each(data.begin(), data.end(), [](char& c) {
-				c = ::tolower(c);
+			c = ::tolower(c);
 			});
 		data[0] = toupper(data[0]);
 		return data;
@@ -51,4 +52,14 @@ public:
 		return data;
 	}
 
+	static std::string getValueFromMap(std::map<std::string, std::string> map, std::string key) {
+		auto pos = map.find(key);
+		std::string str;
+		if (pos == map.end()) {
+			return str;
+		}
+		else {
+			return pos->second;
+		}
+	}
 };

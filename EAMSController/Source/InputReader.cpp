@@ -18,31 +18,32 @@ Command* InputReader::getCommand(string cmdName)
 			mandatory = true;
 		}
 		if (mandatory) {
-			std::cout << "Enter " << Utility::toCamelCase(header) << endl;
+			std::cout << "Enter " << Utility::toCamelCase(header, '_') << ":";
 			cin >> tempinput;
 			cmd->inputdata.insert({ header,tempinput });
 		}
 		else {
-			cout << "Do you want to edit " << Utility::toCamelCase(header) << " (y/n)" << endl;
+			cout << "Do you want to edit " << Utility::toCamelCase(header,'_') << " (y/n)" << endl;
 			cin >> temp;
 			switch (temp)
 			{
 			case 'Y':
 			{
-				std::cout << "Enter the  " << Utility::toCamelCase(header) << endl;
+				std::cout << "Enter the  " << Utility::toCamelCase(header, '_') << ":";
 				cin >> tempinput;
 				cmd->inputdata.insert({ header,tempinput });
 				break;
 			}
 			case 'y':
 			{
-				std::cout << "Enter the  " << Utility::toCamelCase(header) << endl;
+				std::cout << "Enter the  " << Utility::toCamelCase(header, '_') << ":";
 				cin >> tempinput;
 				cmd->inputdata.insert({ header,tempinput });
 				break;
 			}
 			}
 		}
+		cout << endl;
 	}
 
 	return cmd;
@@ -53,7 +54,7 @@ Command* InputReader::getNextCommand()
 	int ch;
 	cout << "Menu Options" << endl;
 	cout << endl;
-	vector<string> commands{ "ADD_EMPLOYEE","ADD_LOCATION","VIEW_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_WORK_HOURS","EXIT" };
+	vector<string> commands{ "ADD_EMPLOYEE", "ADD_HOLIDAY","REMOVE_HOLIDAY","ADD_ABSENCE","EXIT" };
 	for (int k = 0;k <= (commands.size() - 1);k++)
 	{
 		cout << k + 1 << " - " << Utility::toCamelCase(commands[k],'_') << endl;
