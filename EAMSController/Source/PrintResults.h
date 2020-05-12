@@ -5,8 +5,8 @@
 class PrintResults
 {
 public:
-	void print(ResultSet objResultSet);
-	void printTable(ResultSet objResultSet);
+	void print(ResultSet* objResultSet);
+	void printTable(ResultSet* objResultSet);
 	void printObject(ResultSet objResultSet);
 };
 

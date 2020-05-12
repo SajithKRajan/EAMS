@@ -6,7 +6,7 @@
 class EmployeeDataHandler : public IDataHandler
 {
 public:
-	virtual ResultSet execute(Command* cmd) const;
+	virtual ResultSet* execute(Command* cmd) const;
 
 private:
 	ResultSet* addEmployee(Command* cmd) const;

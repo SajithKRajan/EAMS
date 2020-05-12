@@ -8,7 +8,7 @@
 class AttendanceDataHandler : public IDataHandler
 {
 public:
-	virtual ResultSet execute(Command* cmd) const;
+	virtual ResultSet* execute(Command* cmd) const;
 private:
 	ResultSet* addCheckIn(Command* cmd) const;
 	ResultSet* addCheckOut(Command* cmd) const;

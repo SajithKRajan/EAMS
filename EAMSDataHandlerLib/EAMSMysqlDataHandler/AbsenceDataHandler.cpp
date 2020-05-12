@@ -4,19 +4,19 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet AbsenceDataHandler::execute(Command* cmd) const
+ResultSet* AbsenceDataHandler::execute(Command* cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try {
 	switch (Utility::str2int(cmd->command_name)) {
 	case Utility::str2int("ADD_ABSENCE"):
-		addAbsence(cmd);
+		return addAbsence(cmd);
 		break;
 	case Utility::str2int("VIEW_EMPLOYEE_ABSENCE_LIST"):
-		readAbsence(cmd);
+		return readAbsence(cmd);
 		break;
 	case Utility::str2int("VIEW_ABSENCE_LIST"):
-		readAbsence(cmd);
+		return readAbsence(cmd);
 		break;
 	default:
 		std::cout << "please enter valid commands" << endl;
@@ -26,7 +26,7 @@ ResultSet AbsenceDataHandler::execute(Command* cmd) const
 	catch (exception ex) {
 		res->message = ex.what();
 	}
-	return ResultSet();
+	return res;
 }
 
 ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const

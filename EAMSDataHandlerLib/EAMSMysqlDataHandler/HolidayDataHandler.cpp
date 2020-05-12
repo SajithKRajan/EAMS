@@ -4,20 +4,20 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet HolidayDataHandler::execute(Command* cmd) const
+ResultSet* HolidayDataHandler::execute(Command* cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try
 	{
 		switch (Utility::str2int(cmd->command_name)) {
 		case Utility::str2int("ADD_HOLIDAY"):
-			addHoliday(cmd);
+			return addHoliday(cmd);
 			break;
 		case Utility::str2int("VIEW_HOLIDAY_LIST"):
-			readHoliday(cmd);
+			return readHoliday(cmd);
 			break;
 		case Utility::str2int("REMOVE_HOLIDAY"):
-			deleteHoliday(cmd);
+			return deleteHoliday(cmd);
 			break;
 		default:
 			cout << "Please Enter Valid Commands" << endl;
@@ -27,7 +27,7 @@ ResultSet HolidayDataHandler::execute(Command* cmd) const
 	catch (exception ex) {
 		res->message = ex.what();
 	}
-	return ResultSet();
+	return res;
 }
 
 
