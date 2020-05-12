@@ -8,7 +8,7 @@
 class LocationDataHandler : public IDataHandler
 {
 public:
-	virtual ResultSet execute(Command* cmd) const;
+	virtual ResultSet* execute(Command* cmd) const;
 private:
 	ResultSet* addLocation(Command* cmd) const;
 	ResultSet* readLocation() const;

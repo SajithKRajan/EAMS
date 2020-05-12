@@ -8,7 +8,7 @@
 class RoleDataHandler : public IDataHandler
 {
 public:
-	virtual ResultSet execute(Command* cmd) const;
+	virtual ResultSet* execute(Command* cmd) const;
 private:
 	ResultSet* addRole(Command* cmd) const;
 	ResultSet* readRoleList() const;

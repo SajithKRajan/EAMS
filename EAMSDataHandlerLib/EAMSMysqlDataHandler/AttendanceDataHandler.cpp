@@ -4,44 +4,44 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet AttendanceDataHandler::execute(Command* cmd) const
+ResultSet* AttendanceDataHandler::execute(Command* cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try 
 	{
 		switch (Utility::str2int(cmd->command_name)) {
 			case Utility::str2int("ADD_CHECK-IN"):
-				addCheckIn(cmd);
+				return addCheckIn(cmd);
 				break;
 			case Utility::str2int("ADD_CHECK-OUT"):
-				addCheckOut(cmd);
+				return addCheckOut(cmd);
 				break;
 			case Utility::str2int("VIEW_EMPLOYEE_ATTENDANCE_SUMMARY_OF_CURRENT_WEEK"):
-				readAttendanceSummaryOfWeek(cmd);
+				return readAttendanceSummaryOfWeek(cmd);
 				break;
 			case Utility::str2int("VIEW_ATTENDANCE_SUMMARY_OF_CURRENT_WEEK"):
-				readAttendanceSummaryOfWeek(cmd);
+				return readAttendanceSummaryOfWeek(cmd);
 				break;
 			case Utility::str2int("VIEW_EMPLOYEE_ATTENDANCE_SUMMARY_OF_CURRENT_MONTH"):
-				readAttendanceSummaryOfMonth(cmd);
+				return readAttendanceSummaryOfMonth(cmd);
 				break;
 			case Utility::str2int("VIEW_ATTENDANCE_SUMMARY_OF_CURRENT_MONTH"):
-				readAttendanceSummaryOfMonth(cmd);
+				return readAttendanceSummaryOfMonth(cmd);
 				break;
 			case Utility::str2int("VIEW_ATTENDANCE_SUMMARY_OF_A_LOCATION"):
-				readLocationAttendance(cmd);
+				return readLocationAttendance(cmd);
 				break;
 			case Utility::str2int("VIEW_EMPLOYEE_WORK_HOURS"):
 				readWorkHours(cmd);
 				break;
 			case  Utility::str2int("VIEW_WORK_HOURS"):
-				readWorkHours(cmd);
+				return readWorkHours(cmd);
 				break;
 			case Utility::str2int("VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION"):
-				readLocationWorkHours(cmd);
+				return readLocationWorkHours(cmd);
 				break;
 			case Utility::str2int("VIEW_ORGANIZATION_WORK_HOURS"):
-				readOrganizationWorkHours();
+				return readOrganizationWorkHours();
 				break;
 			default:
 				break;
@@ -50,7 +50,7 @@ ResultSet AttendanceDataHandler::execute(Command* cmd) const
 	catch (exception ex) {
 		res->message = ex.what();
 	}
-	return ResultSet();
+	return res;
 }
 
 

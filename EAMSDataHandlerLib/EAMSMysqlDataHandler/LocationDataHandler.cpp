@@ -4,23 +4,23 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet LocationDataHandler::execute(Command* cmd) const
+ResultSet* LocationDataHandler::execute(Command* cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try {
 		switch (Utility::str2int(cmd->command_name))
 		{
 			case Utility::str2int("ADD_LOCATION"):
-				addLocation(cmd);
+				return addLocation(cmd);
 				break;
 			case Utility::str2int("MODIFY_LOCATION"):
-				updateLocation(cmd);
+				return updateLocation(cmd);
 				break;
 			case Utility::str2int("VIEW_LOCATION_LIST"):
-				readLocation();
+				return readLocation();
 				break;
 			case  Utility::str2int("REMOVE_LOCATION"):
-				deleteLocation(cmd);
+				return deleteLocation(cmd);
 				break;
 			default:
 				std::cout << "Please Enter Valid Commands" << endl;
@@ -30,7 +30,7 @@ ResultSet LocationDataHandler::execute(Command* cmd) const
 	catch (exception ex) {
 		res->message = ex.what();
 	}
-	return ResultSet();
+	return res;
 }
 
 

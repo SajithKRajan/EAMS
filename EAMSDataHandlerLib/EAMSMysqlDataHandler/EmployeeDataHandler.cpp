@@ -5,31 +5,31 @@
 #include <EAMSMysqlDataHandler/EAMSException.h>
 using namespace std;
 
-ResultSet EmployeeDataHandler::execute(Command* cmd) const
+ResultSet* EmployeeDataHandler::execute(Command* cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try {
 		switch (Utility::str2int(cmd->command_name)) {
 		case Utility::str2int("LOGIN"):
-			authenticate(cmd);
+			return authenticate(cmd);
 			break;
 		case Utility::str2int("ADD_EMPLOYEE"):
-			addEmployee(cmd);
+			return addEmployee(cmd);
 			break;
 		case Utility::str2int("EDIT_EMPLOYEE"):
-			updateEmployee(cmd);
+			return updateEmployee(cmd);
 			break;
 		case  Utility::str2int("VIEW_EMPLOYEE_DETAILS"):
-			readEmployee(cmd);
+			return readEmployee(cmd);
 			break;
 		case Utility::str2int("VIEW_DETAILS"):
-			readEmployeeList();
+			return readEmployeeList();
 			break;
 		case Utility::str2int("MODIFY_EMPLOYEE_DETAILS"):
-			modifyEmployeeDetails(cmd);
+			return modifyEmployeeDetails(cmd);
 			break;
 		case Utility::str2int("REMOVE_EMPLOYEE_DETAILS"):
-			deleteEmployee(cmd);
+			return deleteEmployee(cmd);
 			break;
 		default:
 			std::cout << "Please Enter Valid Commands" << endl;
@@ -39,7 +39,7 @@ ResultSet EmployeeDataHandler::execute(Command* cmd) const
 	catch (exception ex) {
 		res->message = ex.what();
 	}
-	return ResultSet();
+	return res;
 }
 
 

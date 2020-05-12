@@ -4,27 +4,27 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet RoleDataHandler::execute(Command* cmd) const
+ResultSet* RoleDataHandler::execute(Command* cmd) const
 {
 
 	ResultSet* res = new ResultSet();
 	try {
 		switch (Utility::str2int(cmd->command_name)) {
 		case Utility::str2int("ADD_ROLE"):
-			addRole(cmd);
+			return addRole(cmd);
 			break;
 		case Utility::str2int("MODIFY_ROLE"):
-			updateRole(cmd);
+			return updateRole(cmd);
 			break;
 		case Utility::str2int("VIEW_ROLE_LIST"):
-			readRoleList();
+			return readRoleList();
 			break;
 		case Utility::str2int("VIEW_ROLE"):
-			readRole(cmd);
+			return readRole(cmd);
 			break;
 
 		case  Utility::str2int("REMOVE_ROLE"):
-			deleteRole(cmd);
+			return deleteRole(cmd);
 			break;
 	
 		default:
@@ -35,7 +35,7 @@ ResultSet RoleDataHandler::execute(Command* cmd) const
 	catch (exception ex) {
 		res->message = ex.what();
 	}
-	return ResultSet();
+	return res;
 }
 
 
