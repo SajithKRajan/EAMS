@@ -56,44 +56,35 @@ ResultSet AttendanceDataHandler::execute(Command* cmd) const
 
 ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 {
-	cout << "AttendanceDataHandler::addEmployee";
+	/*cout << "AttendanceDataHandler::addEmployee";
 	if (cmd->inputs.size() != 3) {
 		std::string msg = "Expected 3 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else {*/
 		ResultSet* res = new ResultSet();
 
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=attendance.EMP_ID";
+		std::string query = "select employee.EMP_ID,LOCATION_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:jinu"});
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		int location_id;
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
-		}
+			location_id = atoi(Empid[0][1].c_str());
+	}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such employee found" << endl;
 		}
-		query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND attendance.LOCATION_ID=location.LOCATION_ID";
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
-		int Location_id;
-		if (Empid[0].size() > 0) {
-			Location_id = atoi(Lid[0][0].c_str());
-		}
-		else {
-			//throw error role could not found.
-			cout << "ERR:No such Location found" << endl;
-		}
 		query = "INSERT INTO attendance(EMP_ID,LOCATION_ID,CHECK_IN) VALUES (?,?,now())";
-		db.Insert(query, {"I:" + Employee_id,"I:" +Location_id });
-		//cout<<"Employee Record Added Successfully"<<endl;
+		db.Insert(query, {"I:" + std::to_string(Employee_id),"I:" + std::to_string(location_id) });
+		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Employee Record Added Successfully";
 		return res;
-	}
+	//}
 }
 ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 {
@@ -104,20 +95,19 @@ ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=attendance.EMP_ID";
+		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:jinu" });
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such employee found" << endl;
 		}
 		query = "UPDATE attendance SET CHECK_OUT=now(),TOTAL_HRS=TIMESTAMPDIFF(HOUR,attendance.CHECK_IN,attendance.CHECK_OUT) WHERE EMP_ID=? AND DATE(CHECK_IN)=CURDATE()";
-		db.Update(query, { "I:" +Employee_id});
-		//cout<<"Employee Record Added Successfully"<<endl;
+		db.Update(query, { "I:" + std::to_string(Employee_id) });
+		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -135,20 +125,19 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command* cmd) cons
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=attendance.EMP_ID";
+		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such employee found" << endl;
 		}
 		query = "select DATE(CHECK_IN) AS DATE, TIME(CHECK_IN) AS CHECK_IN, TIME(CHECK_OUT) AS CHECK_OUT from attendance where EMP_ID = ? AND CHECK_IN BETWEEN ADDDATE(CURDATE(), INTERVAL - 7 DAY) AND CURDATE()";
 
-		res->resultData = db.Get(query, { "I:" +Employee_id });
+		res->resultData = db.Get(query, { "I:" + std::to_string(Employee_id)});
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
@@ -163,20 +152,19 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) con
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=attendance.EMP_ID";
+		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such employee found" << endl;
 		}
 		query = "select DATE(CHECK_IN) AS DATE, TIME(CHECK_IN) AS CHECK_IN, TIME(CHECK_OUT) AS CHECK_OUT from attendance where EMP_ID = ? AND CHECK_IN BETWEEN ADDDATE(CURDATE(), INTERVAL - 30 DAY) AND CURDATE()";
 
-		res->resultData = db.Get(query, { "I:"+Employee_id });
+		res->resultData = db.Get(query, { "I:" + std::to_string(Employee_id)});
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
@@ -192,11 +180,11 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND attendance.LOCATION_ID=location.LOCATION_ID";
+		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
-		if (Lid[0].size() > 0) {
+		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
@@ -205,7 +193,7 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 		}
 		query = "select DATE(CHECK_IN) AS DATE, COUNT(*) AS COUNT FROM attendance WHERE LOCATION_ID = ? AND DATE(CHECK_IN) BETWEEN ADDDATE(CURDATE(), INTERVAL - 7 DAY) AND CURDATE() GROUP BY DATE(CHECK_IN)";
 
-		res->resultData = db.Get(query, { "I:" + location_id});
+		res->resultData = db.Get(query, { "I:" + std::to_string(location_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
@@ -220,20 +208,20 @@ ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=attendance.EMP_ID";
+		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
+			
 			cout << "ERR:No such employee found" << endl;
 		}
 		query = "select DATE(CHECK_IN), TOTAL_HRS FROM attendance WHERE EMP_ID = ? AND CHECK_IN BETWEEN ADDDATE(CURDATE(), INTERVAL - 30 DAY) AND CURDATE()";
 
-		res->resultData = db.Get(query, { "I:" + Employee_id });
+		res->resultData = db.Get(query, { "I:" + std::to_string(Employee_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
@@ -248,11 +236,11 @@ ResultSet* AttendanceDataHandler::readLocationWorkHours(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND attendance.LOCATION_ID=location.LOCATION_ID";
+		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
-		if (Lid[0].size() > 0) {
+		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
@@ -261,7 +249,7 @@ ResultSet* AttendanceDataHandler::readLocationWorkHours(Command* cmd) const
 		}
 		query = "select DATE(CHECK_IN) AS DATE,SUM(TOTAL_HRS) AS TOTAL_HOURS  FROM attendance WHERE LOCATION_ID=? AND DATE(CHECK_IN) BETWEEN ADDDATE(CURDATE(), INTERVAL -30 DAY) AND CURDATE() GROUP BY DATE(CHECK_IN)";
 
-		res->resultData = db.Get(query, { "I:" +location_id });
+		res->resultData = db.Get(query, { "I:" + std::to_string(location_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";

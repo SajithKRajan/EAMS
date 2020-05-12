@@ -138,7 +138,7 @@
     "ADD_HOLIDAY": {
         "handler_name": "HOLIDAY",
         "command_name": "ADD_HOLIDAY",
-        "inputs": [ "S:DATE*", "S:DESCRIPTION" ]
+        "inputs": [ "S:LOCATION_NAME*","S:DATE*", "S:DESCRIPTION" ]
     },
     "VIEW_HOLIDAY_LIST": {
         "handler_name": "HOLIDAY",
