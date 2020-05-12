@@ -111,15 +111,15 @@ ResultSet* EmployeeDataHandler::readEmployee(Command* cmd) const
 ResultSet* EmployeeDataHandler::readEmployeeList() const
 {
 		try{
-		ResultSet* res = new ResultSet();
-		std::string query = "select * from employee";
-		Database db = Database::Instance();
-		res->resultData = db.Get(query);
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","PASSWORD","ROLE_ID","LOCATION_ID" };
-		res->printType = "TABLE";
-		return res;
+			ResultSet* res = new ResultSet();
+			std::string query = "select * from employee";
+			Database db = Database::Instance();
+			res->resultData = db.Get(query);
+			res->isSuccess = true;
+			res->isToBePrint = true;
+			res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","PASSWORD","ROLE_ID","LOCATION_ID" };
+			res->printType = "TABLE";
+			return res;
 		}
 		catch (exception e)
 		{
@@ -129,15 +129,12 @@ ResultSet* EmployeeDataHandler::readEmployeeList() const
 
 ResultSet* EmployeeDataHandler::updateEmployee(Command* cmd) const
 {
-	std::string firstName;
-	std::string lastname;
-	std::string password;
-	/*if (cmd->inputs.size() != 3) {
-		std::string msg = "Expected 3 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {
-		*/
+
+	try
+	{
+		std::string firstName;
+		std::string lastname;
+		std::string password;
 		ResultSet* res = new ResultSet();
 		std::string query = "select FIRSTNAME,LASTNAME,PASSWORD from employee where USERNAME=?";
 		Database db = Database::Instance();
@@ -167,26 +164,21 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command* cmd) const
 		
 		query = "UPDATE employee SET FIRSTNAME = ? , LASTNAME = ? , PASSWORD = ? WHERE USERNAME = ?";
 		db.Update(query, { "S:" +firstName, "S:" +lastname, "S:" +password, "S:steny"});
-		//cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
-		cout << "Data Updated Successfully" << endl;
-		res->message = "Employee Record Added Successfully";
+		res->message = "Employee Record Updated Successfully";
 		return res;
-	//}
+	}
+	catch (exception e)
+	{
+		cout << "ERR:" << e.what();
+	}
 }
 
 ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 {
-	/*if (cmd->inputs.size() != 4) {
-		std::string msg = "Expected 4 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {
-	*/
-		
-		
+	try{
 		std::string query = "select PASSWORD,ROLE_ID,LOCATION_ID from employee where USERNAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<string>> employeeResult = db.Get(query, { "S:jeena" });
@@ -202,7 +194,6 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 
 		}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such Employee found" << endl;
 		}
 		if (!(Utility::getValueFromMap(cmd->inputdata, "PASSWORD").empty()))
@@ -221,11 +212,11 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 				location_id = atoi(Lid[0][0].c_str());
 			}
 			else {
-				//throw error role could not found.
+				
 				cout << "ERR:No such location found" << endl;
 			}
 			Old_location_id = location_id;
-			//std::cout << location_id << std::endl;
+			
 			
 		}
 
@@ -237,10 +228,10 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 				role_id = atoi(Rid[0][0].c_str());
 			}
 			else {
-				//throw error role could not found.
+				
 				cout << "ERR:No such Role found" << endl;
 			}
-			//std::cout << role_id << std::endl;
+			
 			Old_role_id = role_id;
 		}
 		ResultSet* res = new ResultSet();
@@ -249,10 +240,13 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
-		//cout << "data modified successfully" << endl;
 		res->message = "Employee Record Updated Successfully";
 		return res;
-	//}
+	}
+	catch (exception e)
+	{
+		cout << "ERR:" << e.what();
+	}
 }
 
 
@@ -271,7 +265,6 @@ ResultSet* EmployeeDataHandler::deleteEmployee(Command* cmd) const
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Employee Record Deleted Successfully";
-		//cout << "removed" << endl;
 		return res;
 	}
 }
@@ -301,7 +294,6 @@ ResultSet* EmployeeDataHandler::authenticate(Command* cmd) const
 			cout << "Invalid Employee Record" << endl;
 			exit(0);
 		}
-		//cout << "Authentication Completed Successfully" << endl;
 		
 	}
 

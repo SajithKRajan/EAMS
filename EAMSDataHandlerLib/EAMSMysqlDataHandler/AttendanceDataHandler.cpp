@@ -56,12 +56,7 @@ ResultSet* AttendanceDataHandler::execute(Command* cmd) const
 
 ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 {
-	/*cout << "AttendanceDataHandler::addEmployee";
-	if (cmd->inputs.size() != 3) {
-		std::string msg = "Expected 3 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {*/
+	try{
 		ResultSet* res = new ResultSet();
 
 		std::string query = "select employee.EMP_ID,LOCATION_ID from employee where employee.USERNAME=?";
@@ -72,7 +67,7 @@ ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 			location_id = atoi(Empid[0][1].c_str());
-	}
+		}
 		else {
 			cout << "ERR:No such employee found" << endl;
 		}
@@ -84,36 +79,39 @@ ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 		res->printType = "MESSAGE";
 		res->message = "Employee Record Added Successfully";
 		return res;
-	//}
+	}
+	catch (exception e)
+	{
+		cout << "ERR:" << e.what();
+	}
 }
 ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 {
-	cout << "AttendanceDataHandler::addEmployee";
-	if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {
-		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
-		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:jinu" });
-		int Employee_id;
-		if (Empid.size() > 0 && Empid[0].size() > 0) {
-			Employee_id = atoi(Empid[0][0].c_str());
+		try{
+			ResultSet* res = new ResultSet();
+			std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
+			Database db = Database::Instance();
+			std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:jinu" });
+			int Employee_id;
+			if (Empid.size() > 0 && Empid[0].size() > 0) {
+				Employee_id = atoi(Empid[0][0].c_str());
+			}
+			else {
+				cout << "ERR:No such employee found" << endl;
+			}
+			query = "UPDATE attendance SET CHECK_OUT=now(),TOTAL_HRS=TIMESTAMPDIFF(HOUR,attendance.CHECK_IN,attendance.CHECK_OUT) WHERE EMP_ID=? AND DATE(CHECK_IN)=CURDATE()";
+			db.Update(query, { "I:" + std::to_string(Employee_id) });
+			cout<<"Employee Record Added Successfully"<<endl;
+			res->isSuccess = true;
+			res->isToBePrint = true;
+			res->printType = "MESSAGE";
+			res->message = "Employee Record Added Successfully";
+			return res;
 		}
-		else {
-			cout << "ERR:No such employee found" << endl;
+		catch (exception e)
+		{
+			cout << "ERR:" << e.what();
 		}
-		query = "UPDATE attendance SET CHECK_OUT=now(),TOTAL_HRS=TIMESTAMPDIFF(HOUR,attendance.CHECK_IN,attendance.CHECK_OUT) WHERE EMP_ID=? AND DATE(CHECK_IN)=CURDATE()";
-		db.Update(query, { "I:" + std::to_string(Employee_id) });
-		cout<<"Employee Record Added Successfully"<<endl;
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = "Employee Record Added Successfully";
-		return res;
-	}
 
 }
 
@@ -141,6 +139,7 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command* cmd) cons
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "DATE","CHECK_IN","CHECK_OUT" };
 		return res;
 	}
 }
@@ -168,6 +167,7 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) con
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "DATE","CHECK_IN","CHECK_OUT" };
 		return res;
 	}
 }
@@ -197,6 +197,7 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "DATE","COUNT" };
 		return res;
 	}
 }
@@ -225,6 +226,7 @@ ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "DATE","TOTAL_HRS" };
 		return res;
 	}
 }
@@ -236,7 +238,7 @@ ResultSet* AttendanceDataHandler::readLocationWorkHours(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=?";
+		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
@@ -253,17 +255,13 @@ ResultSet* AttendanceDataHandler::readLocationWorkHours(Command* cmd) const
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "DATE","TOTAL_HRS" };
 		return res;
 	}
 }
 ResultSet* AttendanceDataHandler::readOrganizationWorkHours() const
 {
-	/*if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {
-	*/
+
 		ResultSet* res = new ResultSet();
 		std::string query = "select DATE(CHECK_IN) AS DATE,SUM(TOTAL_HRS) AS TOTAL_HOURS FROM attendance WHERE  DATE(CHECK_IN) BETWEEN ADDDATE(CURDATE(), INTERVAL -30 DAY) AND CURDATE() GROUP BY DATE(CHECK_IN)";
 		Database db = Database::Instance();
@@ -271,6 +269,6 @@ ResultSet* AttendanceDataHandler::readOrganizationWorkHours() const
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "DATE","TOTAL_HRS" };
 		return res;
-	//}
 }

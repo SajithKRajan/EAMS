@@ -65,14 +65,21 @@ ResultSet* RoleDataHandler::addRole(Command* cmd) const
 
 ResultSet* RoleDataHandler::readRole(Command* cmd) const
 {
-	ResultSet* res = new ResultSet();
-	std::string query = "select * from role where NAME=?";
-	Database db = Database::Instance();
-	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "NAME") });
-	res->isSuccess = true;
-	res->isToBePrint = true;
-	res->printType = "TABLE";
-	return res;
+	if (cmd->inputs.size() != 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+		std::string query = "select * from role where NAME=?";
+		Database db = Database::Instance();
+		res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "NAME") });
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "TABLE";
+		res->ColumnNames = { "ROLE_ID","NAME","PRIVILEGES" };
+		return res;
+	}
 }
 ResultSet* RoleDataHandler::readRoleList() const
 {
@@ -83,6 +90,7 @@ ResultSet* RoleDataHandler::readRoleList() const
 	res->isSuccess = true;
 	res->isToBePrint = true;
 	res->printType = "TABLE";
+	res->ColumnNames = { "ROLE_ID","NAME","PRIVILEGES" };
 	return res;
 
 }

@@ -58,11 +58,7 @@ ResultSet* LocationDataHandler::addLocation(Command* cmd) const
 
 ResultSet* LocationDataHandler::readLocation() const
 {
-	/*if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {*/
+
 		ResultSet* res = new ResultSet();
 		std::string query = "select * from location";
 		Database db = Database::Instance();
@@ -70,6 +66,7 @@ ResultSet* LocationDataHandler::readLocation() const
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
+		res->ColumnNames = { "LOCATION_ID","LOCATION_NAME" };
 		return res;
 	
 }
@@ -78,7 +75,7 @@ ResultSet* LocationDataHandler::readLocation() const
 ResultSet* LocationDataHandler::updateLocation(Command* cmd) const
 {
 	if (cmd->inputs.size() != 2) {
-		std::string msg = "Expected 4 arguments but got" + cmd->inputs.size();
+		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
