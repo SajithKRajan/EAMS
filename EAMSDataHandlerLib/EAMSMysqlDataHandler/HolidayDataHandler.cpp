@@ -41,11 +41,11 @@ ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 	else {
 		ResultSet* res = new ResultSet();
 		// Write code for getting EMP_ID FROM USERNAME.
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND holiday.LOCATION_ID=location.LOCATION_ID";
+		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
-		if (Lid[0].size() > 0) {
+		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
@@ -54,8 +54,8 @@ ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 		}
 		query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
 
-		db.Insert(query, { "I:" + location_id,"S:" + Utility::getValueFromMap(cmd->inputdata, "DATE"),"S:" + Utility::getValueFromMap(cmd->inputdata, "DESCRIPTION") });
-		//cout<<"Employee Record Added Successfully"<<endl;
+		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd->inputdata, "DATE"),"S:" + Utility::getValueFromMap(cmd->inputdata, "DESCRIPTION") });
+		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -73,19 +73,19 @@ ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND holiday.LOCATION_ID=location.LOCATION_ID";
+		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
-		if (Lid[0].size() > 0) {
+		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
+
 			cout << "ERR:No such location found" << endl;
 		}
 		query = "select * from holiday where LOCATION_ID=?";
-		res->resultData = db.Get(query, { "I:" + location_id });
+		res->resultData = db.Get(query, { "I:" + std::to_string(location_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "TABLE";
@@ -103,20 +103,20 @@ ResultSet* HolidayDataHandler::deleteHoliday(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=? AND holiday.LOCATION_ID=location.LOCATION_ID";
+		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
-		if (Lid[0].size() > 0) {
+		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
+			
 			cout << "ERR:No such location found" << endl;
 		}
 
 		query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";
-		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "DATE"), "I:" +location_id});
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "DATE"), "I:" + std::to_string(location_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";

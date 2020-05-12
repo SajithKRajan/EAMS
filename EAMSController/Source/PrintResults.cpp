@@ -7,6 +7,7 @@ void PrintResults::print(ResultSet objResultSet)
 	{
 		if (objResultSet.printType == "TABLE")
 		{
+			cout << "reached" << endl;
 			printTable(objResultSet);
 		}
 		else if(objResultSet.printType == "MESSAGE")

@@ -46,7 +46,7 @@ ResultSet* LocationDataHandler::addLocation(Command* cmd) const
 		std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
 		Database db = Database::Instance();
 		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
-		//cout<<"Employee Record Added Successfully"<<endl;
+		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -77,19 +77,34 @@ ResultSet* LocationDataHandler::readLocation() const
 
 ResultSet* LocationDataHandler::updateLocation(Command* cmd) const
 {
-	if (cmd->inputs.size() != 4) {
+	if (cmd->inputs.size() != 2) {
 		std::string msg = "Expected 4 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "UPDATE location SET LOCATION_NAME=? WHERE LOCATION_NAME=?";
+		string oldLocationName;
+		std::string query = "select LOCATION_NAME from location where LOCATION_NAME=?";
 		Database db = Database::Instance();
-		db.Update(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "NEW_LOCATIONNAME"), "S:" + Utility::getValueFromMap(cmd->inputdata, "OLD_LOCATIONNAME") });
+		std::vector<std::vector<string>> LocationResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "OLD_LOCATION_NAME") });
+		if (LocationResult.size() > 0) {
+			oldLocationName = LocationResult[0][0].c_str();
+		}
+		else {
+			//throw error role could not found.
+			cout << "ERR:No such Employee found" << endl;
+		}
+		if (!(Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME").empty())&& (Utility::getValueFromMap(cmd->inputdata, "OLD_LOCATION_NAME")==oldLocationName))
+		{
+			oldLocationName = Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME");
+		}
+		query = "UPDATE location SET LOCATION_NAME=? WHERE LOCATION_NAME=?";
+		db.Update(query, { "S:" +oldLocationName, "S:" + Utility::getValueFromMap(cmd->inputdata, "OLD_LOCATION_NAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Location Record Updated Successfully";
+		cout << "updated" << endl;
 		return res;
 	}
 }

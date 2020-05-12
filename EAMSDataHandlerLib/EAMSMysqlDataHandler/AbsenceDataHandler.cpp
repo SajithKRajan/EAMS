@@ -19,7 +19,7 @@ ResultSet AbsenceDataHandler::execute(Command* cmd) const
 		readAbsence(cmd);
 		break;
 	default:
-		cout << "please enter valid commands" << endl;
+		std::cout << "please enter valid commands" << endl;
 		break;
 	}
 	}
@@ -31,18 +31,18 @@ ResultSet AbsenceDataHandler::execute(Command* cmd) const
 
 ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 {
-	cout << "AbsenceDataHandler::addAbsence";
-	if (cmd->inputs.size() != 1) {
+	std::cout << "AbsenceDataHandler::addAbsence";
+	/*if (cmd->inputs.size() != 1) {
 		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else {*/
 		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=absence.EMP_ID";
+		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:steny"});
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
@@ -50,14 +50,15 @@ ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 			cout << "ERR:No such Employee found" << endl;
 		}
 		query = "INSERT INTO absence(EMP_ID,DATE) VALUES (?,now())";
-		db.Insert(query, { "I:"+Employee_id });
+		db.Insert(query,{ "I:"+std::to_string(Employee_id) });
 		//cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Absence Record Added Successfully";
+		cout << "added" << endl;
 		return res;
-	}
+	//}
 }
 
 ResultSet* AbsenceDataHandler::readAbsence(Command* cmd) const
@@ -68,11 +69,11 @@ ResultSet* AbsenceDataHandler::readAbsence(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=? AND employee.EMP_ID=absence.EMP_ID";
+		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
 		int Employee_id;
-		if (Empid[0].size() > 0) {
+		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
