@@ -8,6 +8,8 @@
 
 class Controller
 {
+private:
+	Employee* emp;
 public:
 	void start();
 };

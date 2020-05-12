@@ -117,15 +117,15 @@ ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 
 ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command* cmd) const
 {
-	if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+	if (cmd->inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -145,15 +145,15 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command* cmd) cons
 }
 ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) const
 {
-	if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+	if (cmd->inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -174,15 +174,15 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) con
 
 ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 {
-	if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+	if (cmd->inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
@@ -203,15 +203,15 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 }
 ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
 {
-	if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+	if (cmd->inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -232,15 +232,15 @@ ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
 }
 ResultSet* AttendanceDataHandler::readLocationWorkHours(Command* cmd) const
 {
-	if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+	if (cmd->inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
