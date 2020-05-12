@@ -83,6 +83,7 @@ ResultSet* RoleDataHandler::readRoleList() const
 	res->isSuccess = true;
 	res->isToBePrint = true;
 	res->printType = "TABLE";
+	res->ColumnNames = { "ROLE_ID","NAME","PRIVILEGES" };
 	return res;
 
 }
