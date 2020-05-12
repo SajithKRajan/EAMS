@@ -31,12 +31,7 @@ ResultSet AbsenceDataHandler::execute(Command* cmd) const
 
 ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 {
-	std::cout << "AbsenceDataHandler::addAbsence";
-	/*if (cmd->inputs.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {*/
+	try{
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
@@ -46,19 +41,21 @@ ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such Employee found" << endl;
 		}
 		query = "INSERT INTO absence(EMP_ID,DATE) VALUES (?,now())";
 		db.Insert(query,{ "I:"+std::to_string(Employee_id) });
-		//cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Absence Record Added Successfully";
 		cout << "added" << endl;
 		return res;
-	//}
+	}
+	catch (exception e)
+	{
+		cout << "ERR:" << e.what();
+	}
 }
 
 ResultSet* AbsenceDataHandler::readAbsence(Command* cmd) const
@@ -77,13 +74,13 @@ ResultSet* AbsenceDataHandler::readAbsence(Command* cmd) const
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
 			cout << "ERR:No such location found" << endl;
 		}
 		query = "select *  from absence where EMP_ID=?";
-		res->resultData = db.Get(query, { "I:" + Employee_id });
+		res->resultData = db.Get(query, { "I:" + std::to_string(Employee_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
+		res->ColumnNames = { "ABS_ID","EMP_ID","DATE" };
 		res->printType = "TABLE";
 		return res;
 	}

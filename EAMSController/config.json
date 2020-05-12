@@ -30,6 +30,11 @@
     "command_name": "VIEW_DETAILS",
     "inputs": []
   },
+  "VIEW_EMPLOYEE_LIST": {
+    "handler_name": "EMPLOYEE",
+    "command_name": "VIEW_EMPLOYEE_LIST",
+    "inputs": []
+  },
   "MODIFY_EMPLOYEE_DETAILS": {
     "handler_name": "EMPLOYEE",
     "command_name": "MODIFY_EMPLOYEE_DETAILS",

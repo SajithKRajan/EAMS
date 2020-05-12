@@ -34,7 +34,7 @@ ResultSet HolidayDataHandler::execute(Command* cmd) const
 ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 {
 	cout << "HolidayDataHandler::addHoliday";
-	if (cmd->inputs.size() != 2) {
+	if (cmd->inputs.size() < 2) {
 		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
@@ -73,7 +73,7 @@ ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=?";
+		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
 		int location_id;
@@ -88,6 +88,7 @@ ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
 		res->resultData = db.Get(query, { "I:" + std::to_string(location_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
+		res->ColumnNames = { "HOL_ID","LOCATION_ID","DATE","DESCRIPTION" };
 		res->printType = "TABLE";
 		return res;
 	}
