@@ -9,7 +9,7 @@ class AbsenceDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	ResultSet addAbsence(Absence absence) const;
-	ResultSet readAbsence(std::string username) const;
+	ResultSet* addAbsence(Command* cmd) const;
+	ResultSet* readAbsence(Command* cmd) const;
 };
 

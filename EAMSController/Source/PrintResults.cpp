@@ -9,6 +9,15 @@ void PrintResults::print(ResultSet objResultSet)
 		{
 			printTable(objResultSet);
 		}
+		else if(objResultSet.printType == "MESSAGE")
+		{
+			cout << objResultSet.message << endl;
+		}
+		else if (objResultSet.printType == "OBJECT")
+		{
+			printObject(objResultSet);
+		}
+
 			
 	}
 }
@@ -42,4 +51,8 @@ void PrintResults::printTable(ResultSet objResultSet)
 		cout << left << setw(20) << setfill('-') << left << '+';
 	}
 	cout << "+" << endl;
+}
+void PrintResults::printObject(ResultSet objResultSet)
+{
+
 }

@@ -10,9 +10,9 @@ class LocationDataHandler : public IDataHandler
 public:
 	virtual ResultSet execute(Command* cmd) const;
 private:
-	ResultSet addLocation(Location location) const;
-	ResultSet readLocation() const;
-	ResultSet updateLocation(Location location) const;
-	ResultSet deleteLocation(std::string locationName) const;
+	ResultSet* addLocation(Command* cmd) const;
+	ResultSet* readLocation() const;
+	ResultSet* updateLocation(Command* cmd) const;
+	ResultSet* deleteLocation(Command* cmd) const;
 };
 

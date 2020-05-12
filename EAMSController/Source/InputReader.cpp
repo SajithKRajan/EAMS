@@ -54,7 +54,7 @@ Command* InputReader::getNextCommand()
 	int ch;
 	cout << "Menu Options" << endl;
 	cout << endl;
-	vector<string> commands{ "ADD_EMPLOYEE", "ADD_HOLIDAY","REMOVE_HOLIDAY","ADD_ABSENCE","EXIT" };
+	vector<string> commands{ "ADD_EMPLOYEE","EDIT_EMPLOYEE" ,"ADD_HOLIDAY","REMOVE_HOLIDAY","ADD_ABSENCE","EXIT" };
 	for (int k = 0;k <= (commands.size() - 1);k++)
 	{
 		cout << k + 1 << " - " << Utility::toCamelCase(commands[k],'_') << endl;

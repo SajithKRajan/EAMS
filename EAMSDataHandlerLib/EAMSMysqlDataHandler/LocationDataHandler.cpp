@@ -2,66 +2,117 @@
 #include <iostream>
 #include "Utilities/Utility.h"
 #include "Common/Database.h"
+#include "EAMSMysqlDataHandler/EAMSException.h"
 
 ResultSet LocationDataHandler::execute(Command* cmd) const
 {
-	switch (Utility::str2int(cmd->command_name)) {
-	case Utility::str2int("ADD_LOCATION"):
-		addLocation(Location());
-		break;
-	case Utility::str2int("MODIFY_LOCATION"):
-		updateLocation(Location());
-		break;
-	case Utility::str2int("VIEW_LOCATION_LIST"):
-		readLocation();
-		break;
-	case  Utility::str2int("REMOVE_LOCATION"):
-		deleteLocation("");
-		break;
-	default:
-		cout << "Please Enter Valid Commands" << endl;
-		break;
+	ResultSet* res = new ResultSet();
+	try {
+		switch (Utility::str2int(cmd->command_name))
+		{
+			case Utility::str2int("ADD_LOCATION"):
+				addLocation(cmd);
+				break;
+			case Utility::str2int("MODIFY_LOCATION"):
+				updateLocation(cmd);
+				break;
+			case Utility::str2int("VIEW_LOCATION_LIST"):
+				readLocation();
+				break;
+			case  Utility::str2int("REMOVE_LOCATION"):
+				deleteLocation(cmd);
+				break;
+			default:
+				std::cout << "Please Enter Valid Commands" << endl;
+				break;
+		}
+	}
+	catch (exception ex) {
+		res->message = ex.what();
 	}
 	return ResultSet();
 }
 
 
-ResultSet LocationDataHandler::addLocation(Location location) const
+ResultSet* LocationDataHandler::addLocation(Command* cmd) const
 {
-	std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";;
-	Database db = Database::Instance();
-	db.Insert(query, { "S:BANGLORE" });
-	cout << "New Location Record Added Successfully" << endl;
-	return ResultSet();
+	if (cmd->inputs.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+
+		std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
+		Database db = Database::Instance();
+		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME") });
+		//cout<<"Employee Record Added Successfully"<<endl;
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
+		res->message = "Location Record Added Successfully";
+		return res;
+	}
 }
 
 
-ResultSet LocationDataHandler::readLocation() const
+ResultSet* LocationDataHandler::readLocation() const
 {
-	std::string query = "select * from location";
-	Database db = Database::Instance();
-	db.Get(query);
-
-	return ResultSet();
+	/*if (cmd->inputs.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {*/
+		ResultSet* res = new ResultSet();
+		std::string query = "select * from location";
+		Database db = Database::Instance();
+		res->resultData = db.Get(query);
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "TABLE";
+		return res;
 	
 }
 
 
-ResultSet LocationDataHandler::updateLocation(Location location) const
+ResultSet* LocationDataHandler::updateLocation(Command* cmd) const
 {
-	std::string query = "UPDATE location SET LOCATION_NAME=? WHERE LOCATION_NAME=?";
-	Database db = Database::Instance();
-	db.Update(query, { "S:THAMILNADU","I:BANGLORE" });
-	cout << "Record Updated Successfully" << endl;
-	return ResultSet();
+	if (cmd->inputs.size() != 4) {
+		std::string msg = "Expected 4 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+		std::string query = "UPDATE location SET LOCATION_NAME=? WHERE LOCATION_NAME=?";
+		Database db = Database::Instance();
+		db.Update(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "NEW_LOCATIONNAME"), "S:" + Utility::getValueFromMap(cmd->inputdata, "OLD_LOCATIONNAME") });
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
+		res->message = "Location Record Updated Successfully";
+		return res;
+	}
 }
 
 
-ResultSet LocationDataHandler::deleteLocation(string locationName) const
+ResultSet* LocationDataHandler::deleteLocation(Command* cmd) const
 {
-	std::string query = "DELETE FROM location WHERE LOCATION_NAME=?";
-	Database db = Database::Instance();
-	db.Delete(query, { "S:BANGLORE" });
-	cout << "Record Removed Successfully" << endl;
-	return ResultSet();
+
+	if (cmd->inputs.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputs.size();
+		throw EAMSException(msg.c_str());
+	}
+	else {
+		ResultSet* res = new ResultSet();
+		// Write code for getting locationid, role id from their names.
+		std::string query = "DELETE FROM location WHERE LOCATION_NAME=?";
+		Database db = Database::Instance();
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "LOCATION_NAME")});
+		res->isSuccess = true;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
+		res->message = "Record Removed Successfully";
+		return res;
+	}
+
 }
