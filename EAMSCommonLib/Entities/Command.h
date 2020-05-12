@@ -11,6 +11,6 @@ public:
 	string function_handler_name;
 	char* command_name;
 	vector<string> inputs;
-	map<string, string> inputdata;
+	map<string, string> inputData;
 };
 
