@@ -288,13 +288,21 @@ ResultSet* EmployeeDataHandler::authenticate(Command* cmd) const
 		std::string query = "select * from employee where USERNAME=? AND PASSWORD=?";
 		Database db = Database::Instance();
 		res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata,"USERNAME"),"S:" + Utility::getValueFromMap(cmd->inputdata,"PASSWORD") });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		
-		res->message = "Authentication Completed Successfully";
+		if (res->resultData.size() > 0)
+		{
+			res->isSuccess = true;
+			res->isToBePrint = true;
+			res->printType = "MESSAGE";
+
+			res->message = "Authentication Completed Successfully";
+			return res;
+		}
+		else {
+			cout << "Invalid Employee Record" << endl;
+			exit(0);
+		}
 		//cout << "Authentication Completed Successfully" << endl;
-		return res;
+		
 	}
 
 	

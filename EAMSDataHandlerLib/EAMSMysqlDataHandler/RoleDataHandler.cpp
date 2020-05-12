@@ -89,8 +89,8 @@ ResultSet* RoleDataHandler::readRoleList() const
 
 ResultSet* RoleDataHandler::updateRole(Command* cmd) const
 {
-	if (cmd->inputs.size() != 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+	if (cmd->inputs.size() < 1) {
+		std::string msg = "Expected 3 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -100,8 +100,8 @@ ResultSet* RoleDataHandler::updateRole(Command* cmd) const
 		string newRole;
 		std::string query = "select NAME,PRIVILEGES from role where NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<string>> RoleResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "NAME") });
-		if (RoleResult.size() > 0) {
+		std::vector<std::vector<string>> RoleResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "ROLE_NAME") });
+		if (RoleResult.size() > 0 ) {
 			roleName = RoleResult[0][0].c_str();
 			privileges= RoleResult[0][1].c_str();
 		}
@@ -109,16 +109,17 @@ ResultSet* RoleDataHandler::updateRole(Command* cmd) const
 			//throw error role could not found.
 			cout << "ERR:No such role found" << endl;
 		}
-		if (!Utility::getValueFromMap(cmd->inputdata, "ROLE_NAME").empty())
+		if (!Utility::getValueFromMap(cmd->inputdata, "NEW_ROLE_NAME").empty() && (Utility::getValueFromMap(cmd->inputdata, "ROLE_NAME") ==roleName))
 		{
-			newRole = Utility::getValueFromMap(cmd->inputdata, "ROLE_NAME");
+			roleName = Utility::getValueFromMap(cmd->inputdata, "NEW_ROLE_NAME");
 		}
 		if (!Utility::getValueFromMap(cmd->inputdata, "PRIVILEGES").empty())
-		{
-			privileges = Utility::getValueFromMap(cmd->inputdata, "PRIVILEGES");
+		{	
+			privileges = privileges.append(",");
+			privileges = privileges.append(Utility::getValueFromMap(cmd->inputdata, "PRIVILEGES"));
 		}
-		query = "UPDATE role SET NAME=? PRIVILEGES=? WHERE NAME=?";
-		db.Update(query, { "S:" + newRole , "S:"+ privileges,"S:"+roleName});
+		query = "UPDATE role SET NAME=?,PRIVILEGES=? WHERE NAME=?";
+		db.Update(query, { "S:" + roleName , "S:"+ privileges,"S:"+ Utility::getValueFromMap(cmd->inputdata, "ROLE_NAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -139,7 +140,7 @@ ResultSet* RoleDataHandler::deleteRole(Command* cmd) const
 		// Write code for getting locationid, role id from their names.
 		std::string query = "DELETE FROM role WHERE NAME=?";
 		Database db = Database::Instance();
-		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "NAME")});
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputdata, "ROLE_NAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
