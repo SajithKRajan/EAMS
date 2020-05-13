@@ -56,7 +56,6 @@ ResultSet* RoleDataHandler::addRole(Command* cmd) const
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Role Record Added Successfully";
-		cout << "added" << endl;
 		return res;
 	}
 
@@ -66,24 +65,25 @@ ResultSet* RoleDataHandler::addRole(Command* cmd) const
 ResultSet* RoleDataHandler::readRole(Command* cmd) const
 {
 	ResultSet* res = new ResultSet();
-	std::string query = "select * from role where NAME=?";
+	std::string query = "select  ROLE_ID,NAME from role where NAME=?";
 	Database db = Database::Instance();
 	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "NAME") });
 	res->isSuccess = true;
 	res->isToBePrint = true;
 	res->printType = "TABLE";
+	res->ColumnNames = { "ROLE_ID","NAME" };
 	return res;
 }
 ResultSet* RoleDataHandler::readRoleList() const
 {
 	ResultSet* res = new ResultSet();
-	std::string query = "select * from role";
+	std::string query = "select ROLE_ID,NAME from role";
 	Database db = Database::Instance();
 	res->resultData = db.Get(query);
 	res->isSuccess = true;
 	res->isToBePrint = true;
 	res->printType = "TABLE";
-	res->ColumnNames = { "ROLE_ID","NAME","PRIVILEGES" };
+	res->ColumnNames = { "ROLE_ID","NAME"};
 	return res;
 
 }

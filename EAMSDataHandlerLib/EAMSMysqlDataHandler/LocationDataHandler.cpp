@@ -46,7 +46,6 @@ ResultSet* LocationDataHandler::addLocation(Command* cmd) const
 		std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
 		Database db = Database::Instance();
 		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
-		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -101,7 +100,6 @@ ResultSet* LocationDataHandler::updateLocation(Command* cmd) const
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Location Record Updated Successfully";
-		cout << "updated" << endl;
 		return res;
 	}
 }

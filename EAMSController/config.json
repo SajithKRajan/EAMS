@@ -38,7 +38,7 @@
   "MODIFY_EMPLOYEE_DETAILS": {
     "handler_name": "EMPLOYEE",
     "command_name": "MODIFY_EMPLOYEE_DETAILS",
-    "inputs": [ "S:PASSWORD", "S:LOCATION_NAME", "S:ROLE_NAME" ]
+    "inputs": [ "S:USERNAME*", "S:PASSWORD", "S:LOCATION_NAME", "S:ROLE_NAME" ]
   },
   "REMOVE_EMPLOYEE_DETAILS": {
     "handler_name": "EMPLOYEE",

@@ -56,12 +56,11 @@ ResultSet* AttendanceDataHandler::execute(Command* cmd) const
 
 ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 {
-	try{
 		ResultSet* res = new ResultSet();
 
 		std::string query = "select employee.EMP_ID,LOCATION_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:jinu"});
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 		int Employee_id;
 		int location_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
@@ -73,25 +72,19 @@ ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 		}
 		query = "INSERT INTO attendance(EMP_ID,LOCATION_ID,CHECK_IN) VALUES (?,?,now())";
 		db.Insert(query, {"I:" + std::to_string(Employee_id),"I:" + std::to_string(location_id) });
-		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Employee Record Added Successfully";
 		return res;
-	}
-	catch (exception e)
-	{
-		cout << "ERR:" << e.what();
-	}
+
 }
 ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 {
-		try{
 			ResultSet* res = new ResultSet();
 			std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 			Database db = Database::Instance();
-			std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:jinu" });
+			std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 			int Employee_id;
 			if (Empid.size() > 0 && Empid[0].size() > 0) {
 				Employee_id = atoi(Empid[0][0].c_str());
@@ -101,17 +94,11 @@ ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 			}
 			query = "UPDATE attendance SET CHECK_OUT=now(),TOTAL_HRS=TIMESTAMPDIFF(HOUR,attendance.CHECK_IN,attendance.CHECK_OUT) WHERE EMP_ID=? AND DATE(CHECK_IN)=CURDATE()";
 			db.Update(query, { "I:" + std::to_string(Employee_id) });
-			cout<<"Employee Record Added Successfully"<<endl;
 			res->isSuccess = true;
 			res->isToBePrint = true;
 			res->printType = "MESSAGE";
 			res->message = "Employee Record Added Successfully";
 			return res;
-		}
-		catch (exception e)
-		{
-			cout << "ERR:" << e.what();
-		}
 
 }
 
@@ -174,11 +161,7 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) con
 
 ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
-		throw EAMSException(msg.c_str());
-	}
-	else {
+
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
@@ -199,7 +182,6 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 		res->printType = "TABLE";
 		res->ColumnNames = { "DATE","COUNT" };
 		return res;
-	}
 }
 ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
 {

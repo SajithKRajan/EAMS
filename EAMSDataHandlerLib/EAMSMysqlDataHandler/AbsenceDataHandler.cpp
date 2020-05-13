@@ -35,7 +35,7 @@ ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:steny"});
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -49,7 +49,6 @@ ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Absence Record Added Successfully";
-		cout << "added" << endl;
 		return res;
 	}
 	catch (exception e)
