@@ -36,8 +36,8 @@ ResultSet* LocationDataHandler::execute(Command cmd) const
 
 ResultSet* LocationDataHandler::addLocation(Command cmd) const
 {
-	if (cmd.inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
+	if (cmd->inputData.size() < 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -45,8 +45,7 @@ ResultSet* LocationDataHandler::addLocation(Command cmd) const
 
 		std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
 		Database db = Database::Instance();
-		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
-		cout<<"Employee Record Added Successfully"<<endl;
+		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -74,8 +73,8 @@ ResultSet* LocationDataHandler::readLocation() const
 
 ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 {
-	if (cmd.inputs.size() != 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd.inputs.size();
+	if (cmd->inputs.size() < 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -88,8 +87,8 @@ ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 			oldLocationName = LocationResult[0][0].c_str();
 		}
 		else {
-			//throw error role could not found.
-			cout << "ERR:No such Employee found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		if (!(Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME").empty())&& (Utility::getValueFromMap(cmd.inputData, "OLD_LOCATION_NAME")==oldLocationName))
 		{
@@ -101,7 +100,6 @@ ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Location Record Updated Successfully";
-		cout << "updated" << endl;
 		return res;
 	}
 }
@@ -110,13 +108,12 @@ ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 ResultSet* LocationDataHandler::deleteLocation(Command cmd) const
 {
 
-	if (cmd.inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
+	if (cmd->inputData.size() < 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		// Write code for getting locationid, role id from their names.
 		std::string query = "DELETE FROM location WHERE LOCATION_NAME=?";
 		Database db = Database::Instance();
 		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME")});
