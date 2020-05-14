@@ -41,8 +41,8 @@ ResultSet* RoleDataHandler::execute(Command cmd) const
 
 ResultSet* RoleDataHandler::addRole(Command cmd) const
 {
-	if (cmd->inputData.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() < 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -50,7 +50,7 @@ ResultSet* RoleDataHandler::addRole(Command cmd) const
 
 		std::string query = "INSERT INTO role(NAME,PRIVILEGES) VALUES (?,?)";
 		Database db = Database::Instance();
-		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "ROLE_NAME"), "S:" + Utility::getValueFromMap(cmd->inputData, "PRIVILEGES") });
+		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME"), "S:" + Utility::getValueFromMap(cmd.inputData, "PRIVILEGES") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -66,7 +66,7 @@ ResultSet* RoleDataHandler::readRole(Command cmd) const
 	ResultSet* res = new ResultSet();
 	std::string query = "select  ROLE_ID,NAME from role where NAME=?";
 	Database db = Database::Instance();
-	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "NAME") });
+	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "NAME") });
 	res->isSuccess = true;
 	res->isToBePrint = true;
 	res->printType = "TABLE";

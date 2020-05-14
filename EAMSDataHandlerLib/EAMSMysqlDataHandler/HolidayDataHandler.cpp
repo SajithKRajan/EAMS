@@ -33,8 +33,8 @@ ResultSet* HolidayDataHandler::execute(Command cmd) const
 
 ResultSet* HolidayDataHandler::addHoliday(Command cmd) const
 {
-	if (cmd->inputs.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+	if (cmd.inputs.size() < 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd.inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -53,7 +53,7 @@ ResultSet* HolidayDataHandler::addHoliday(Command cmd) const
 		}
 		query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
 
-		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd->inputData, "DATE"),"S:" + Utility::getValueFromMap(cmd->inputData, "DESCRIPTION") });
+		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd.inputData, "DATE"),"S:" + Utility::getValueFromMap(cmd.inputData, "DESCRIPTION") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";

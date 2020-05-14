@@ -36,8 +36,8 @@ ResultSet* LocationDataHandler::execute(Command cmd) const
 
 ResultSet* LocationDataHandler::addLocation(Command cmd) const
 {
-	if (cmd->inputData.size() < 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() < 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -45,7 +45,7 @@ ResultSet* LocationDataHandler::addLocation(Command cmd) const
 
 		std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
 		Database db = Database::Instance();
-		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
+		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -73,8 +73,8 @@ ResultSet* LocationDataHandler::readLocation() const
 
 ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 {
-	if (cmd->inputs.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+	if (cmd.inputs.size() < 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd.inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -108,8 +108,8 @@ ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 ResultSet* LocationDataHandler::deleteLocation(Command cmd) const
 {
 
-	if (cmd->inputData.size() < 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() < 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
