@@ -4,12 +4,12 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet* AttendanceDataHandler::execute(Command* cmd) const
+ResultSet* AttendanceDataHandler::execute(Command cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try 
 	{
-		switch (Utility::str2int(cmd->command_name)) {
+		switch (Utility::str2int(cmd.command_name)) {
 			case Utility::str2int("ADD_CHECK-IN"):
 				return addCheckIn(cmd);
 				break;
@@ -54,7 +54,7 @@ ResultSet* AttendanceDataHandler::execute(Command* cmd) const
 }
 
 
-ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
+ResultSet* AttendanceDataHandler::addCheckIn(Command cmd) const
 {
 	try{
 		ResultSet* res = new ResultSet();
@@ -85,7 +85,7 @@ ResultSet* AttendanceDataHandler::addCheckIn(Command* cmd) const
 		cout << "ERR:" << e.what();
 	}
 }
-ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
+ResultSet* AttendanceDataHandler::addCheckOut(Command cmd) const
 {
 		try{
 			ResultSet* res = new ResultSet();
@@ -115,17 +115,17 @@ ResultSet* AttendanceDataHandler::addCheckOut(Command* cmd) const
 
 }
 
-ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command* cmd) const
+ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -143,17 +143,17 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfWeek(Command* cmd) cons
 		return res;
 	}
 }
-ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) const
+ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -172,17 +172,17 @@ ResultSet* AttendanceDataHandler::readAttendanceSummaryOfMonth(Command* cmd) con
 	}
 }
 
-ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
+ResultSet* AttendanceDataHandler::readLocationAttendance(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
@@ -201,17 +201,17 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command* cmd) const
 		return res;
 	}
 }
-ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
+ResultSet* AttendanceDataHandler::readWorkHours(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
@@ -230,17 +230,17 @@ ResultSet* AttendanceDataHandler::readWorkHours(Command* cmd) const
 		return res;
 	}
 }
-ResultSet* AttendanceDataHandler::readLocationWorkHours(Command* cmd) const
+ResultSet* AttendanceDataHandler::readLocationWorkHours(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());

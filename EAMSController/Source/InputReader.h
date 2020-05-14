@@ -5,8 +5,7 @@
 #include "CommandParser.h"
 #include "Utilities/Utility.h"
 #include <vector>
-#include <chrono>
-#include <thread>
+
 
 using namespace std;
 
@@ -16,7 +15,7 @@ private:
 	vector<string> commands;
 public:
 	void setCommandList(string commandList);
-	Command* getCommand(string cmdName);
-	Command* getNextCommand();
+	Command getCommand(string cmdName);
+	Command getNextCommand();
 };
 

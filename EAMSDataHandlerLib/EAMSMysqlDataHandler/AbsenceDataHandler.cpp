@@ -4,11 +4,11 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet* AbsenceDataHandler::execute(Command* cmd) const
+ResultSet* AbsenceDataHandler::execute(Command cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try {
-	switch (Utility::str2int(cmd->command_name)) {
+	switch (Utility::str2int(cmd.command_name)) {
 	case Utility::str2int("ADD_ABSENCE"):
 		return addAbsence(cmd);
 		break;
@@ -29,7 +29,7 @@ ResultSet* AbsenceDataHandler::execute(Command* cmd) const
 	return res;
 }
 
-ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
+ResultSet* AbsenceDataHandler::addAbsence(Command cmd) const
 {
 	try{
 		ResultSet* res = new ResultSet();
@@ -58,17 +58,17 @@ ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 	}
 }
 
-ResultSet* AbsenceDataHandler::readAbsence(Command* cmd) const
+ResultSet* AbsenceDataHandler::readAbsence(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "USERNAME") });
+		std::vector<std::vector<std::string>> Empid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "USERNAME") });
 		int Employee_id;
 		if (Empid.size() > 0 && Empid[0].size() > 0) {
 			Employee_id = atoi(Empid[0][0].c_str());
