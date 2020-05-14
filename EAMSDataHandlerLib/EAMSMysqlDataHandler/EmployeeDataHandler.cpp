@@ -64,10 +64,9 @@ ResultSet* EmployeeDataHandler::addEmployee(Command cmd) const
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
-			std::cout << "ERR:No such location found" << endl;
+			std::string msg = "No such location found";
+			throw EAMSException(msg.c_str());
 		}
-		std::cout << "LOCATION_ID"<<location_id << std::endl;
 		query = "select role.ROLE_ID from role where role.NAME=?";
 		std::vector<std::vector<std::string>> Rid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") });
 		int role_id;
@@ -75,15 +74,13 @@ ResultSet* EmployeeDataHandler::addEmployee(Command cmd) const
 			role_id = atoi(Rid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
-			std::cout << "ERR:No such Role found" << endl;
+			std::string msg = "No such role found";
+			throw EAMSException(msg.c_str());
 		}
-		//std::cout <<"ROLE_ID"<< role_id << std::endl;
 
 
 		query = "INSERT INTO employee(USERNAME,PASSWORD,ROLE_ID,LOCATION_ID) VALUES (?,?,?,?)";
-		db.Insert(query,{ "S:"+ Utility::getValueFromMap(cmd.inputData,"USERNAME"),"S:"+ Utility::getValueFromMap(cmd.inputData, "PASSWORD"),"I:" + std::to_string(role_id),"I:" + std::to_string(location_id)});
-		cout<<"Employee Record Added Successfully"<<endl;
+		db.Insert(query,{ "S:"+ Utility::getValueFromMap(cmd->inputData,"USERNAME"),"S:"+ Utility::getValueFromMap(cmd->inputData, "PASSWORD"),"I:" + std::to_string(role_id),"I:" + std::to_string(location_id)});
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -101,12 +98,12 @@ ResultSet* EmployeeDataHandler::readEmployee(Command cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		std::string query = "select * from employee where USERNAME=?";
+		std::string query = "select EMP_ID,USERNAME,FIRSTNAME,LASTNAME,ROLE_ID,LOCATION_ID from employee where USERNAME=?";
 		Database db = Database::Instance();
 		res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData,"USERNAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
-		res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","PASSWORD","ROLE_ID","LOCATION_ID" };
+		res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","ROLE_ID","LOCATION_ID" };
 		res->printType = "TABLE";
 		return res;
 	}
@@ -115,12 +112,12 @@ ResultSet* EmployeeDataHandler::readEmployeeList() const
 {
 		try{
 			ResultSet* res = new ResultSet();
-			std::string query = "select * from employee";
+			std::string query = "select EMP_ID,USERNAME,FIRSTNAME,LASTNAME,ROLE_ID,LOCATION_ID from employee";
 			Database db = Database::Instance();
 			res->resultData = db.Get(query);
 			res->isSuccess = true;
 			res->isToBePrint = true;
-			res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","PASSWORD","ROLE_ID","LOCATION_ID" };
+			res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","ROLE_ID","LOCATION_ID" };
 			res->printType = "TABLE";
 			return res;
 		}
@@ -141,7 +138,7 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command cmd) const
 		ResultSet* res = new ResultSet();
 		std::string query = "select FIRSTNAME,LASTNAME,PASSWORD from employee where USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<string>> employeeResult = db.Get(query, { "S:steny" });
+		std::vector<std::vector<string>> employeeResult = db.Get(query, {"S:" +Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 		if (employeeResult.size() > 0) {
 			firstName = employeeResult[0][0].c_str();
 			lastname = employeeResult[0][1].c_str();
@@ -149,8 +146,8 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command cmd) const
 			
 		}
 		else {
-			//throw error role could not found.
-			cout << "ERR:No such Employee found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		if (!(Utility::getValueFromMap(cmd.inputData, "FIRSTNAME").empty()))
 		{
@@ -166,7 +163,7 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command cmd) const
 		}
 		
 		query = "UPDATE employee SET FIRSTNAME = ? , LASTNAME = ? , PASSWORD = ? WHERE USERNAME = ?";
-		db.Update(query, { "S:" +firstName, "S:" +lastname, "S:" +password, "S:steny"});
+		db.Update(query, { "S:" +firstName, "S:" +lastname, "S:" +password, "S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -181,10 +178,9 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command cmd) const
 
 ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command cmd) const
 {
-	try{
 		std::string query = "select PASSWORD,ROLE_ID,LOCATION_ID from employee where USERNAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<string>> employeeResult = db.Get(query, { "S:jeena" });
+		std::vector<std::vector<string>> employeeResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 		string password;
 		int Old_role_id;
 		int Old_location_id;
@@ -197,7 +193,8 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command cmd) const
 
 		}
 		else {
-			cout << "ERR:No such Employee found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		if (!(Utility::getValueFromMap(cmd.inputData, "PASSWORD").empty()))
 		{
@@ -216,7 +213,8 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command cmd) const
 			}
 			else {
 				
-				cout << "ERR:No such location found" << endl;
+				std::string msg = "No such location found";
+				throw EAMSException(msg.c_str());
 			}
 			Old_location_id = location_id;
 			
@@ -232,31 +230,27 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command cmd) const
 			}
 			else {
 				
-				cout << "ERR:No such Role found" << endl;
+				std::string msg = "No such role found";
+				throw EAMSException(msg.c_str());
 			}
 			
 			Old_role_id = role_id;
 		}
 		ResultSet* res = new ResultSet();
 		query = "UPDATE employee SET PASSWORD=?,ROLE_ID=?,LOCATION_ID=? WHERE USERNAME=?";
-		db.Update(query, { "S:" +password,"I:"+std::to_string(Old_role_id),"I:" + std::to_string(Old_location_id),"S:jeena" });
+		db.Update(query, { "S:" +password,"I:"+std::to_string(Old_role_id),"I:" + std::to_string(Old_location_id),"S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
 		res->message = "Employee Record Updated Successfully";
 		return res;
-	}
-	catch (exception e)
-	{
-		cout << "ERR:" << e.what();
-	}
 }
 
 
 ResultSet* EmployeeDataHandler::deleteEmployee(Command cmd) const
 {	
-	if (cmd.inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
+	if (cmd->inputData.size() < 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -294,7 +288,8 @@ ResultSet* EmployeeDataHandler::authenticate(Command cmd) const
 			return res;
 		}
 		else {
-			cout << "Invalid Employee Record" << endl;
+			std::string msg = "Invalid Employee Record";
+			throw EAMSException(msg.c_str());
 			exit(0);
 		}
 		
