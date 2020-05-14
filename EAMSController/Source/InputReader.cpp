@@ -6,16 +6,15 @@ void InputReader::setCommandList(string commandList)
 	this->commands=Utility::splitString(commandList,',');
 }
 
-Command* InputReader::getCommand(string cmdName)
+Command InputReader::getCommand(string cmdName)
 
 {
-	CommandParser* cp = cp->getInstance();
-	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-	Command* cmd = cp->getCommand(cmdName);
+	CommandParser* cp = CommandParser::getInstance();
+	Command cmd = cp->getCommand(cmdName);
 	string tempinput;
 	char temp;
 
-	for (string input : cmd->inputs)
+	for (string input : cmd.inputs)
 	{
 		string header = input.substr(input.find(':') + 1, input.length());
 		bool mandatory = false;
@@ -27,7 +26,7 @@ Command* InputReader::getCommand(string cmdName)
 		if (mandatory) {
 			std::cout << "Enter " << Utility::toCamelCase(header, '_') << ":";
 			cin >> tempinput;
-			cmd->inputData.insert({ header,tempinput });
+			cmd.inputData.insert({ header,tempinput });
 		}
 		else {
 			cout << "Do you want to edit " << Utility::toCamelCase(header,'_') << " (y/n)" << endl;
@@ -38,14 +37,14 @@ Command* InputReader::getCommand(string cmdName)
 			{
 				std::cout << "Enter the  " << Utility::toCamelCase(header, '_') << ":";
 				cin >> tempinput;
-				cmd->inputData.insert({ header,tempinput });
+				cmd.inputData.insert({ header,tempinput });
 				break;
 			}
 			case 'y':
 			{
 				std::cout << "Enter the  " << Utility::toCamelCase(header, '_') << ":";
 				cin >> tempinput;
-				cmd->inputData.insert({ header,tempinput });
+				cmd.inputData.insert({ header,tempinput });
 				break;
 			}
 			}
@@ -56,7 +55,7 @@ Command* InputReader::getCommand(string cmdName)
 	return cmd;
 }
 
-Command* InputReader::getNextCommand()
+Command InputReader::getNextCommand()
 {
 	int ch;
 	cout << "Menu Options" << endl;

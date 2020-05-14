@@ -10,13 +10,13 @@ class CommandParser
 {
 private:
     static CommandParser* instance;
-    map<std::string, Command*> commandList;
+    map<std::string, Command> commandList;
     CommandParser() {
     }
 public:
     static CommandParser* getInstance();
     void parseCommand(ptree pt);
-    Command* getCommand(std::string cmdName);
+    Command getCommand(std::string cmdName);
 };
 
 

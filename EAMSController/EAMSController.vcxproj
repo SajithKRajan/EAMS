@@ -90,13 +90,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler;D:\Sajith\EAMS\EAMSV1.0\EAMSCommonLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EAMSDataHandlerLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib\x64\Release;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EAMSDataHandlerLib.lib;EAMSCommonLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -107,13 +107,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler;D:\Sajith\EAMS\EAMSV1.0\EAMSCommonLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EAMSDataHandlerLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib\x64\Release;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EAMSDataHandlerLib.lib;EAMSCommonLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,15 +126,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler;D:\Sajith\EAMS\EAMSV1.0\EAMSCommonLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EAMSDataHandlerLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib\x64\Release;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EAMSDataHandlerLib.lib;EAMSCommonLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,27 +147,29 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler;D:\Sajith\EAMS\EAMSV1.0\EAMSCommonLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib;C:\Users\ranji\boost_1_72_0\boost_1_72_0;C:\Users\ranji\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.0\EAMSDataHandler\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EAMSDataHandlerLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSCommonLib\x64\Release;D:\Sajith\EAMS\EAMSV1.1\EAMS\EAMSDataHandlerLib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EAMSDataHandlerLib.lib;EAMSCommonLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="EAMSController.cpp" />
     <ClCompile Include="Source\CommandParser.cpp" />
+    <ClCompile Include="Source\Controller.cpp" />
     <ClCompile Include="Source\InputReader.cpp" />
+    <ClCompile Include="Source\PrintResults.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Controller.h" />
     <ClInclude Include="Source\CommandParser.h" />
+    <ClInclude Include="Source\Controller.h" />
     <ClInclude Include="Source\InputReader.h" />
+    <ClInclude Include="Source\PrintResults.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />

@@ -8,7 +8,13 @@ void Controller::start()
 	cout << "*-*-*-*-*-*-*-*-*-*-*- WELCOME TO QAMS *-*-*-*-*-*-*-*-*-*-*-" << endl;
 	cout << endl;
 	cout << "LOGIN" << endl;
-	Command* cmd = inputReader.getCommand("LOGIN");
+	Command cmd = inputReader.getCommand("LOGIN");
+	//Command* command = new Command();
+	//std::copy(std::begin(cmd.command_name), std::end(cmd.command_name), std::begin(command->command_name));
+	////command->command_name = cmd.command_name;
+	//command->function_handler_name = cmd.function_handler_name;
+	//command->inputData = cmd.inputData;
+	//command->inputs=cmd.inputs;
 	ResultSet* res = hanlder->execute(cmd);
 	// todo handle error case
 	std::string username = res->resultData[0][0];
@@ -22,13 +28,18 @@ void Controller::start()
 	{
 
 		isExit = false;
-		Command* cmd = inputReader.getNextCommand();
-		if (strcmp(cmd->command_name, "EXIT") != 0)
+		Command cmd = inputReader.getNextCommand();
+		//Command* command = new Command();
+		//std::copy(std::begin(cmd.command_name), std::end(cmd.command_name), std::begin(command->command_name));
+		//command->function_handler_name = cmd.function_handler_name;
+		//command->inputData = cmd.inputData;
+		//command->inputs = cmd.inputs;
+		if (strcmp(cmd.command_name, "EXIT") != 0)
 		{
-			if (Utility::getValueFromMap(cmd->inputData,"USERNAME").empty()) {
-				cmd->inputData.insert({ "USERNAME" , this->emp->getUserName() });
+			if (Utility::getValueFromMap(cmd.inputData,"USERNAME").empty()) {
+				cmd.inputData.insert({ "USERNAME" , this->emp->getUserName() });
 			}
-			hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::enumFromString(cmd->function_handler_name));
+			hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::enumFromString(cmd.function_handler_name));
 			ResultSet* res = hanlder->execute(cmd);
 			PrintResults pr;
 			pr.print(res);

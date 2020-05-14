@@ -4,12 +4,12 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet* HolidayDataHandler::execute(Command* cmd) const
+ResultSet* HolidayDataHandler::execute(Command cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try
 	{
-		switch (Utility::str2int(cmd->command_name)) {
+		switch (Utility::str2int(cmd.command_name)) {
 		case Utility::str2int("ADD_HOLIDAY"):
 			return addHoliday(cmd);
 			break;
@@ -31,11 +31,11 @@ ResultSet* HolidayDataHandler::execute(Command* cmd) const
 }
 
 
-ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
+ResultSet* HolidayDataHandler::addHoliday(Command cmd) const
 {
 	cout << "HolidayDataHandler::addHoliday";
-	if (cmd->inputs.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd->inputs.size();
+	if (cmd.inputs.size() < 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd.inputs.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
@@ -43,7 +43,7 @@ ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 		// Write code for getting EMP_ID FROM USERNAME.
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
@@ -54,7 +54,7 @@ ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 		}
 		query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
 
-		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd->inputData, "DATE"),"S:" + Utility::getValueFromMap(cmd->inputData, "DESCRIPTION") });
+		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd.inputData, "DATE"),"S:" + Utility::getValueFromMap(cmd.inputData, "DESCRIPTION") });
 		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
@@ -65,17 +65,17 @@ ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 }
 
 
-ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
+ResultSet* HolidayDataHandler::readHoliday(Command cmd) const
 {
-	if (cmd->inputData.size() != 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 1) {
+		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
@@ -95,18 +95,18 @@ ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
 }
 
 
-ResultSet* HolidayDataHandler::deleteHoliday(Command* cmd) const
+ResultSet* HolidayDataHandler::deleteHoliday(Command cmd) const
 {
 
-	if (cmd->inputData.size() != 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd->inputData.size();
+	if (cmd.inputData.size() != 2) {
+		std::string msg = "Expected 2 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
 	else {
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where LOCATION.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "LOCATION_NAME") });
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
 		int location_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
 			location_id = atoi(Lid[0][0].c_str());
@@ -117,7 +117,7 @@ ResultSet* HolidayDataHandler::deleteHoliday(Command* cmd) const
 		}
 
 		query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";
-		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "DATE"), "I:" + std::to_string(location_id) });
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "DATE"), "I:" + std::to_string(location_id) });
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";

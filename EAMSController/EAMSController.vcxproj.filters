@@ -27,7 +27,10 @@
     <ClCompile Include="Source\InputReader.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
+    <ClCompile Include="Source\Controller.cpp">
+      <Filter>Source Files\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PrintResults.cpp">
       <Filter>Source Files\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +41,10 @@
     <ClInclude Include="Source\InputReader.h">
       <Filter>Source Files\Source</Filter>
     </ClInclude>
-    <ClInclude Include="Controller.h">
+    <ClInclude Include="Source\Controller.h">
+      <Filter>Source Files\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PrintResults.h">
       <Filter>Source Files\Source</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,11 +8,11 @@
 class HolidayDataHandler : public IDataHandler
 {
 public:
-	virtual ResultSet* execute(Command* cmd) const;
+	virtual ResultSet* execute(Command cmd) const;
 private:
-	ResultSet* addHoliday(Command* cmd) const;
-	ResultSet* readHoliday(Command* cmd) const;
-	ResultSet* deleteHoliday(Command* cmd) const;
+	ResultSet* addHoliday(Command cmd) const;
+	ResultSet* readHoliday(Command cmd) const;
+	ResultSet* deleteHoliday(Command cmd) const;
 };
 
 
