@@ -90,9 +90,9 @@
     "command_name": "VIEW_WORK_HOURS",
     "inputs": []
   },
-  "VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION ": {
+  "VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION": {
     "handler_name": "ATTENDANCE",
-    "command_name": "VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION  ",
+    "command_name": "VIEW_TOTAL_WORK_HOURS_OF_A_LOCATION",
     "inputs": [ "S:LOCATION_NAME*" ]
   },
   "VIEW_ORGANIZATION_WORK_HOURS": {

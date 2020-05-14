@@ -41,7 +41,8 @@ ResultSet* AbsenceDataHandler::addAbsence(Command* cmd) const
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			cout << "ERR:No such Employee found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		query = "INSERT INTO absence(EMP_ID,DATE) VALUES (?,now())";
 		db.Insert(query,{ "I:"+std::to_string(Employee_id) });
@@ -73,7 +74,8 @@ ResultSet* AbsenceDataHandler::readAbsence(Command* cmd) const
 			Employee_id = atoi(Empid[0][0].c_str());
 		}
 		else {
-			cout << "ERR:No such location found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		query = "select *  from absence where EMP_ID=?";
 		res->resultData = db.Get(query, { "I:" + std::to_string(Employee_id) });

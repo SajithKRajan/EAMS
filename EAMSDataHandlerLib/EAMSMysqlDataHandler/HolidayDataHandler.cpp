@@ -48,13 +48,12 @@ ResultSet* HolidayDataHandler::addHoliday(Command* cmd) const
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
-			cout << "ERR:No such location found" << endl;
+			std::string msg = "No such location found";
+			throw EAMSException(msg.c_str());
 		}
 		query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
 
 		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd->inputData, "DATE"),"S:" + Utility::getValueFromMap(cmd->inputData, "DESCRIPTION") });
-		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -77,7 +76,8 @@ ResultSet* HolidayDataHandler::readHoliday(Command* cmd) const
 		}
 		else {
 
-			cout << "ERR:No such location found" << endl;
+			std::string msg = "No such location found";
+			throw EAMSException(msg.c_str());
 		}
 		query = "select * from holiday where LOCATION_ID=?";
 		res->resultData = db.Get(query, { "I:" + std::to_string(location_id) });
@@ -107,7 +107,8 @@ ResultSet* HolidayDataHandler::deleteHoliday(Command* cmd) const
 		}
 		else {
 			
-			cout << "ERR:No such location found" << endl;
+			std::string msg = "No such location found";
+			throw EAMSException(msg.c_str());
 		}
 
 		query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";

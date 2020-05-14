@@ -64,7 +64,8 @@ ResultSet* EmployeeDataHandler::addEmployee(Command* cmd) const
 			location_id = atoi(Lid[0][0].c_str());
 		}
 		else {
-			std::cout << "ERR:No such location found" << endl;
+			std::string msg = "No such location found";
+			throw EAMSException(msg.c_str());
 		}
 		query = "select role.ROLE_ID from role where role.NAME=?";
 		std::vector<std::vector<std::string>> Rid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "ROLE_NAME") });
@@ -73,8 +74,8 @@ ResultSet* EmployeeDataHandler::addEmployee(Command* cmd) const
 			role_id = atoi(Rid[0][0].c_str());
 		}
 		else {
-			//throw error role could not found.
-			std::cout << "ERR:No such Role found" << endl;
+			std::string msg = "No such role found";
+			throw EAMSException(msg.c_str());
 		}
 
 
@@ -145,7 +146,8 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command* cmd) const
 			
 		}
 		else {
-			cout << "ERR:No such Employee found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		if (!(Utility::getValueFromMap(cmd->inputData, "FIRSTNAME").empty()))
 		{
@@ -176,7 +178,6 @@ ResultSet* EmployeeDataHandler::updateEmployee(Command* cmd) const
 
 ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 {
-	try{
 		std::string query = "select PASSWORD,ROLE_ID,LOCATION_ID from employee where USERNAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<string>> employeeResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData,"USERNAME") });
@@ -192,7 +193,8 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 
 		}
 		else {
-			cout << "ERR:No such Employee found" << endl;
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
 		}
 		if (!(Utility::getValueFromMap(cmd->inputData, "PASSWORD").empty()))
 		{
@@ -211,7 +213,8 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 			}
 			else {
 				
-				cout << "ERR:No such location found" << endl;
+				std::string msg = "No such location found";
+				throw EAMSException(msg.c_str());
 			}
 			Old_location_id = location_id;
 			
@@ -227,7 +230,8 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 			}
 			else {
 				
-				cout << "ERR:No such Role found" << endl;
+				std::string msg = "No such role found";
+				throw EAMSException(msg.c_str());
 			}
 			
 			Old_role_id = role_id;
@@ -240,17 +244,12 @@ ResultSet* EmployeeDataHandler::modifyEmployeeDetails(Command* cmd) const
 		res->printType = "MESSAGE";
 		res->message = "Employee Record Updated Successfully";
 		return res;
-	}
-	catch (exception e)
-	{
-		cout << "ERR:" << e.what();
-	}
 }
 
 
 ResultSet* EmployeeDataHandler::deleteEmployee(Command* cmd) const
 {	
-	if (cmd->inputData.size() != 1) {
+	if (cmd->inputData.size() < 1) {
 		std::string msg = "Expected 1 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
@@ -289,7 +288,8 @@ ResultSet* EmployeeDataHandler::authenticate(Command* cmd) const
 			return res;
 		}
 		else {
-			cout << "Invalid Employee Record" << endl;
+			std::string msg = "Invalid Employee Record";
+			throw EAMSException(msg.c_str());
 			exit(0);
 		}
 		

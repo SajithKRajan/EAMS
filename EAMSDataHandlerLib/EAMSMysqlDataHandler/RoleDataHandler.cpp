@@ -41,7 +41,7 @@ ResultSet* RoleDataHandler::execute(Command* cmd) const
 
 ResultSet* RoleDataHandler::addRole(Command* cmd) const
 {
-	if (cmd->inputData.size() != 2) {
+	if (cmd->inputData.size() < 2) {
 		std::string msg = "Expected 2 arguments but got" + cmd->inputData.size();
 		throw EAMSException(msg.c_str());
 	}
@@ -51,7 +51,6 @@ ResultSet* RoleDataHandler::addRole(Command* cmd) const
 		std::string query = "INSERT INTO role(NAME,PRIVILEGES) VALUES (?,?)";
 		Database db = Database::Instance();
 		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "ROLE_NAME"), "S:" + Utility::getValueFromMap(cmd->inputData, "PRIVILEGES") });
-		cout<<"Employee Record Added Successfully"<<endl;
 		res->isSuccess = true;
 		res->isToBePrint = true;
 		res->printType = "MESSAGE";
@@ -67,7 +66,7 @@ ResultSet* RoleDataHandler::readRole(Command* cmd) const
 	ResultSet* res = new ResultSet();
 	std::string query = "select  ROLE_ID,NAME from role where NAME=?";
 	Database db = Database::Instance();
-	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "NAME") });
+	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "ROLE_NAME") });
 	res->isSuccess = true;
 	res->isToBePrint = true;
 	res->printType = "TABLE";
@@ -107,8 +106,8 @@ ResultSet* RoleDataHandler::updateRole(Command* cmd) const
 			privileges= RoleResult[0][1].c_str();
 		}
 		else {
-			//throw error role could not found.
-			cout << "ERR:No such role found" << endl;
+			std::string msg = "No such role found";
+			throw EAMSException(msg.c_str());
 		}
 		if (!Utility::getValueFromMap(cmd->inputData, "NEW_ROLE_NAME").empty() && (Utility::getValueFromMap(cmd->inputData, "ROLE_NAME") ==roleName))
 		{
@@ -138,7 +137,6 @@ ResultSet* RoleDataHandler::deleteRole(Command* cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		// Write code for getting locationid, role id from their names.
 		std::string query = "DELETE FROM role WHERE NAME=?";
 		Database db = Database::Instance();
 		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd->inputData, "ROLE_NAME") });
