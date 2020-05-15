@@ -10,7 +10,7 @@ CommandParser* CommandParser::getInstance() {
 			instance->parseCommand(pt);
 		}
 		catch (exception ex) {
-			cout << "Read Error" << ex.what();
+			cout << "Config file read Error" << ex.what();
 		}
 	}
 	return instance;
@@ -26,10 +26,7 @@ void CommandParser::parseCommand(ptree pt)
 			string command_name = commands.second.get_child("command_name").data();
 			strncpy_s(command.command_name, command_name.c_str(), sizeof(command.command_name));
 			command.command_name[sizeof(command.command_name) - 1] = 0;
-			/*        int const length = command_name.length();
-					char cstr[length];
-					command_name.copy(cstr, length);
-					cstr[length] = '\0';*/
+
 			auto& inputs = commands.second.get_child("inputs");
 			for (auto& input : inputs) {
 				command.inputs.push_back(input.second.get_value< std::string >());
@@ -38,7 +35,7 @@ void CommandParser::parseCommand(ptree pt)
 		}
 	}
 	catch (exception ex) {
-		cout << "Parse Error" << ex.what();
+		cout << "Command Parsing failed :" << ex.what();
 	}
 }
 

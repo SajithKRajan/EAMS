@@ -7,7 +7,7 @@ class EAMSException : public std::exception {
     const char* msg;
 public :
     EAMSException(const char* msg) {
-        std::cout << msg;
+        //std::cout << msg;
         this->msg = msg;
     }
     const char* what() const{

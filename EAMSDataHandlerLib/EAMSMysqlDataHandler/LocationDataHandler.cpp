@@ -27,7 +27,10 @@ ResultSet* LocationDataHandler::execute(Command cmd) const
 				break;
 		}
 	}
-	catch (exception ex) {
+	catch (EAMSException ex) {
+		res->isSuccess = false;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
 		res->message = ex.what();
 	}
 	return res;
@@ -42,15 +45,24 @@ ResultSet* LocationDataHandler::addLocation(Command cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-
-		std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
+		std::string query = "select * from location where LOCATION_NAME=?";
 		Database db = Database::Instance();
-		db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = "Location Record Added Successfully";
-		return res;
+		std::vector<std::vector<string>> testResult = db.Get(query,{ "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
+		if (testResult.size() == 0)
+		{
+			std::string query = "INSERT INTO location(LOCATION_NAME) VALUES (?)";
+
+			db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
+			res->isSuccess = true;
+			res->isToBePrint = true;
+			res->printType = "MESSAGE";
+			res->message = "Location Record Added Successfully";
+			return res;
+		}
+		else {
+			std::string msg = "Record Already exist";
+			throw EAMSException(msg.c_str());
+		}
 	}
 }
 
@@ -87,7 +99,7 @@ ResultSet* LocationDataHandler::updateLocation(Command cmd) const
 			oldLocationName = LocationResult[0][0].c_str();
 		}
 		else {
-			std::string msg = "No such employee found";
+			std::string msg = "No such location found";
 			throw EAMSException(msg.c_str());
 		}
 		if (!(Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME").empty())&& (Utility::getValueFromMap(cmd.inputData, "OLD_LOCATION_NAME")==oldLocationName))
