@@ -24,7 +24,10 @@ ResultSet* HolidayDataHandler::execute(Command cmd) const
 			break;
 		}
 	}
-	catch (exception ex) {
+	catch (EAMSException ex) {
+		res->isSuccess = false;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
 		res->message = ex.what();
 	}
 	return res;
@@ -39,7 +42,6 @@ ResultSet* HolidayDataHandler::addHoliday(Command cmd) const
 	}
 	else {
 		ResultSet* res = new ResultSet();
-		// Write code for getting EMP_ID FROM USERNAME.
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
 		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
@@ -92,7 +94,7 @@ ResultSet* HolidayDataHandler::readHoliday(Command cmd) const
 ResultSet* HolidayDataHandler::deleteHoliday(Command cmd) const
 {
 
-	if (cmd.inputData.size() != 2) {
+	if (cmd.inputData.size() < 2) {
 		std::string msg = "Expected 2 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}

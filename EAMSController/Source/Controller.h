@@ -5,6 +5,7 @@
 #include "Entities/ResultSet.h"
 #include "stdlib.h"
 #include "PrintResults.h" 
+#include <conio.h>
 
 class Controller
 {

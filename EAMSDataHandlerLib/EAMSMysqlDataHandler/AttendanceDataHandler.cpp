@@ -47,7 +47,10 @@ ResultSet* AttendanceDataHandler::execute(Command cmd) const
 			break;
 		}
 	}
-	catch (exception ex) {
+	catch (EAMSException ex) {
+		res->isSuccess = false;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
 		res->message = ex.what();
 	}
 	return res;
@@ -201,7 +204,7 @@ ResultSet* AttendanceDataHandler::readLocationAttendance(Command cmd) const
 }
 ResultSet* AttendanceDataHandler::readWorkHours(Command cmd) const
 {
-	if (cmd.inputData.size() != 1) {
+	if (cmd.inputData.size() < 1) {
 		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}
@@ -231,7 +234,7 @@ ResultSet* AttendanceDataHandler::readWorkHours(Command cmd) const
 }
 ResultSet* AttendanceDataHandler::readLocationWorkHours(Command cmd) const
 {
-	if (cmd.inputData.size() != 1) {
+	if (cmd.inputData.size() < 1) {
 		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}

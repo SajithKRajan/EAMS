@@ -23,7 +23,10 @@ ResultSet* AbsenceDataHandler::execute(Command cmd) const
 		break;
 	}
 	}
-	catch (exception ex) {
+	catch (EAMSException ex) {
+		res->isSuccess = false;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
 		res->message = ex.what();
 	}
 	return res;
@@ -31,7 +34,7 @@ ResultSet* AbsenceDataHandler::execute(Command cmd) const
 
 ResultSet* AbsenceDataHandler::addAbsence(Command cmd) const
 {
-	try{
+
 		ResultSet* res = new ResultSet();
 		std::string query = "select employee.EMP_ID from employee where employee.USERNAME=?";
 		Database db = Database::Instance();
@@ -51,16 +54,12 @@ ResultSet* AbsenceDataHandler::addAbsence(Command cmd) const
 		res->printType = "MESSAGE";
 		res->message = "Absence Record Added Successfully";
 		return res;
-	}
-	catch (exception e)
-	{
-		cout << "ERR:" << e.what();
-	}
+
 }
 
 ResultSet* AbsenceDataHandler::readAbsence(Command cmd) const
 {
-	if (cmd.inputData.size() != 1) {
+	if (cmd.inputData.size() < 1) {
 		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
 		throw EAMSException(msg.c_str());
 	}

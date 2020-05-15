@@ -39,7 +39,10 @@ ResultSet* EmployeeDataHandler::execute(Command cmd) const
 			break;
 		}
 	}
-	catch (exception ex) {
+	catch (EAMSException ex) {
+		res->isSuccess = false;
+		res->isToBePrint = true;
+		res->printType = "MESSAGE";
 		res->message = ex.what();
 	}
 	return res;
@@ -101,11 +104,20 @@ ResultSet* EmployeeDataHandler::readEmployee(Command cmd) const
 		std::string query = "select EMP_ID,USERNAME,FIRSTNAME,LASTNAME,ROLE_ID,LOCATION_ID from employee where USERNAME=?";
 		Database db = Database::Instance();
 		res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData,"USERNAME") });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","ROLE_ID","LOCATION_ID" };
-		res->printType = "TABLE";
-		return res;
+		if (res->resultData.size() > 0)
+		{
+			res->isSuccess = true;
+			res->isToBePrint = true;
+
+			res->ColumnNames = { "EMPLOYEE ID","USERNAME","FIRSTNAME","LASTNAME","ROLE_ID","LOCATION_ID" };
+			res->printType = "TABLE";
+			return res;
+		}
+		else
+		{
+			std::string msg = "No such employee found";
+			throw EAMSException(msg.c_str());
+		}
 	}
 }
 ResultSet* EmployeeDataHandler::readEmployeeList() const
@@ -290,7 +302,7 @@ ResultSet* EmployeeDataHandler::authenticate(Command cmd) const
 		else {
 			std::string msg = "Invalid Employee Record";
 			throw EAMSException(msg.c_str());
-			exit(0);
+			//exit(0);
 		}
 		
 	}
