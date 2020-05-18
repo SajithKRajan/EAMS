@@ -4,13 +4,13 @@
 #include <vector>
 #include<map>
 
-using namespace std;
 class Command
 {
+//Member variables
 public:
-	string function_handler_name;
-	char command_name[50];
-	vector<string> inputs;
-	map<string, string> inputData;
+	std::string m_strFunctionHandlerName;
+	char m_szCommandName[50];
+	std::vector<std::string> m_Inputs;
+	std::map<std::string, std::string> m_InputData;
 };
 

@@ -1,18 +1,22 @@
 #pragma once
 #include <string>
+
 class Absence
 {
-private:
-	int absenceId;
-	int id;
-	std::string date;
+//Member functions
 public:
-	int getAbsenceId();
-	void setAbsenceId(int absenceid);
-	int getId();
-	void setId(int id);
-	std::string getDate();
-	void setDate(std::string date);
+	int GetAbsenceId();
+	void SetAbsenceId(int absenceid);
+	int GetId();
+	void SetId(int id);
+	std::string GetDate();
+	void SetDate(std::string date);
+
+//Member variable
+private:
+	int m_nAbsenceId;
+	int m_nId;
+	std::string m_strDate;
 };
 
 

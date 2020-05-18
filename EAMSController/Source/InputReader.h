@@ -11,11 +11,15 @@ using namespace std;
 
 class InputReader
 {
-private:
-	vector<string> commands;
+//Member functions
 public:
-	void setCommandList(string commandList);
-	Command getCommand(string cmdName);
-	Command getNextCommand();
+	void SetCommandList(string commandList);
+	Command GetCommand(string cmdName);
+	Command GetNextCommand();
+
+//Member variable
+private:
+	vector<string> m_Commands;
+
 };
 

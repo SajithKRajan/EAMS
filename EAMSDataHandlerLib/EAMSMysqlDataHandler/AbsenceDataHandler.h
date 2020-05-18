@@ -6,10 +6,11 @@
 
 class AbsenceDataHandler : public IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet* execute(Command cmd) const;
+	virtual ResultSet* Execute(Command cmd) const;
 private:
-	ResultSet* addAbsence(Command cmd) const;
-	ResultSet* readAbsence(Command cmd) const;
+	ResultSet* AddAbsence(Command cmd) const;
+	ResultSet* ReadAbsence(Command cmd) const;
 };
 

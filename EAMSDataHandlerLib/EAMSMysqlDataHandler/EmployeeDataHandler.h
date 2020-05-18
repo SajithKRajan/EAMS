@@ -3,18 +3,20 @@
 #include "Entities/ResultSet.h"
 #include "Common/IDataHandler.h"
 #include "Entities/Employee.h"
+
 class EmployeeDataHandler : public IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet* execute(Command cmd) const;
+	virtual ResultSet* Execute(Command cmd) const;
 
 private:
-	ResultSet* addEmployee(Command cmd) const;
-	ResultSet* readEmployee(Command cmd) const;
-	ResultSet* readEmployeeList()const;
-	ResultSet* updateEmployee(Command cmd) const;
-	ResultSet* modifyEmployeeDetails(Command cmd) const;
-	ResultSet* deleteEmployee(Command cmd) const;
-	ResultSet* authenticate(Command cmd) const;
+	ResultSet* AddEmployee(Command cmd) const;
+	ResultSet* ReadEmployee(Command cmd) const;
+	ResultSet* ReadEmployeeList()const;
+	ResultSet* UpdateEmployee(Command cmd) const;
+	ResultSet* ModifyEmployeeDetails(Command cmd) const;
+	ResultSet* DeleteEmployee(Command cmd) const;
+	ResultSet* Authenticate(Command cmd) const;
 };
 

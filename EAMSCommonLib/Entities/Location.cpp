@@ -3,20 +3,20 @@
 
 int Location::getLocationId()
 {
-	return this->locationid;
+	return this->m_nLocationId;
 }
 
-void Location::setLocationId(int locationid)
+void Location::setLocationId(int LocationId)
 {
-	this->locationid = locationid;
+	this->m_nLocationId = LocationId;
 }
 
 std::string Location::getName()
 {
-	return this->locationName;
+	return this->m_strLocationName;
 }
 
 void Location::setName(std::string Name)
 {
-	this->locationName = locationName;
+	this->m_strLocationName = Name;
 }

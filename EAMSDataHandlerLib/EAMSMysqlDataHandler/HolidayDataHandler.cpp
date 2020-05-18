@@ -4,121 +4,136 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet* HolidayDataHandler::execute(Command cmd) const
+ResultSet* HolidayDataHandler::Execute(Command cmd) const
 {
 	ResultSet* res = new ResultSet();
 	try
 	{
-		switch (Utility::str2int(cmd.command_name)) {
+		switch (Utility::str2int(cmd.m_szCommandName)) {
 		case Utility::str2int("ADD_HOLIDAY"):
-			return addHoliday(cmd);
+			return AddHoliday(cmd);
 			break;
 		case Utility::str2int("VIEW_HOLIDAY_LIST"):
-			return readHoliday(cmd);
+			return ReadHoliday(cmd);
 			break;
 		case Utility::str2int("REMOVE_HOLIDAY"):
-			return deleteHoliday(cmd);
+			return DeleteHoliday(cmd);
 			break;
 		default:
 			cout << "Please Enter Valid Commands" << endl;
 			break;
 		}
 	}
-	catch (EAMSException ex) {
-		res->isSuccess = false;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = ex.what();
+	catch (EAMSException ex) 
+	{
+		res->m_IsSuccess = false;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "MESSAGE";
+		res->m_szMessage = ex.what();
 	}
 	return res;
 }
 
 
-ResultSet* HolidayDataHandler::addHoliday(Command cmd) const
+ResultSet* HolidayDataHandler::AddHoliday(Command cmd) const
 {
-	if (cmd.inputs.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd.inputs.size();
+	if (cmd.m_InputData.size() < 2)
+	{
+		std::string msg = "Expected 2 arguments but got" + cmd.m_InputData.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else 
+	{
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
-		int location_id;
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "LOCATION_NAME") });
+		
+		int nLocation_id;
 		if (Lid.size() > 0 && Lid[0].size() > 0) {
-			location_id = atoi(Lid[0][0].c_str());
+			nLocation_id = atoi(Lid[0][0].c_str());
 		}
-		else {
+		else
+		{
 			std::string msg = "No such location found";
 			throw EAMSException(msg.c_str());
 		}
+		
 		query = "INSERT INTO holiday(LOCATION_ID,DATE,DESCRIPTION) VALUES (?,?,?)";
-
-		db.Insert(query, { "I:" + std::to_string(location_id) ,"S:" + Utility::getValueFromMap(cmd.inputData, "DATE"),"S:" + Utility::getValueFromMap(cmd.inputData, "DESCRIPTION") });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = "Holiday Record Added Successfully";
+		db.Insert(query, { "I:" + std::to_string(nLocation_id) ,"S:" + Utility::getValueFromMap(cmd.m_InputData, "DATE"),"S:" + Utility::getValueFromMap(cmd.m_InputData, "DESCRIPTION") });
+		
+		res->m_IsSuccess = true;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "MESSAGE";
+		res->m_szMessage = "Holiday Record Added Successfully";
 		return res;
 	}
 }
 
 
-ResultSet* HolidayDataHandler::readHoliday(Command cmd) const
+ResultSet* HolidayDataHandler::ReadHoliday(Command cmd) const
 {
 
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
-		int location_id;
-		if (Lid.size() > 0 && Lid[0].size() > 0) {
-			location_id = atoi(Lid[0][0].c_str());
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "LOCATION_NAME") });
+		
+		int nLocation_id;
+		if (Lid.size() > 0 && Lid[0].size() > 0)
+		{
+			nLocation_id = atoi(Lid[0][0].c_str());
 		}
-		else {
+		else
+		{
 
 			std::string msg = "No such location found";
 			throw EAMSException(msg.c_str());
 		}
 		query = "select * from holiday where LOCATION_ID=?";
-		res->resultData = db.Get(query, { "I:" + std::to_string(location_id) });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->ColumnNames = { "HOL_ID","LOCATION_ID","DATE","DESCRIPTION" };
-		res->printType = "TABLE";
+		res->m_resultData = db.Get(query, { "I:" + std::to_string(nLocation_id) });
+		
+		res->m_IsSuccess = true;
+		res->m_IsToBePrint = true;
+		res->m_ColumnNames = { "HOL_ID","LOCATION_ID","DATE","DESCRIPTION" };
+		res->m_szPrintType = "TABLE";
 		return res;
 }
 
 
-ResultSet* HolidayDataHandler::deleteHoliday(Command cmd) const
+ResultSet* HolidayDataHandler::DeleteHoliday(Command cmd) const
 {
 
-	if (cmd.inputData.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd.inputData.size();
+	if (cmd.m_InputData.size() < 2) 
+	{
+		std::string msg = "Expected 2 arguments but got" + cmd.m_InputData.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else 
+	{
 		ResultSet* res = new ResultSet();
 		std::string query = "select location.LOCATION_ID from location where location.LOCATION_NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "LOCATION_NAME") });
-		int location_id;
-		if (Lid.size() > 0 && Lid[0].size() > 0) {
-			location_id = atoi(Lid[0][0].c_str());
+		std::vector<std::vector<std::string>> Lid = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "LOCATION_NAME") });
+		
+		int nLocation_id;
+		if (Lid.size() > 0 && Lid[0].size() > 0) 
+		{
+			nLocation_id = atoi(Lid[0][0].c_str());
 		}
-		else {
-			
+		else
+		{
 			std::string msg = "No such location found";
 			throw EAMSException(msg.c_str());
 		}
 
 		query = "DELETE FROM holiday WHERE DATE=? AND LOCATION_ID=?";
-		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "DATE"), "I:" + std::to_string(location_id) });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = "Holiday Record Removed Successfully";
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "DATE"), "I:" + std::to_string(nLocation_id) });
+		
+		res->m_IsSuccess = true;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "MESSAGE";
+		res->m_szMessage = "Holiday Record Removed Successfully";
 		return res;
 	}
 }

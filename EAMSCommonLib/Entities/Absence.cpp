@@ -1,32 +1,39 @@
 #include "pch.h"
 #include "Absence.h"
 
-int Absence::getAbsenceId()
+
+void Absence::SetAbsenceId(int absenceId)
 {
-	return this->absenceId;
+	this->m_nAbsenceId = absenceId;
 }
 
-void Absence::setAbsenceId(int absenceId)
+
+int Absence::GetAbsenceId()
 {
-	this->absenceId = absenceId;
+	return this->m_nAbsenceId;
 }
 
-int Absence::getId()
+
+void Absence::SetId(int id)
 {
-	return this->id;
+	this->m_nId = id;
 }
 
-void Absence::setId(int id)
+
+int Absence::GetId()
 {
-	this->id = id;
+	return this->m_nId;
 }
 
-std::string Absence::getDate()
+
+void Absence::SetDate(std::string date)
 {
-	return this->date;
+	this->m_strDate = date;
 }
 
-void Absence::setDate(std::string date)
+
+std::string Absence::GetDate()
 {
-	this->date = date;
+	return this->m_strDate;
 }
+

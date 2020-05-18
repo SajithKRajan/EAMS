@@ -6,8 +6,9 @@
 
 class IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet* execute(Command cmd) const = 0;
+	virtual ResultSet* Execute(Command Cmd) const = 0;
 	virtual ~IDataHandler() {};
 };
 

@@ -7,14 +7,15 @@
 
 class RoleDataHandler : public IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet* execute(Command cmd) const;
+	virtual ResultSet* Execute(Command cmd) const;
 private:
-	ResultSet* addRole(Command cmd) const;
-	ResultSet* readRoleList() const;
-	ResultSet* readRole(Command cmd) const;
-	ResultSet* updateRole(Command cmd) const;
-	ResultSet* deleteRole(Command cmd) const;
+	ResultSet* AddRole(Command cmd) const;
+	ResultSet* ReadRoleList() const;
+	ResultSet* ReadRole(Command cmd) const;
+	ResultSet* UpdateRole(Command cmd) const;
+	ResultSet* DeleteRole(Command cmd) const;
 };
 
 

@@ -7,12 +7,13 @@
 
 class LocationDataHandler : public IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet* execute(Command cmd) const;
+	virtual ResultSet* Execute(Command cmd) const;
 private:
-	ResultSet* addLocation(Command cmd) const;
-	ResultSet* readLocation() const;
-	ResultSet* updateLocation(Command cmd) const;
-	ResultSet* deleteLocation(Command cmd) const;
+	ResultSet* AddLocation(Command cmd) const;
+	ResultSet* ReadLocation() const;
+	ResultSet* UpdateLocation(Command cmd) const;
+	ResultSet* DeleteLocation(Command cmd) const;
 };
 

@@ -1,37 +1,37 @@
 #include "CommandParser.h"
 
-CommandParser* CommandParser::getInstance() {
-	if (!instance) {
-		instance = new CommandParser;
+CommandParser* CommandParser::GetInstance() {
+	if (!m_Instance) {
+		m_Instance = new CommandParser;
 		try {
 			std::ifstream jsonFile("config.json");
 			ptree pt;
 			read_json(jsonFile, pt);
-			instance->parseCommand(pt);
+			m_Instance->ParseCommand(pt);
 		}
 		catch (exception ex) {
 			cout << "Config file read Error" << ex.what();
 		}
 	}
-	return instance;
+	return m_Instance;
 }
 
-void CommandParser::parseCommand(ptree pt)
+void CommandParser::ParseCommand(ptree pt)
 {
 	try {
 		for (auto& commands : pt) {
 			Command command;
 			auto& function_handler_name = commands.second.get_child("handler_name");
-			command.function_handler_name = function_handler_name.data();
+			command.m_strFunctionHandlerName = function_handler_name.data();
 			string command_name = commands.second.get_child("command_name").data();
-			strncpy_s(command.command_name, command_name.c_str(), sizeof(command.command_name));
-			command.command_name[sizeof(command.command_name) - 1] = 0;
+			strncpy_s(command.m_szCommandName, command_name.c_str(), sizeof(command.m_szCommandName));
+			command.m_szCommandName[sizeof(command.m_szCommandName) - 1] = 0;
 
 			auto& inputs = commands.second.get_child("inputs");
 			for (auto& input : inputs) {
-				command.inputs.push_back(input.second.get_value< std::string >());
+				command.m_Inputs.push_back(input.second.get_value< std::string >());
 			}
-			this->commandList.insert({ commands.first, command });
+			this->m_CommandList.insert({ commands.first, command });
 		}
 	}
 	catch (exception ex) {
@@ -39,15 +39,16 @@ void CommandParser::parseCommand(ptree pt)
 	}
 }
 
-Command CommandParser::getCommand(std::string cmdName)
+Command CommandParser::GetCommand(std::string cmdName)
 {
-	std::map<std::string, Command>::iterator pos = this->commandList.find(cmdName);
-	if (pos == this->commandList.end()) {
+	std::map<std::string, Command>::iterator pos = this->m_CommandList.find(cmdName);
+	if (pos == this->m_CommandList.end()) {
 		return Command();
 	}
-	else {
+	else
+	{
 		return pos->second;
 	}
 }
 
-CommandParser* CommandParser::instance = 0;
+CommandParser* CommandParser::m_Instance = 0;

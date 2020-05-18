@@ -1,58 +1,52 @@
 #include "printResults.h"
 
 using namespace std;
-void PrintResults::print(ResultSet* objResultSet)
+void PrintResults::Print(ResultSet* objResultSet)
 {
-	if (objResultSet->isToBePrint)
+	if (objResultSet->m_IsToBePrint)
 	{
-		if (objResultSet->printType == "TABLE")
+		if (objResultSet->m_szPrintType == "TABLE")
 		{
-			printTable(objResultSet);
+			PrintTable(objResultSet);
 		}
-		else if(objResultSet->printType == "MESSAGE")
+		else if(objResultSet->m_szPrintType == "MESSAGE")
 		{
-			cout << objResultSet->message << endl;
+			cout << objResultSet->m_szMessage << endl;
 		}
 		/*else if (objResultSet->printType == "OBJECT")
 		{
 			printObject(objResultSet);
-		}*/
-
-			
+		}*/		
 	}
 }
-void PrintResults::printTable(ResultSet* objResultSet)
+void PrintResults::PrintTable(ResultSet* objResultSet)
 {
-	for (int i = 0; i < objResultSet->ColumnNames.size(); i++)
+	for (int i = 0; i < objResultSet->m_ColumnNames.size(); i++)
 	{
 		cout << left << setw(20) << setfill('-') << left << '+';
 	}
 	cout << "+" << endl;
-	for (int i = 0; i < objResultSet->ColumnNames.size(); i++)
+	for (int i = 0; i < objResultSet->m_ColumnNames.size(); i++)
 	{
-		cout << setfill(' ') << '|' << setw(19) << objResultSet->ColumnNames[i] << setfill(' ');
+		cout << setfill(' ') << '|' << setw(19) << objResultSet->m_ColumnNames[i] << setfill(' ');
 	}
 	cout << '|' << endl;
-	for (int i = 0; i < objResultSet->ColumnNames.size(); i++)
+	for (int i = 0; i < objResultSet->m_ColumnNames.size(); i++)
 	{
 		cout << left << setw(20) << setfill('-') << left << '+';
 	}
 	cout << "+" << endl;
-	for (int i = 0; i < objResultSet->resultData.size(); i++)
+	for (int i = 0; i < objResultSet->m_resultData.size(); i++)
 	{
-		for (int j = 0; j < objResultSet->ColumnNames.size(); j++)
+		for (int j = 0; j < objResultSet->m_ColumnNames.size(); j++)
 		{
-			cout << setfill(' ') << '|' << left << setw(19) << objResultSet->resultData[i][j];
+			cout << setfill(' ') << '|' << left << setw(19) << objResultSet->m_resultData[i][j];
 		}
 		cout << '|' << endl;
 	}
-	for (int i = 0; i < objResultSet->ColumnNames.size(); i++)
+	for (int i = 0; i < objResultSet->m_ColumnNames.size(); i++)
 	{
 		cout << left << setw(20) << setfill('-') << left << '+';
 	}
 	cout << "+" << endl;
-}
-void PrintResults::printObject(ResultSet objResultSet)
-{
-
 }
