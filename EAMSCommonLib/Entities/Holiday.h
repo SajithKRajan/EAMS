@@ -2,18 +2,21 @@
 #include<string>
 class Holiday
 {
-private:
-	int holidayid;
-	int locationid;
-	std::string description;
-	
 public:
-	int getHolidayId();
-	void setHolidayId(int id);
-	int getLocatioId();
-	void setLocationId(int id);
-	std::string getDescription();
-	void setDescription(std::string description);
+	int GetHolidayId();
+	void SetHolidayId(int Id);
+	int GetLocatioId();
+	void SetLocationId(int Id);
+	std::string GetDescription();
+	void SetDescription(std::string Description);
+
+//Member variables
+private:
+	int m_nHolidayId;
+	int m_nLocationId;
+	std::string m_strDescription;
+	
+
 	
 };
 

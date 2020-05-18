@@ -7,15 +7,16 @@
 
 class AttendanceDataHandler : public IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet* execute(Command cmd) const;
+	virtual ResultSet* Execute(Command cmd) const;
 private:
-	ResultSet* addCheckIn(Command cmd) const;
-	ResultSet* addCheckOut(Command cmd) const;
-	ResultSet* readAttendanceSummaryOfWeek(Command cmd) const;
-	ResultSet* readAttendanceSummaryOfMonth(Command cmd) const;
-	ResultSet* readLocationAttendance(Command cmd) const;
-	ResultSet* readWorkHours(Command cmd) const;
-	ResultSet* readLocationWorkHours(Command cmd) const;
-	ResultSet* readOrganizationWorkHours() const;
+	ResultSet* AddCheckIn(Command cmd) const;
+	ResultSet* AddCheckOut(Command cmd) const;
+	ResultSet* ReadAttendanceSummaryOfWeek(Command cmd) const;
+	ResultSet* ReadAttendanceSummaryOfMonth(Command cmd) const;
+	ResultSet* ReadLocationAttendance(Command cmd) const;
+	ResultSet* ReadWorkHours(Command cmd) const;
+	ResultSet* ReadLocationWorkHours(Command cmd) const;
+	ResultSet* ReadOrganizationWorkHours() const;
 };

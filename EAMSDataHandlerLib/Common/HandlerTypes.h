@@ -5,13 +5,23 @@
 
 class HandlerTypes {
 public:
-	enum Handler{ EMPLOYEE, ROLE, LOCATION, ATTENDANCE, ABSENCE, HOLIDAY };
+	enum Handler
+	{ 
+		EMPLOYEE, 
+		ROLE, 
+		LOCATION, 
+		ATTENDANCE, 
+		ABSENCE, 
+		HOLIDAY 
+	};
 
-	static Handler enumFromString(std::string value) {
-		std::string data[] = { "EMPLOYEE", "ROLE", "LOCATION", "ATTENDANCE", "ABSENCE", "HOLIDAY" };
+	static Handler EnumFromString(std::string Value) {
+
+		std::string strdata[] = { "EMPLOYEE", "ROLE", "LOCATION", "ATTENDANCE", "ABSENCE", "HOLIDAY" };
+
 		int i=0;
-		for (std::string str : data) {
-			if (str == value) {
+		for (std::string strResult : strdata) {
+			if (strResult == Value) {
 				return static_cast<Handler>(i);
 			}
 			i++;

@@ -3,11 +3,7 @@
 #include <vector>
 class Role
 {
-private:
-	int roleId;
-	std::string roleName;
-	std::vector<std::string> privileges;
-	
+// Member functions
 public:
 	std::string getRoleName();
 	void setRoleName(std::string roleName);
@@ -15,5 +11,11 @@ public:
 	void setPrivileges(const std::vector<std::string> &privilege);
 	int getRoleId();
 	void setRoleId(int roleId);
+
+// Member variables
+private:
+	int m_nRoleId;
+	std::string m_strRoleName;
+	std::vector<std::string> m_Privileges;
 };
 

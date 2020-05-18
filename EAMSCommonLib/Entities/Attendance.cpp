@@ -1,62 +1,73 @@
 #include "pch.h"
 #include "Attendance.h"
 
-int Attendance::getId()
+int Attendance::GetId()
 {
-	return this->id;
+	return this->m_nId;
 }
 
-void Attendance::setId(int id)
+
+void Attendance::SetId(int id)
 {
-	 this->id=id;
+	 this->m_nId=id;
 }
 
-int Attendance::getAttId()
+
+int Attendance::GetAttId()
 {
-	return this->attid;
+	return this->m_nAttId;
 }
 
-void Attendance::setAttId(int attId)
+
+void Attendance::SetAttId(int attId)
 {
-	this->attid = attId;
+	this->m_nAttId = attId;
 }
 
-int Attendance::getLocationId()
+
+int Attendance::GetLocationId()
 {
-	return this->locationid;
+	return this->m_nLocationId;
 }
 
-void Attendance::setLocationId(int locationId)
+
+void Attendance::SetLocationId(int locationId)
 {
-	this->locationid = locationId;
+	this->m_nLocationId = locationId;
 }
 
-std::string Attendance::getCheckIN()
+
+std::string Attendance::GetCheckIn()
 {
-	return this->checkin;
+	return this->m_strCheckIn;
 }
 
-void Attendance::setCheckIN(std::string checkin)
+
+void Attendance::SetCheckIn(std::string checkin)
 {
-	this->checkin = checkin;
+	this->m_strCheckIn = checkin;
 }
 
-std::string Attendance::getCheckOUT()
+
+std::string Attendance::GetCheckOut()
 {
-	return this->checkout;
+	return this->m_strCheckOut;
 }
 
-void Attendance::setCheckOUT(std::string checkout)
+
+void Attendance::SetCheckOut(std::string checkout)
 {
-	this->checkout = checkout;
+	this->m_strCheckOut = checkout;
 }
 
-int Attendance::getTotalHrs()
+
+int Attendance::GetTotalHrs()
 {
-	return this->totalhrs;
+	return this->m_nTotalHrs;
 }
 
-void Attendance::setTotalHrs(int totalhrs)
+
+void Attendance::SetTotalHrs(int totalhrs)
 {
-	this->totalhrs = totalhrs;
+	this->m_nTotalHrs = totalhrs;
 }

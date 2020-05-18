@@ -2,15 +2,17 @@
 #include <string>
 class Location
 {
-private:
-	int locationid;
-	std::string locationName;
+//Member functions
 public:
 	int getLocationId();
-	void setLocationId(int locationid);
+	void setLocationId(int LocationId);
 	std::string getName();
 	void setName(std::string Name);
-	
+
+//Member variables
+private:
+	int m_nLocationId;
+	std::string m_strLocationName;
 };
 
 

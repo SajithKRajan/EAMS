@@ -4,64 +4,68 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
-ResultSet* RoleDataHandler::execute(Command cmd) const
+ResultSet* RoleDataHandler::Execute(Command cmd) const
 {
 
 	ResultSet* res = new ResultSet();
-	try {
-		switch (Utility::str2int(cmd.command_name)) {
-		case Utility::str2int("ADD_ROLE"):
-			return addRole(cmd);
-			break;
-		case Utility::str2int("MODIFY_ROLE"):
-			return updateRole(cmd);
-			break;
-		case Utility::str2int("VIEW_ROLE_LIST"):
-			return readRoleList();
-			break;
-		case Utility::str2int("VIEW_ROLE"):
-			return readRole(cmd);
-			break;
-
-		case  Utility::str2int("REMOVE_ROLE"):
-			return deleteRole(cmd);
-			break;
-	
-		default:
-			cout << "Please Enter Valid Commands" << endl;
-			break;
+	try 
+	{
+		switch (Utility::str2int(cmd.m_szCommandName)) 
+		{
+			case Utility::str2int("ADD_ROLE"):
+				return AddRole(cmd);
+				break;
+			case Utility::str2int("MODIFY_ROLE"):
+				return UpdateRole(cmd);
+				break;
+			case Utility::str2int("VIEW_ROLE_LIST"):
+				return ReadRoleList();
+				break;
+			case Utility::str2int("VIEW_ROLE"):
+				return ReadRole(cmd);
+				break;
+			case  Utility::str2int("REMOVE_ROLE"):
+				return DeleteRole(cmd);
+				break;
+			default:
+				break;
 		}
 	}
-	catch (EAMSException ex) {
-		res->isSuccess = false;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = ex.what();
+	catch (EAMSException ex)
+	{
+		res->m_IsSuccess = false;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "MESSAGE";
+		res->m_szMessage = ex.what();
 	}
 	return res;
 }
 
 
-ResultSet* RoleDataHandler::addRole(Command cmd) const
+ResultSet* RoleDataHandler::AddRole(Command cmd) const
 {
-	if (cmd.inputData.size() < 2) {
-		std::string msg = "Expected 2 arguments but got" + cmd.inputData.size();
+	if (cmd.m_InputData.size() < 2)
+	{
+		std::string msg = "Expected 2 arguments but got" + cmd.m_InputData.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else 
+	{
 		ResultSet* res = new ResultSet();
 		std::string query = "select * from role where NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<string>> testResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") });
-		if (testResult.size() == 0)
+		std::vector<std::vector<string>> TestResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME") });
+		
+		if (TestResult.size() == 0)
 		{
 			std::string query = "INSERT INTO role(NAME,PRIVILEGES) VALUES (?,?)";
 			Database db = Database::Instance();
-			db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME"), "S:" + Utility::getValueFromMap(cmd.inputData, "PRIVILEGES") });
-			res->isSuccess = true;
-			res->isToBePrint = true;
-			res->printType = "MESSAGE";
-			res->message = "Role Record Added Successfully";
+			db.Insert(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME"), "S:" + Utility::getValueFromMap(cmd.m_InputData, "PRIVILEGES") });
+			
+			res->m_IsSuccess = true;
+			res->m_IsToBePrint = true;
+			res->m_szPrintType = "MESSAGE";
+			res->m_szMessage = "Role Record Added Successfully";
 			return res;
 		}
 		else
@@ -70,100 +74,116 @@ ResultSet* RoleDataHandler::addRole(Command cmd) const
 			throw EAMSException(msg.c_str());
 		}
 	}
-
 }
 
 
-ResultSet* RoleDataHandler::readRole(Command cmd) const
+ResultSet* RoleDataHandler::ReadRole(Command cmd) const
 {
 	ResultSet* res = new ResultSet();
 	std::string query = "select  ROLE_ID,NAME from role where NAME=?";
 	Database db = Database::Instance();
-	res->resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") });
-	if (res->resultData.size() > 0)
+	res->m_resultData = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME") });
+
+	if (res->m_resultData.size() > 0)
 	{
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "TABLE";
-		res->ColumnNames = { "ROLE_ID","NAME" };
+		res->m_IsSuccess = true;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "TABLE";
+		res->m_ColumnNames = { "ROLE_ID","NAME" };
 		return res;
 	}
-	else {
+	else 
+	{
 		std::string msg = "No such role found";
 		throw EAMSException(msg.c_str());
 	}
 }
-ResultSet* RoleDataHandler::readRoleList() const
+
+
+ResultSet* RoleDataHandler::ReadRoleList() const
 {
 	ResultSet* res = new ResultSet();
 	std::string query = "select ROLE_ID,NAME from role";
 	Database db = Database::Instance();
-	res->resultData = db.Get(query);
-	res->isSuccess = true;
-	res->isToBePrint = true;
-	res->printType = "TABLE";
-	res->ColumnNames = { "ROLE_ID","NAME"};
-	return res;
+	res->m_resultData = db.Get(query);
 
+	res->m_IsSuccess = true;
+	res->m_IsToBePrint = true;
+	res->m_szPrintType = "TABLE";
+	res->m_ColumnNames = { "ROLE_ID","NAME"};
+	return res;
 }
 
-ResultSet* RoleDataHandler::updateRole(Command cmd) const
+
+ResultSet* RoleDataHandler::UpdateRole(Command cmd) const
 {
-	if (cmd.inputData.size() < 1) {
-		std::string msg = "Expected 3 arguments but got" + cmd.inputData.size();
+	if (cmd.m_InputData.size() < 1)
+	{
+		std::string msg = "Expected 3 arguments but got" + cmd.m_InputData.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else 
+	{
+		string strRoleName;
+		string strPrivileges;
+
 		ResultSet* res = new ResultSet();
-		string roleName;
-		string privileges;
-		string newRole;
+		
 		std::string query = "select NAME,PRIVILEGES from role where NAME=?";
 		Database db = Database::Instance();
-		std::vector<std::vector<string>> RoleResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") });
-		if (RoleResult.size() > 0 ) {
-			roleName = RoleResult[0][0].c_str();
-			privileges= RoleResult[0][1].c_str();
+		std::vector<std::vector<string>> RoleResult = db.Get(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME") });
+		
+		if (RoleResult.size() > 0 ) 
+		{
+			strRoleName = RoleResult[0][0].c_str();
+			strPrivileges = RoleResult[0][1].c_str();
 		}
-		else {
+		else
+		{
 			std::string msg = "No such role found";
 			throw EAMSException(msg.c_str());
 		}
-		if (!Utility::getValueFromMap(cmd.inputData, "NEW_ROLE_NAME").empty() && (Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") ==roleName))
+
+		if (!Utility::getValueFromMap(cmd.m_InputData, "NEW_ROLE_NAME").empty() && (Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME") ==strRoleName))
 		{
-			roleName = Utility::getValueFromMap(cmd.inputData, "NEW_ROLE_NAME");
+			strRoleName = Utility::getValueFromMap(cmd.m_InputData, "NEW_ROLE_NAME");
 		}
-		if (!Utility::getValueFromMap(cmd.inputData, "PRIVILEGES").empty())
+		if (!Utility::getValueFromMap(cmd.m_InputData, "PRIVILEGES").empty())
 		{	
-			privileges = privileges.append(",");
-			privileges = privileges.append(Utility::getValueFromMap(cmd.inputData, "PRIVILEGES"));
+			strPrivileges = strPrivileges.append(",");
+			strPrivileges = strPrivileges.append(Utility::getValueFromMap(cmd.m_InputData, "PRIVILEGES"));
 		}
+
 		query = "UPDATE role SET NAME=?,PRIVILEGES=? WHERE NAME=?";
-		db.Update(query, { "S:" + roleName , "S:"+ privileges,"S:"+ Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = "Role Record Updated Successfully";
+		db.Update(query, { "S:" + strRoleName , "S:"+ strPrivileges,"S:"+ Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME") });
+		
+		res->m_IsSuccess = true;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "MESSAGE";
+		res->m_szMessage = "Role Record Updated Successfully";
 		return res;
 	}
 }
 
 
-ResultSet* RoleDataHandler::deleteRole(Command cmd) const
+ResultSet* RoleDataHandler::DeleteRole(Command cmd) const
 {
-	if (cmd.inputData.size() < 1) {
-		std::string msg = "Expected 1 arguments but got" + cmd.inputData.size();
+	if (cmd.m_InputData.size() < 1)
+	{
+		std::string msg = "Expected 1 arguments but got" + cmd.m_InputData.size();
 		throw EAMSException(msg.c_str());
 	}
-	else {
+	else
+	{
 		ResultSet* res = new ResultSet();
 		std::string query = "DELETE FROM role WHERE NAME=?";
 		Database db = Database::Instance();
-		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd.inputData, "ROLE_NAME") });
-		res->isSuccess = true;
-		res->isToBePrint = true;
-		res->printType = "MESSAGE";
-		res->message = "Role Record Removed Successfully";
+		db.Delete(query, { "S:" + Utility::getValueFromMap(cmd.m_InputData, "ROLE_NAME") });
+
+		res->m_IsSuccess = true;
+		res->m_IsToBePrint = true;
+		res->m_szPrintType = "MESSAGE";
+		res->m_szMessage = "Role Record Removed Successfully";
 		return res;
 	}
 }

@@ -9,9 +9,12 @@
 
 class Controller
 {
+//Member function
+public:
+	void Start();
+
 private:
 	Employee* emp;
-public:
-	void start();
+
 };
 

@@ -8,15 +8,19 @@ using namespace std;
 using boost::property_tree::ptree;
 class CommandParser
 {
+//Member functions
+public:
+    static CommandParser* GetInstance();
+    void ParseCommand(ptree pt);
+    Command GetCommand(std::string cmdName);
+
+//Member variables
 private:
-    static CommandParser* instance;
-    map<std::string, Command> commandList;
+    static CommandParser* m_Instance;
+    map<std::string, Command> m_CommandList;
     CommandParser() {
     }
-public:
-    static CommandParser* getInstance();
-    void parseCommand(ptree pt);
-    Command getCommand(std::string cmdName);
+
 };
 
 

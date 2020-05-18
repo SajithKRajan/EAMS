@@ -1,37 +1,37 @@
 #include "pch.h"
 #include "Employee.h"
 
-int Employee::getId() {
-	return this->id;
+int Employee::GetId() {
+	return this->m_nId;
 }
-void Employee::setId(int id) {
-	this->id = id;
-}
-
-std::string Employee::getUserName() {
-	return this->userName;
-}
-void Employee::setUserName(std::string userName) {
-	this->userName = userName;
+void Employee::SetId(int Id) {
+	this->m_nId = Id;
 }
 
-std::string Employee::getFirstName() {
-	return this->firstName;
+std::string Employee::GetUserName() {
+	return this->m_strUserName;
 }
-void Employee::setFirstName(std::string firstName) {
-	this->firstName = firstName;
-}
-
-std::string Employee::getLastName() {
-	return this->lastName;
-}
-void Employee::setLastName(std::string lastName) {
-	this->lastName = lastName;
+void Employee::SetUserName(std::string UserName) {
+	this->m_strUserName = UserName;
 }
 
-int Employee::getRoleId() {
-	return this->roleId;
+std::string Employee::GetFirstName() {
+	return this->m_strFirstName;
 }
-void Employee::setRoleId(int roleId) {
-	this->roleId = roleId;
+void Employee::SetFirstName(std::string FirstName) {
+	this->m_strFirstName = FirstName;
+}
+
+std::string Employee::GetLastName() {
+	return this->m_strLastName;
+}
+void Employee::SetLastName(std::string LastName) {
+	this->m_strLastName = LastName;
+}
+
+int Employee::GetRoleId() {
+	return this->m_nRoleId;
+}
+void Employee::SetRoleId(int RoleId) {
+	this->m_nRoleId = RoleId;
 }

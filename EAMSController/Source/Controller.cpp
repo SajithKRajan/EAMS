@@ -1,57 +1,60 @@
 #include "Controller.h"
 
-void Controller::start()
+void Controller::Start()
 {
 	IDataHandler* hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EMPLOYEE);
 	InputReader inputReader;
-	//char trial;
 	cout << "*-*-*-*-*-*-*-*-*-*-*- WELCOME TO QAMS *-*-*-*-*-*-*-*-*-*-*-" << endl;
 	cout << endl;
 	cout << "LOGIN" << endl;
-	Command cmd = inputReader.getCommand("LOGIN");
+	Command cmd = inputReader.GetCommand("LOGIN");
 
-	ResultSet* res = hanlder->execute(cmd);
-	PrintResults pr;
-	pr.print(res);
-	if (res->isSuccess)
+	ResultSet* res = hanlder->Execute(cmd);
+
+	PrintResults printResult;
+	printResult.Print(res);
+
+	if (res->m_IsSuccess)
 	{
-		std::string username = res->resultData[0][0];
-		std::string privilages = res->resultData[0][1];
-		inputReader.setCommandList(privilages);
+		std::string strUsername = res->m_resultData[0][0];
+		std::string strPrivilages = res->m_resultData[0][1];
+		inputReader.SetCommandList(strPrivilages);
 		this->emp = new Employee();
-		this->emp->setUserName(username);
+		this->emp->SetUserName(strUsername);
 		cout << endl;
 		bool isExit;
+		
 		do
 		{
-
 			isExit = false;
-			Command cmd = inputReader.getNextCommand();
+			Command cmd = inputReader.GetNextCommand();
 
-			if (strcmp(cmd.command_name, "EXIT") != 0)
+			if (strcmp(cmd.m_szCommandName, "EXIT") != 0)
 			{
-				if (Utility::getValueFromMap(cmd.inputData, "USERNAME").empty()) {
-					cmd.inputData.insert({ "USERNAME" , this->emp->getUserName() });
+				if (Utility::getValueFromMap(cmd.m_InputData, "USERNAME").empty()) {
+					cmd.m_InputData.insert({ "USERNAME" , this->emp->GetUserName() });
 				}
-				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::enumFromString(cmd.function_handler_name));
-				ResultSet* res = hanlder->execute(cmd);
-				PrintResults pr;
-				pr.print(res);
 
+				hanlder = EAMSFactory::Instance().getIDataHandler(HandlerTypes::EnumFromString(cmd.m_strFunctionHandlerName));
+
+				ResultSet* res = hanlder->Execute(cmd);
+				printResult.Print(res);
 			}
 			else
 			{
 				isExit = true;
 				break;
 			}
+
 			cout << endl;
-			//cout << "Press Any Key To Continue" << endl;
 			system("PAUSE");
 			system("CLS");
 
-		} while (!isExit);
+		} 
+		while (!isExit);
 	}
-	else {
+	else 
+	{
 		exit(0);
 	}
 }

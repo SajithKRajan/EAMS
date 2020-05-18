@@ -7,20 +7,7 @@
 #include <jdbc/cppconn/prepared_statement.h>
 
 class Database {
-
-private:
-	Database();
-
-	Database(std::string, std::string,
-		std::string, std::string, std::string);
-
-protected:
-	sql::mysql::MySQL_Driver* driver;
-	sql::Connection* con;
-	sql::Statement* stmt;
-	sql::ResultSet* res;
-	sql::PreparedStatement* prep_stmt;
-
+//Member functions
 public:
 	static Database& Instance()
 	{
@@ -39,7 +26,7 @@ public:
 	void Close();
 
 	void Connect(std::string, std::string,
-		std::string, std::string);
+				 std::string, std::string);
 
 	void SetDatabase(std::string);
 
@@ -56,5 +43,21 @@ public:
 	void Update(std::string, std::vector<std::string>);
 
 	void Delete(std::string, std::vector<std::string>);
+
+private:
+	Database();
+
+	Database(std::string, std::string,
+		std::string, std::string, std::string);
+
+//Member variables
+protected:
+	sql::mysql::MySQL_Driver* driver;
+	sql::Connection* con;
+	sql::Statement* stmt;
+	sql::ResultSet* res;
+	sql::PreparedStatement* prep_stmt;
+
+
 
 };

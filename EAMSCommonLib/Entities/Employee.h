@@ -1,21 +1,24 @@
 #include <string>
 class Employee
 {
-private:
-	int id;
-	std::string userName;
-	std::string firstName;
-	std::string lastName;
-	int roleId;
+//Member functions
 public:
-	int getId();
-	void setId(int id);
-	std::string getUserName();
-	void setUserName(std::string userName);
-	std::string getFirstName();
-	void setFirstName(std::string firstName);
-	std::string getLastName();
-	void setLastName(std::string lastName);
-	int getRoleId();
-	void setRoleId(int roleId);
+	void SetId(int id);
+	int GetId();
+	void SetUserName(std::string UserName);
+	std::string GetUserName();
+	void SetFirstName(std::string FirstName);
+	std::string GetFirstName();
+	void SetLastName(std::string LastName);
+	std::string GetLastName();
+	void SetRoleId(int RoleId);
+	int GetRoleId();
+
+//Member variables
+private:
+	int m_nId;
+	std::string m_strUserName;
+	std::string m_strFirstName;
+	std::string m_strLastName;
+	int m_nRoleId;
 };
