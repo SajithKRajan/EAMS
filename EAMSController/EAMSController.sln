@@ -4,8 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EAMSController", "EAMSController.vcxproj", "{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{927A66B6-7A75-4899-B4C7-337BB37F63B6} = {927A66B6-7A75-4899-B4C7-337BB37F63B6}
+		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C} = {6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EAMSDataHandlerLib", "..\EAMSDataHandlerLib\EAMSDataHandlerLib.vcxproj", "{927A66B6-7A75-4899-B4C7-337BB37F63B6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C} = {6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EAMSCommonLib", "..\EAMSCommonLib\EAMSCommonLib.vcxproj", "{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}"
 EndProject
@@ -17,30 +24,21 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Debug|x64.ActiveCfg = Debug|x64
-		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Debug|x64.Build.0 = Debug|x64
-		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Debug|x86.ActiveCfg = Debug|Win32
-		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Debug|x86.Build.0 = Debug|Win32
+		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Debug|x64.ActiveCfg = Release|x64
+		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Debug|x86.ActiveCfg = Release|x64
 		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Release|x64.ActiveCfg = Release|x64
 		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Release|x64.Build.0 = Release|x64
 		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Release|x86.ActiveCfg = Release|x64
-		{69754F12-FF2D-47BA-9F1E-EB41D1A1B31D}.Release|x86.Build.0 = Release|x64
-		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Debug|x64.ActiveCfg = Debug|x64
-		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Debug|x64.Build.0 = Debug|x64
-		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Debug|x86.ActiveCfg = Debug|Win32
-		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Debug|x86.Build.0 = Debug|Win32
+		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Debug|x64.ActiveCfg = Release|x64
+		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Debug|x86.ActiveCfg = Release|x64
 		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Release|x64.ActiveCfg = Release|x64
 		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Release|x64.Build.0 = Release|x64
-		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Release|x86.ActiveCfg = Release|Win32
-		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Release|x86.Build.0 = Release|Win32
-		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Debug|x64.ActiveCfg = Debug|x64
-		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Debug|x64.Build.0 = Debug|x64
-		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Debug|x86.ActiveCfg = Debug|Win32
-		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Debug|x86.Build.0 = Debug|Win32
+		{927A66B6-7A75-4899-B4C7-337BB37F63B6}.Release|x86.ActiveCfg = Release|x64
+		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Debug|x64.ActiveCfg = Release|x64
+		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Debug|x86.ActiveCfg = Release|x64
 		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Release|x64.ActiveCfg = Release|x64
 		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Release|x64.Build.0 = Release|x64
-		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Release|x86.ActiveCfg = Release|Win32
-		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Release|x86.Build.0 = Release|Win32
+		{6DFF54E2-5F0A-4CE3-AB4D-074FC1A2B07C}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -193,8 +193,8 @@ Database::Get(std::string query) {
 Database::Database() {
 	try {
 		this->m_Driver = sql::mysql::get_mysql_driver_instance();
-		this->m_Con = m_Driver->connect("tcp://127.0.0.1:3306", "root", "renchu576");
-		this->m_Con->setSchema("eams");
+		this->m_Con = m_Driver->connect("tcp://127.0.0.1:3306", "root", "root");
+		this->m_Con->setSchema("eams2");
 	}
 	catch (sql::SQLException& e) {
 		std::cout << "# ERR: " << e.what();
