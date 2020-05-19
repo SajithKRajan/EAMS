@@ -1,9 +1,9 @@
 #pragma once
+//Handles all functionalities of location class
 #include "Entities/Command.h"
 #include "Entities/ResultSet.h"
 #include "Common/IDataHandler.h"
 #include "Entities/Location.h"
-
 
 class LocationDataHandler : public IDataHandler
 {

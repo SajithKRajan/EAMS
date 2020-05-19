@@ -3,12 +3,15 @@
 using namespace std;
 void PrintResults::Print(ResultSet* objResultSet)
 {
+	//checking whether the the flag istobeprint is true
 	if (objResultSet->m_IsToBePrint)
 	{
+		//checking whether print type is table or not
 		if (objResultSet->m_szPrintType == "TABLE")
 		{
 			PrintTable(objResultSet);
 		}
+		//checking whether print type is message or not
 		else if(objResultSet->m_szPrintType == "MESSAGE")
 		{
 			cout << objResultSet->m_szMessage << endl;
@@ -19,6 +22,9 @@ void PrintResults::Print(ResultSet* objResultSet)
 		}*/		
 	}
 }
+
+
+//display function to print result in table
 void PrintResults::PrintTable(ResultSet* objResultSet)
 {
 	for (int i = 0; i < objResultSet->m_ColumnNames.size(); i++)

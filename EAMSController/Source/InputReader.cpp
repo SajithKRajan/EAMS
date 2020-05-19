@@ -1,12 +1,12 @@
 #include "InputReader.h"
 
-
+//getting commands from privilege
 void InputReader::SetCommandList(string commandList)
 {
 	this->m_Commands=Utility::splitString(commandList,',');
 }
 
-
+//getting input data from user corresponds to command
 Command InputReader::GetCommand(string cmdName)
 {
 	CommandParser* cp = CommandParser::GetInstance();
@@ -55,13 +55,13 @@ Command InputReader::GetCommand(string cmdName)
 	return cmd;
 }
 
-
+//getting next command
 Command InputReader::GetNextCommand()
 {
 	int ch;
 	cout << "Menu Options" << endl;
 	cout << endl;
-	//vector<string> commands{ "ADD_EMPLOYEE","EDIT_EMPLOYEE","MODIFY_EMPLOYEE_DETAILS","VIEW_EMPLOYEE_DETAILS","VIEW_DETAILS","REMOVE_EMPLOYEE_DETAILS","ADD_ABSENCE","ADD_CHECK-IN","ADD_CHECK-OUT","ADD_HOLIDAY","REMOVE_HOLIDAY","ADD_LOCATION","MODIFY_LOCATION","REMOVE_LOCATION","ADD_ROLE","MODIFY_ROLE","REMOVE_ROLE","EXIT" };
+	
 	for (int k = 0;k <= (m_Commands.size() - 1);k++)
 	{
 		cout << k + 1 << " - " << Utility::toCamelCase(m_Commands[k],'_') << endl;

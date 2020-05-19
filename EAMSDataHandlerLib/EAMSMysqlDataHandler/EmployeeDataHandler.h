@@ -1,4 +1,5 @@
 #pragma once
+//Handles all functionalities of employee class
 #include "Entities/Command.h"
 #include "Entities/ResultSet.h"
 #include "Common/IDataHandler.h"

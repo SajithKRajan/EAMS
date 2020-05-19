@@ -1,9 +1,9 @@
 #pragma once
+//Handles all functionalities of role class
 #include "Entities/Command.h"
 #include "Entities/ResultSet.h"
 #include "Common/IDataHandler.h"
 #include "Entities/Role.h"
-
 
 class RoleDataHandler : public IDataHandler
 {

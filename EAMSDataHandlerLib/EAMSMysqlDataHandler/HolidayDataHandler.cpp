@@ -4,6 +4,7 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
+//Execute methods corresponds to command name
 ResultSet* HolidayDataHandler::Execute(Command cmd) const
 {
 	ResultSet* res = new ResultSet();

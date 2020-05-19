@@ -1,4 +1,5 @@
 #pragma once
+//Set and get methods 
 #include<string>
 class Holiday
 {

@@ -4,6 +4,7 @@
 #include "Common/Database.h"
 #include "EAMSMysqlDataHandler/EAMSException.h"
 
+//Execute methods corresponds to commands
 ResultSet* AbsenceDataHandler::Execute(Command cmd) const
 {
 	ResultSet* res = new ResultSet();
