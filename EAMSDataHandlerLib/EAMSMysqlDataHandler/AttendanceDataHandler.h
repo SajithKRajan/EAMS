@@ -1,9 +1,9 @@
 #pragma once
+//Handles all functionalities of attendance class
 #include "Entities/Command.h"
 #include "Entities/ResultSet.h"
 #include "Common/IDataHandler.h"
 #include "Entities/Attendance.h"
-
 
 class AttendanceDataHandler : public IDataHandler
 {

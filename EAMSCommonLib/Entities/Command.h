@@ -1,4 +1,5 @@
 #pragma once
+//Handles each commands
 #include <iostream>
 #include <string.h>
 #include <vector>

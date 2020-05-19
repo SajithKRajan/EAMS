@@ -1,4 +1,6 @@
 #pragma once
+//Methods to set commands from privileges,getting next command
+
 #include <iostream>
 #include <string.h>
 #include "Entities/Command.h"

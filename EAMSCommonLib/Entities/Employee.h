@@ -1,4 +1,6 @@
+//Set and get methods 
 #include <string>
+
 class Employee
 {
 //Member functions

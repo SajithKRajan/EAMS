@@ -1,4 +1,6 @@
 #pragma once
+//To read command from json file and parse commands
+
 #include "Entities/Command.h"
 #include <map>
 #include <boost/property_tree/json_parser.hpp>

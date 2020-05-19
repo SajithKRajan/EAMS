@@ -1,3 +1,4 @@
+//Methods to connect,create,read,update,delete from database
 #include <vector>
 #include <string>
 #include <jdbc/mysql_driver.h>
@@ -16,7 +17,7 @@ public:
 	}
 
 	void Execute_Query(std::string,
-		std::vector<std::string>);
+						std::vector<std::string>);
 
 	void Execute(std::string);
 
@@ -52,11 +53,11 @@ private:
 
 //Member variables
 protected:
-	sql::mysql::MySQL_Driver* driver;
-	sql::Connection* con;
-	sql::Statement* stmt;
-	sql::ResultSet* res;
-	sql::PreparedStatement* prep_stmt;
+	sql::mysql::MySQL_Driver* m_Driver;
+	sql::Connection* m_Con;
+	sql::Statement* m_Stmt;
+	sql::ResultSet* m_Res;
+	sql::PreparedStatement* m_Prep_stmt;
 
 
 

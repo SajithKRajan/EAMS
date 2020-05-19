@@ -1,5 +1,6 @@
 #include "CommandParser.h"
 
+//getting command from config file
 CommandParser* CommandParser::GetInstance() {
 	if (!m_Instance) {
 		m_Instance = new CommandParser;
@@ -16,6 +17,7 @@ CommandParser* CommandParser::GetInstance() {
 	return m_Instance;
 }
 
+//parse command and getting handlername,commandName,input vector corresponds to each commands 
 void CommandParser::ParseCommand(ptree pt)
 {
 	try {
@@ -39,6 +41,7 @@ void CommandParser::ParseCommand(ptree pt)
 	}
 }
 
+//getting command from command list
 Command CommandParser::GetCommand(std::string cmdName)
 {
 	std::map<std::string, Command>::iterator pos = this->m_CommandList.find(cmdName);

@@ -1,5 +1,7 @@
 #pragma once
+//Set and get methods 
 #include <string>
+
 class Attendance
 {	
 //Member functions
