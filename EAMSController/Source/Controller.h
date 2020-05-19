@@ -1,4 +1,6 @@
 #pragma once
+//Controls all command executions and result handling tasks
+
 #include "Common/EAMSFactory.h"
 #include "Entities/Command.h"
 #include "InputReader.h"
@@ -8,7 +10,12 @@
 
 class Controller
 {
+//Member function
 public:
-	void start();
+	void Start();
+
+private:
+	Employee* emp;
+
 };
 

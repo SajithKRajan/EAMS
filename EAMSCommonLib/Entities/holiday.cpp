@@ -1,32 +1,32 @@
 #include "pch.h"
 #include "Holiday.h"
 
-int Holiday::getHolidayId()
+int Holiday::GetHolidayId()
 {
-	return this->holidayid;
+	return this->m_nHolidayId;
 }
 
-void Holiday::setHolidayId(int holidayid)
+void Holiday::SetHolidayId(int HolidayId)
 {
-	this->holidayid = holidayid;
+	this->m_nHolidayId = HolidayId;
 }
 
-int Holiday::getLocatioId()
+int Holiday::GetLocatioId()
 {
-	return this->locationid;
+	return this->m_nLocationId;
 }
 
-void Holiday::setLocationId(int locationid)
+void Holiday::SetLocationId(int LocationId)
 {
-	this->locationid = locationid;
+	this->m_nLocationId = LocationId;
 }
 
-std::string Holiday::getDescription()
+std::string Holiday::GetDescription()
 {
-	return this->description;
+	return this->m_strDescription;
 }
 
-void Holiday::setDescription(std::string description)
+void Holiday::SetDescription(std::string Description)
 {
-	this->description = description;
+	this->m_strDescription = Description;
 }

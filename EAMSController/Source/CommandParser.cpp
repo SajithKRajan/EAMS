@@ -1,55 +1,57 @@
 #include "CommandParser.h"
 
-CommandParser* CommandParser::getInstance() {
-    if (!instance) {
-        instance = new CommandParser;
-        try {
-            std::ifstream jsonFile("config.json");
-            ptree pt;
-            read_json(jsonFile, pt);
-            instance->parseCommand(pt);
-        }
-        catch (exception ex) {
-            cout << "Read Error" << ex.what();
-        }
-    }
-    return instance;
+//getting command from config file
+CommandParser* CommandParser::GetInstance() {
+	if (!m_Instance) {
+		m_Instance = new CommandParser;
+		try {
+			std::ifstream jsonFile("config.json");
+			ptree pt;
+			read_json(jsonFile, pt);
+			m_Instance->ParseCommand(pt);
+		}
+		catch (exception ex) {
+			cout << "Config file read Error" << ex.what();
+		}
+	}
+	return m_Instance;
 }
 
-void CommandParser::parseCommand(ptree pt)
+//parse command and getting handlername,commandName,input vector corresponds to each commands 
+void CommandParser::ParseCommand(ptree pt)
 {
-    try {
-        for (auto& commands : pt) {
-            Command* command = new Command();
-            auto& function_handler_name = commands.second.get_child("handler_name");
-            command->function_handler_name = function_handler_name.data();
-            string command_name = commands.second.get_child("command_name").data();
-            int length = command_name.length();
-            char* cstr= new char[length];
-            command_name.copy(cstr, length);
-            cstr[length] = '\0';
-            command->command_name = cstr;
-            auto& inputs = commands.second.get_child("inputs");
-            for (auto& input : inputs) {
-                command->inputs.push_back(input.second.get_value< std::string >());
-            }
-            this->commandList.insert({ commands.first, command });
-        }
-    }
-    catch (exception ex) {
-        cout << "Parse Error" << ex.what();
-    }
+	try {
+		for (auto& commands : pt) {
+			Command command;
+			auto& function_handler_name = commands.second.get_child("handler_name");
+			command.m_strFunctionHandlerName = function_handler_name.data();
+			string command_name = commands.second.get_child("command_name").data();
+			strncpy_s(command.m_szCommandName, command_name.c_str(), sizeof(command.m_szCommandName));
+			command.m_szCommandName[sizeof(command.m_szCommandName) - 1] = 0;
+
+			auto& inputs = commands.second.get_child("inputs");
+			for (auto& input : inputs) {
+				command.m_Inputs.push_back(input.second.get_value< std::string >());
+			}
+			this->m_CommandList.insert({ commands.first, command });
+		}
+	}
+	catch (exception ex) {
+		cout << "Command Parsing failed :" << ex.what();
+	}
 }
 
-Command* CommandParser::getCommand(std::string cmdName)
+//getting command from command list
+Command CommandParser::GetCommand(std::string cmdName)
 {
-    std::map<std::string, Command*>::iterator pos = this->commandList.find(cmdName);
-    if (pos == this->commandList.end()) {
-        return NULL;
-    }
-    else {
-        return pos->second;
-    }
+	std::map<std::string, Command>::iterator pos = this->m_CommandList.find(cmdName);
+	if (pos == this->m_CommandList.end()) {
+		return Command();
+	}
+	else
+	{
+		return pos->second;
+	}
 }
 
-CommandParser* CommandParser::instance = 0;
+CommandParser* CommandParser::m_Instance = 0;

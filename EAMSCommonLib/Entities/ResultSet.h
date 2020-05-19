@@ -1,15 +1,17 @@
 #pragma once
+//Handle results
 #include <iostream>
 #include <vector>
 using namespace std;
 class ResultSet
 {
+//Member variables
 public:
-	bool isSuccess;
-	bool isToBePrint;
-	bool isStopExecution;
-	string printType;
-	string message;
-	vector<string> ColumnNames;
-	vector<vector<string>> resultData;
+	bool m_IsSuccess;
+	bool m_IsToBePrint;
+	bool m_IsStopExecution;
+	std::string m_szPrintType;
+	std::string m_szMessage;
+	vector<std::string> m_ColumnNames;
+	vector<vector<std::string>> m_resultData;
 };

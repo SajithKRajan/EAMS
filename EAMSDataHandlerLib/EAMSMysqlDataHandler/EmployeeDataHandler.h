@@ -1,4 +1,5 @@
 #pragma once
+//Handles all functionalities of employee class
 #include "Entities/Command.h"
 #include "Entities/ResultSet.h"
 #include "Common/IDataHandler.h"
@@ -6,14 +7,17 @@
 
 class EmployeeDataHandler : public IDataHandler
 {
+//Member functions
 public:
-	virtual ResultSet execute(Command* cmd) const;
+	virtual ResultSet* Execute(Command cmd) const;
+
 private:
-	ResultSet* addEmployee(Command* cmd) const;
-	ResultSet* readEmployee(std::string username) const;
-	ResultSet updateEmployee(Employee employee) const;
-	ResultSet modifyEmployeeDetails(Employee employee) const;
-	ResultSet deleteEmployee(std::string username) const;
-	ResultSet authenticate(std::string username, std::string password) const;
+	ResultSet* AddEmployee(Command cmd) const;
+	ResultSet* ReadEmployee(Command cmd) const;
+	ResultSet* ReadEmployeeList()const;
+	ResultSet* UpdateEmployee(Command cmd) const;
+	ResultSet* ModifyEmployeeDetails(Command cmd) const;
+	ResultSet* DeleteEmployee(Command cmd) const;
+	ResultSet* Authenticate(Command cmd) const;
 };
 

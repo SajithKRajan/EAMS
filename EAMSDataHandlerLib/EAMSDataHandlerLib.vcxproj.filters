@@ -54,6 +54,9 @@
     <ClInclude Include="EAMSMysqlDataHandler\RoleDataHandler.h">
       <Filter>Source Files\EAMSMysqlDataHandler</Filter>
     </ClInclude>
+    <ClInclude Include="Common\Database.h">
+      <Filter>Source Files\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EAMSDataHandlerLib.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="EAMSMysqlDataHandler\RoleDataHandler.cpp">
       <Filter>Source Files\EAMSMysqlDataHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Database.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

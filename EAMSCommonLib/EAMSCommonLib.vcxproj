@@ -150,37 +150,38 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Enities\Absence.h" />
-    <ClInclude Include="Enities\Attendance.h" />
-    <ClInclude Include="Enities\Command.h" />
-    <ClInclude Include="Enities\Employee.h" />
-    <ClInclude Include="Enities\Holiday.h" />
-    <ClInclude Include="Enities\KeyValuePair.h" />
-    <ClInclude Include="Enities\Location.h" />
-    <ClInclude Include="Enities\ResultSet.h" />
-    <ClInclude Include="Enities\Role.h" />
+    <ClInclude Include="Entities\Absence.h" />
+    <ClInclude Include="Entities\Attendance.h" />
+    <ClInclude Include="Entities\Command.h" />
+    <ClInclude Include="Entities\Employee.h" />
+    <ClInclude Include="Entities\framework.h" />
+    <ClInclude Include="Entities\Holiday.h" />
+    <ClInclude Include="Entities\KeyValuePair.h" />
+    <ClInclude Include="Entities\Location.h" />
+    <ClInclude Include="Entities\pch.h" />
+    <ClInclude Include="Entities\ResultSet.h" />
+    <ClInclude Include="Entities\Role.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Utilities\Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EAMSCommonLib.cpp" />
-    <ClCompile Include="Enities\Absence.cpp" />
-    <ClCompile Include="Enities\Attendance.cpp" />
-    <ClCompile Include="Enities\Command.cpp" />
-    <ClCompile Include="Enities\Employee.cpp" />
-    <ClCompile Include="Enities\holiday.cpp" />
-    <ClCompile Include="Enities\KeyValuePair.cpp" />
-    <ClCompile Include="Enities\Location.cpp" />
-    <ClCompile Include="Enities\ResultSet.cpp" />
-    <ClCompile Include="Enities\Role.cpp" />
+    <ClCompile Include="Entities\Absence.cpp" />
+    <ClCompile Include="Entities\Attendance.cpp" />
+    <ClCompile Include="Entities\Command.cpp" />
+    <ClCompile Include="Entities\Employee.cpp" />
+    <ClCompile Include="Entities\holiday.cpp" />
+    <ClCompile Include="Entities\KeyValuePair.cpp" />
+    <ClCompile Include="Entities\Location.cpp" />
+    <ClCompile Include="Entities\ResultSet.cpp" />
+    <ClCompile Include="Entities\Role.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Utilities\Utility.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
