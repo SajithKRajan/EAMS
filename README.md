@@ -10,6 +10,7 @@ The main motivation behind this project is to ease attendance management and to 
 2. MySQL Connector C++ 8.0
 3. Database
 
+
 ## Build Setup
 Make sure build it in Release x64.
 Open EAMSController.sln and follow below steps to build
